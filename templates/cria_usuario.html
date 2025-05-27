@@ -113,7 +113,7 @@
                     </a>
                 </li>
                  <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ url_for('desativa_usuario') }}" class="nav-link">
                         <i class="bi bi-person-fill-x"></i> Desativar usuário
                     </a>
                 </li>
@@ -146,7 +146,7 @@
                     <button id="sidebarToggle" class="menu-button">
                         <i class="bi bi-list"></i>
                     </button>
-                    <a class="navbar-brand ms-3" href="#">Sistema de Cadastro</a>
+                    <a class="navbar-brand ms-3" href="#">Criar usuário no AD</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -178,9 +178,6 @@
                         <p class="lead">Preencha os campos abaixo para realizar a criação do usuário.</p>
                         
                         <div class="card mt-4">
-                            <div class="card-header">
-                                <i class="bi bi-person-vcard me-2"></i>Dados do Usuário
-                            </div>
                             <div class="card-body">
                                 <div class="form-container">
                                     <!-- Formulário com action e validação JavaScript -->
@@ -196,7 +193,6 @@
                                             </div>
                                             <div class="form-text">Informe o nome completo do usuário.</div>
                                         </div>
-                                        
                                         <div class="mb-4">
                                             <label for="cpfUsuario" class="form-label">CPF</label>
                                             <div class="input-group">
@@ -237,7 +233,7 @@
             
             <footer class="bg-light text-center text-muted py-3 mt-5">
                 <div class="container">
-                    <p class="mb-0">&copy; 2025 Sistema de Cadastro. Todos os direitos reservados.</p>
+                    <p class="mb-0">&copy; 2025 Portal CADE. Todos os direitos reservados</p>
                 </div>
             </footer>
         </div>
