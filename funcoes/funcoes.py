@@ -6,7 +6,6 @@ logger = logging.getLogger('flask.app')
 def exemplo_chamada_bash():
     saida = ''
     try:
-        a = aff
         comando = subprocess.run(["pwsh", "/home/edilson/projetos/portal-flask/teste.ps1"], capture_output=True, text=True)
         if comando.stderr:
             txt = ['Houve um erro. Entre em contato com a CGTI']
