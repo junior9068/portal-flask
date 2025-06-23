@@ -37,6 +37,14 @@
                             </div>
                             <div class="form-text">Informe o CPF sem pontos ou traços.</div>
                         </div>
+                         <div class="mb-4">
+                            <label for="dataNascimentoUsuario" class="form-label">Data de nascimento</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-calendar-date"></i></span>
+                                <input type="date" class="form-control" id="dataNascimentoUsuario" name="dataNascimentoUsuario" required>
+                            </div>
+                            <div class="form-text">Informe a data de nascimento do usuário.</div>
+                        </div>
                         
                         <div class="d-flex justify-content-center gap-2 mt-4">
                             <button type="reset" class="btn btn-outline-secondary me-2">
@@ -120,7 +128,7 @@
         
         // Se o formulário for válido, exibe uma mensagem antes de enviar
         if (formValido) {
-            alert('Formulário validado com sucesso! Enviando para o backend...');
+            //alert('Formulário validado com sucesso! Enviando para o backend...');
             // Retorna true para permitir o envio do formulário
             return true;
         }
@@ -128,5 +136,11 @@
         // Retorna false para impedir o envio do formulário se houver erros
         return false;
     }
+        document.getElementById("dataNascimentoUsuario").addEventListener("change", function () {
+        const valor = this.value; // formato ISO: aaaa-mm-dd
+        const [ano, mes, dia] = valor.split("-");
+        console.log(`Data no formato brasileiro: ${dia}/${mes}/${ano}`);
+        // Aqui você pode usar como quiser, exibir ou enviar formatado
+    });
 </script>
 {% endblock %}
