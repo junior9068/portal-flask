@@ -37,7 +37,8 @@ def executa_desativa_usuario():
 def executa_cria_usuario():
     nome_usuario = request.form['nomeUsuario']
     cpf_usuario = request.form['cpfUsuario']
-    saida = inserir_usuario(nome=nome_usuario, cpf=cpf_usuario)
+    data_nascimento_usuario = request.form['dataNascimentoUsuario']
+    saida = inserir_usuario(nome=nome_usuario, cpf=cpf_usuario, dataNascimento=data_nascimento_usuario)
     # app.logger.info(f"Usuário: {nome_usuario}")
     # app.logger.info(f"CPF: {cpf_usuario}")
     # execucao_comando = funcoes.exemplo_chamada_bash()

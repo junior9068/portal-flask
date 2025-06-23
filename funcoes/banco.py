@@ -21,16 +21,17 @@ def conexao_banco():
 
 # cursor = conexao.cursor()
 
-def inserir_usuario(nome, cpf):
+def inserir_usuario(nome, cpf, dataNascimento):
     try:
         conexao=conexao_banco()
         cursor = conexao.cursor()
-        sql = "INSERT INTO usuarios (nome, cpf) VALUES (%s, %s)"
-        valores = (nome, cpf)
+        sql = "INSERT INTO usuarios (nome, cpf, data_nascimento) VALUES (%s, %s, %s)"
+        valores = (nome, cpf, dataNascimento)
         cursor.execute(sql, valores)
         conexao.commit()
         logging.info(f"Usuário: {nome}")
         logging.info(f"CPF: {cpf}")
+        logging.info(f"Data de Nascimento: {dataNascimento}")
         cursor.close()
         conexao.close()
         saida = "Usuário cadastrado com sucesso!"
