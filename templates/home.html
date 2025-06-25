@@ -12,10 +12,37 @@
         
         <div class="card mt-4">
             <div class="card-body">
-                <!-- Conteúdo específico da página inicial -->
-                <p>Esta é a página inicial do Portal CADE.</p>
-                <!-- Você pode adicionar uma imagem se desejar -->
-                <!-- <img src="{{ url_for('static', filename='cade.jpg') }}" alt="Foto cade" class="img-fluid"> -->
+                <div class="container mt-5">
+                <div class="row justify-content-center">
+                    
+                    <!-- Card 1 -->
+                    <div class="col-md-5 m-3">
+                    <a href="{{ url_for('cria_usuario') }}">
+                    <div class="card text-white bg-primary text-center shadow">
+                        <div class="card-body">
+                        <h5 class="card-title">Criar usuário no AD</h5>
+                        <p class="card-text">Clique para ir para a página de criação de usuário no AD.</p>
+                        </div>
+                    </div>
+                    </a>
+                    </div>
+
+
+                    <!-- Card 2 -->
+                    <div class="col-md-5 m-3">
+                    <a href="{{ url_for('desativa_usuario') }}">
+                    <div class="card text-white bg-primary text-center shadow">
+                        <div class="card-body">
+                        <h5 class="card-title">Desativar usuário no AD</h5>
+                        <p class="card-text">Clique para ir para a página de desativação de usuário no AD.</p>
+                        </div>
+                    </div>
+                    </div>
+                    </a>
+
+
+                </div>
+                </div>
             </div>
         </div>
     </div>

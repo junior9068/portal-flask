@@ -16,15 +16,15 @@
                     <!-- Formulário com action e validação JavaScript -->
                     <form id="desativaForm" action="/executa_desativa_usuario" method="POST" onsubmit="return validarFormulario()">
                         <div class="mb-4">
-                            <label for="nomeUsuario" class="form-label">Nome do Usuário</label>
+                            <label for="cpfUsuario" class="form-label">CPF do Usuário</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-person"></i></span>
-                                <input type="text" class="form-control" id="nomeUsuario" name="nomeUsuario" placeholder="Digite o nome completo" required>
+                                <input type="text" class="form-control" id="cpfUsuario" name="cpfUsuario" placeholder="000.000.000-00" required>
                             </div>
                             <div class="invalid-feedback" id="nomeInvalido">
-                                Por favor, informe o nome completo do usuário.
+                                Por favor, informe o CPF do usuário.
                             </div>
-                            <div class="form-text">Informe o nome completo do usuário.</div>
+                            <div class="form-text">Informe o CPF do usuário.</div>
                         </div>                                        
                         <div class="d-flex justify-content-center gap-2 mt-4">
                             <button type="reset" class="btn btn-outline-secondary me-2">
@@ -44,7 +44,7 @@
             <div class="card-header bg-info text-white">
                 <i class="bi bi-info-circle me-2"></i>Resultado:
             </div>
-            <div class="card-body">
+            <div class="card-body" style="text-align: center;">
                 <p>{{ nome_usuario }}</p>
             </div>
         </div>
@@ -54,32 +54,54 @@
 
 {% block extra_js %}
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Formatar CPF automaticamente
+        const cpfInput = document.getElementById('cpfUsuario');
+        cpfInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 11) {
+                value = value.slice(0, 11);
+            }
+            
+            if (value.length > 9) {
+                value = value.replace(/^(\d{3})(\d{3})(\d{3})(\d{2}).*/, '$1.$2.$3-$4');
+            } else if (value.length > 6) {
+                value = value.replace(/^(\d{3})(\d{3})(\d{0,3}).*/, '$1.$2.$3');
+            } else if (value.length > 3) {
+                value = value.replace(/^(\d{3})(\d{0,3}).*/, '$1.$2');
+            }
+            
+            e.target.value = value;
+        });
+    });
+    
     // Função de validação do formulário
     function validarFormulario() {
         let formValido = true;
         
-        // Validar nome
-        const nomeInput = document.getElementById('nomeUsuario');
-        const nomeInvalido = document.getElementById('nomeInvalido');
+        // Validar CPF
+        const cpfInput = document.getElementById('cpfUsuario');
+        const cpfInvalido = document.getElementById('cpfInvalido');
+        const cpfLimpo = cpfInput.value.replace(/\D/g, '');
         
-        if (nomeInput.value.trim() === '') {
-            nomeInput.classList.add('is-invalid');
-            nomeInvalido.style.display = 'block';
+        if (cpfLimpo.length !== 11) {
+            cpfInput.classList.add('is-invalid');
+            cpfInvalido.style.display = 'block';
             formValido = false;
         } else {
-            nomeInput.classList.remove('is-invalid');
-            nomeInvalido.style.display = 'none';
+            cpfInput.classList.remove('is-invalid');
+            cpfInvalido.style.display = 'none';
         }
         
         // Se o formulário for válido, exibe uma mensagem antes de enviar
         if (formValido) {
-            alert('Formulário validado com sucesso! Enviando para o backend...');
+            //alert('Formulário validado com sucesso! Enviando para o backend...');
             // Retorna true para permitir o envio do formulário
             return true;
         }
         
         // Retorna false para impedir o envio do formulário se houver erros
         return false;
-    }
+    };
 </script>
 {% endblock %}

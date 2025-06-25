@@ -3,7 +3,7 @@ from markupsafe import escape
 from flask import render_template
 from funcoes import funcoes
 import logging
-from funcoes.banco import inserir_usuario
+from funcoes.banco import inserir_usuario, deletar_usuario
 
 
 app = Flask(__name__)
@@ -11,6 +11,20 @@ app = Flask(__name__)
 @app.route("/")
 def home():
     return render_template("home.html")
+
+@app.route("/manutencao")
+def manutencao():
+    return render_template("manutencao.html")
+
+
+@app.route("/manutencao1")
+def manutencao1():
+    return render_template("manutencao.html")
+
+
+@app.route("/manutencao2")
+def manutencao2():
+    return render_template("manutencao.html")
 
 
 @app.route("/cria_usuario")
@@ -27,10 +41,11 @@ def desativa_usuario():
 
 @app.route("/executa_desativa_usuario", methods=['POST'])
 def executa_desativa_usuario():
-    nome_usuario = request.form['nomeUsuario']
+    cpf_usuario = request.form['cpfUsuario']
     app.logger.info(f"Chamou a rota executa_desativa_usuario")
-    app.logger.info(f"Nome do usuário: {nome_usuario}")
-    return render_template("desativa_usuario.html", nome_usuario=nome_usuario)
+    app.logger.info(f"CPF do usuário: {cpf_usuario}")
+    saida = deletar_usuario(cpf=cpf_usuario)
+    return render_template("desativa_usuario.html", nome_usuario=saida)
 
 
 @app.route("/executa_cria_usuario", methods=['POST'])
