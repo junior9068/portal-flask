@@ -37,7 +37,7 @@
                             </div>
                             <div class="form-text">Informe o CPF sem pontos ou traços.</div>
                         </div>
-                         <div class="mb-4">
+                        <div class="mb-4">
                             <label for="dataNascimentoUsuario" class="form-label">Data de nascimento</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-calendar-date"></i></span>
@@ -45,6 +45,87 @@
                             </div>
                             <div class="form-text">Informe a data de nascimento do usuário.</div>
                         </div>
+                        <div class="mb-4">
+                            <label for="telefoneComercial" class="form-label">Telefone Comercial</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                                <input type="text" class="form-control" id="telefoneComercial" name="telefoneComercial" required>
+                            </div>
+                            <div class="form-text">Informe o telefone comercial do usuário (ramal).</div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="departamento" class="form-label">Departamento</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-buildings"></i></span>
+                                <input type="text" class="form-control" id="departamento" name="departamento" required>
+                            </div>
+                            <div class="form-text">Informe o departamento do usuário (ramal).</div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="matriculaSiape" class="form-label">Matrícula SIAPE</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-123"></i></span>
+                                <input type="text" class="form-control" id="matriculaSiape" name="matriculaSiape">
+                            </div>
+                            <div class="form-text">Informe a matrícula SIAPE do usuário, caso se aplique.</div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="empresa" class="form-label">Empresa / Orgão</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-briefcase"></i></span>
+                                <input type="text" class="form-control" id="empresa" name="empresa" required>
+                            </div>
+                            <div class="form-text">Informe a empresa ou orgão do usuário.</div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label for="localizacao" class="form-label">Localização</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
+                                    <select name="localizacao" id="localizacao" class="form-select" required>
+                                        <option value="Presencial">Presencial</option>
+                                        <option value="Remoto">Remoto</option>
+                                        <option value="Híbrido">Híbrido</option>
+                                    </select>
+                                </div>
+                                <div class="form-text">Informe a localização.</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="cargo" class="form-label">Cargo</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-briefcase"></i></span>
+                                    <select name="cargo" id="cargo" class="form-select" required>
+                                        <option value="Servidor">Servidor</option>
+                                        <option value="Terceiro">Terceiro</option>
+                                        <option value="Estagiário">Estagiário</option>
+                                    </select>
+                                </div>
+                                <div class="form-text">Informe o cargo.</div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-6">
+                            <label for="localizacao" class="form-label">Localização</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-calendar-date"></i></span>
+                                <select name="localizacao">
+                                    <option value="Presencial">Presencial</option>
+                                    <option value="Remoto">Remoto</option>
+                                    <option value="Híbrido">Híbrido</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="cargo" class="form-label">Cargo</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-calendar-date"></i></span>
+                                <select name="cargo">
+                                    <option value="Servidor">Servidor</option>
+                                    <option value="Terceiro">Terceiro</option>
+                                    <option value="Estagiário">Estagiário</option>
+                                </select>
+                            </div>
+                        </div>
+                            <div class="form-text">Informe a localização.</div> -->
                         
                         <div class="d-flex justify-content-center gap-2 mt-4">
                             <button type="reset" class="btn btn-outline-secondary me-2">
