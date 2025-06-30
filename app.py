@@ -4,7 +4,7 @@ from flask import render_template
 from funcoes import funcoes
 import logging
 from funcoes.banco import inserir_usuario, deletar_usuario
-
+import json
 
 app = Flask(__name__)
 
@@ -50,10 +50,20 @@ def executa_desativa_usuario():
 
 @app.route("/executa_cria_usuario", methods=['POST'])
 def executa_cria_usuario():
-    nome_usuario = request.form['nomeUsuario']
-    cpf_usuario = request.form['cpfUsuario']
-    data_nascimento_usuario = request.form['dataNascimentoUsuario']
-    saida = inserir_usuario(nome=nome_usuario, cpf=cpf_usuario, dataNascimento=data_nascimento_usuario)
+    # Cria um dicionário para armazenar os dados do usuário
+    nomeUsuario = request.form['nomeUsuario']
+    cpfUsuario = request.form['cpfUsuario']
+    dataNascimentoUsuario = request.form['dataNascimentoUsuario']
+    telefoneComercial = request.form['telefoneComercial']
+    departamento = request.form['departamento']
+    matriculaSiape = request.form['matriculaSiape']
+    empresa = request.form['empresa']
+    localizacao = request.form['localizacao']
+    cargo = request.form['cargo']
+    dicionarioUsuario = {'nome': nomeUsuario, 'cpf': cpfUsuario, 'dataNascimento': dataNascimentoUsuario,
+                         'telefoneComercial': telefoneComercial, 'departamento': departamento, 'matriculaSiape': matriculaSiape,}
+    app.logger.info(dicionarioUsuario)
+    saida = inserir_usuario(nome=nomeUsuario, cpf=cpfUsuario, dataNascimento=dataNascimentoUsuario)
     # app.logger.info(f"Usuário: {nome_usuario}")
     # app.logger.info(f"CPF: {cpf_usuario}")
     # execucao_comando = funcoes.exemplo_chamada_bash()
