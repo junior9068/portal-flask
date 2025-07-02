@@ -1,12 +1,13 @@
 import mysql.connector
 import logging
 from mysql.connector import IntegrityError
+
 # Configuração para os Logs da aplicação
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s [%(levelname)s] %(message)s',
     handlers=[
-        logging.FileHandler("app.log"),  # salva em arquivo
+        # logging.FileHandler("app.log"),  # salva em arquivo
         logging.StreamHandler()         # mostra no terminal
     ]
 )
@@ -81,26 +82,4 @@ def deletar_usuario(cpf):
             conexao.close()
         return saida
 
-
-# # Inserir dados
-# nome = "Edilson"
-# cpf = "02982448530jkj"
-
-# sql = "INSERT INTO usuarios (nome, cpf) VALUES (%s, %s)"
-# valores = (nome, cpf)
-
-# cursor.execute(sql, valores)
-# conexao.commit()
-
-# print("Usuário cadastrado com sucesso!")
-
-# Listar todos os usuários
-# cursor.execute("SELECT * FROM usuarios")
-# usuarios = cursor.fetchall()
-
-# print("Usuários cadastrados:")
-# for u in usuarios:
-#     print(u)
-
-# Fechar conexão
 
