@@ -60,15 +60,33 @@ def executa_cria_usuario():
     empresa = request.form['empresa']
     localizacao = request.form['localizacao']
     cargo = request.form['cargo']
-    dicionarioUsuario = {'nome': nomeUsuario, 'cpf': cpfUsuario, 'dataNascimento': dataNascimentoUsuario,
+    dicionarioUsuario = {'nome': nomeUsuario, 'cpf': cpfUsuario, 'dataNascimento': dataNascimentoUsuario, 'empresa': empresa, 'localizacao': localizacao, 'cargo': cargo,
                          'telefoneComercial': telefoneComercial, 'departamento': departamento, 'matriculaSiape': matriculaSiape,}
+    dadosJson = json.dumps(dicionarioUsuario)
+
     app.logger.info(dicionarioUsuario)
-    saida = inserir_usuario(nome=nomeUsuario, cpf=cpfUsuario, dataNascimento=dataNascimentoUsuario)
+    #Gera arquivo JSON caso necessário
+    criaArquivoJson(dicionarioUsuario)
+    saida = inserir_usuario(json=dadosJson, acao='cadastrar_usuario')
     # app.logger.info(f"Usuário: {nome_usuario}")
     # app.logger.info(f"CPF: {cpf_usuario}")
     # execucao_comando = funcoes.exemplo_chamada_bash()
     return render_template("cria_usuario.html", variavel_execucao_comando=saida)
 
+#Função criada para uma possível necessidade de gerar um arquivo json.
+def criaArquivoJson(dadosJson):
+    # Dicionário Python (estrutura de dados que vamos salvar como JSON)
+    dados = dadosJson
+    try:
+        # Criar e salvar em um arquivo JSON
+        with open("dados.json", "w", encoding="utf-8") as arquivo:
+            json.dump(dados, arquivo, ensure_ascii=False, indent=4)
+        saida = "Arquivo JSON criado" 
+    except:
+        saida = 'Erro na geração do arquivo JSON'
+        app.logger.error(saida)
+    finally:
+        return saida
 
 if __name__ == "__main__":
     app.run(debug=True)

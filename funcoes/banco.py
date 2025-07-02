@@ -24,19 +24,19 @@ def conexao_banco():
 
 # cursor = conexao.cursor()
 
-def inserir_usuario(nome, cpf, dataNascimento):
+def inserir_usuario(json, acao):
     cursor = ''
     saida = ''
     try:
         conexao=conexao_banco()
         cursor = conexao.cursor()
-        sql = "INSERT INTO usuarios (nome, cpf, data_nascimento) VALUES (%s, %s, %s)"
-        valores = (nome, cpf, dataNascimento)
+        sql = "INSERT INTO registros (dados_json, acao, status) VALUES (%s, %s, %s)"
+        valores = (json, acao, 0)
         cursor.execute(sql, valores)
         conexao.commit()
-        logging.info(f"Usuário: {nome}")
-        logging.info(f"CPF: {cpf}")
-        logging.info(f"Data de Nascimento: {dataNascimento}")
+        logging.info(f"JSON: {json}")
+        logging.info(f"Ação: {acao}")
+        logging.info(f"Status: 0")
         # cursor.close()
         # conexao.close()
         saida = "Usuário cadastrado com sucesso!"
