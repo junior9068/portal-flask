@@ -1,13 +1,8 @@
 # Criar nova taleba no banco:
 
 ```
-Criar a nova tabela no banco:
-
-CREATE TABLE registros (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    dados_json JSON NOT NULL,
-    acao VARCHAR(15),
-    status INT
-);
+CRIAR OS ARQUIVOS DE LOG 
+trabalhar no select do banco com tela assincrona
+VALIDAR FORMULÁRIO DE CRIAÇÃO DE USUÁRIO
 
 ```
