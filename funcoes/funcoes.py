@@ -3,6 +3,17 @@ import logging
 
 logger = logging.getLogger('flask.app')
 
+def capitalizaNome(nome):
+    """
+    Função para capitalizar o nome do usuário.
+    Exemplo: 'joão da silva' -> 'João Da Silva'
+    """
+    if not nome:
+        return ''
+    partes = nome.split(" ")
+    nome_capitalizado = ' '.join(part.capitalize() for part in partes)
+    return nome_capitalizado
+
 def exemplo_chamada_bash():
     saida = ''
     try:
@@ -20,4 +31,4 @@ def exemplo_chamada_bash():
     return saida
 
 if __name__ == "__main__":
-    print(exemplo_chamada_bash())
+    print(capitalizaNome("edilson cardoso de Souza junior"))
