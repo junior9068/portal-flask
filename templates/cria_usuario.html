@@ -49,6 +49,17 @@
                             <div class="form-text">Informe a data de nascimento do usuário.</div>
                         </div>
                         <div class="mb-4">
+                            <label for="emailPessoal" class="form-label">Email Pessoal</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                <input type="email" class="form-control" id="emailPessoal" name="emailPessoal" placeholder="exemplo@email.com" required>
+                            </div>
+                            <div class="invalid-feedback" id="emailInvalido">
+                                Por favor, informe um email pessoal válido.
+                            </div>
+                            <div class="form-text">Informe o email pessoal do usuário.</div>
+                        </div>
+                        <div class="mb-4">
                             <label for="telefoneComercial" class="form-label">Telefone Comercial</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-telephone"></i></span>
@@ -63,7 +74,104 @@
                             <label for="departamento" class="form-label">Departamento</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-buildings"></i></span>
-                                <input type="text" class="form-control" id="departamento" name="departamento" required>
+                                <!-- <input type="text" class="form-control" id="departamento" name="departamento" required> -->
+                                <select name="departamento" id="departamento" class="form-select" required>
+                                        <option value="">Selecione uma opção</option>
+                                        <option value="ASCOM">ASCOM</option>
+                                        <option value="ASINT">ASINT</option>
+                                        <option value="ASTEC">ASTEC</option>
+                                        <option value="AUDIT">AUDIT</option>
+                                        <option value="CCJ">CCJ</option>
+                                        <option value="CEACO">CEACO</option>
+                                        <option value="CECAN">CECAN</option>
+                                        <option value="CEMAC">CEMAC</option>
+                                        <option value="CEP">CEP</option>
+                                        <option value="CGAA 1">CGAA 1</option>
+                                        <option value="CGAA 10">CGAA 10</option>
+                                        <option value="CGAA 11">CGAA 11</option>
+                                        <option value="CGAA 2">CGAA 2</option>
+                                        <option value="CGAA 3">CGAA 3</option>
+                                        <option value="CGAA 4">CGAA 4</option>
+                                        <option value="CGAA 5">CGAA 5</option>
+                                        <option value="CGAA 6">CGAA 6</option>
+                                        <option value="CGAA 7">CGAA 7</option>
+                                        <option value="CGAA 8">CGAA 8</option>
+                                        <option value="CGAA 9">CGAA 9</option>
+                                        <option value="CGESP">CGESP</option>
+                                        <option value="CGOFL">CGOFL</option>
+                                        <option value="CGP">CGP</option>
+                                        <option value="CGTI">CGTI</option>
+                                        <option value="COA 1">COA 1</option>
+                                        <option value="COA 10">COA 10</option>
+                                        <option value="COA 11">COA 11</option>
+                                        <option value="COA 2">COA 2</option>
+                                        <option value="COA 3">COA 3</option>
+                                        <option value="COA 4">COA 4</option>
+                                        <option value="COA 5">COA 5</option>
+                                        <option value="COA 6">COA 6</option>
+                                        <option value="COA 7">COA 7</option>
+                                        <option value="COA 8">COA 8</option>
+                                        <option value="COA 9-I">COA 9-I</option>
+                                        <option value="COA 9-II">COA 9-II</option>
+                                        <option value="COF">COF</option>
+                                        <option value="COL">COL</option>
+                                        <option value="CORREG">CORREG</option>
+                                        <option value="DAP">DAP</option>
+                                        <option value="DEE">DEE</option>
+                                        <option value="DIAP">DIAP</option>
+                                        <option value="DICOR">DICOR</option>
+                                        <option value="DIPLAN">DIPLAN</option>
+                                        <option value="GAB 1">GAB 1</option>
+                                        <option value="GAB 1a">GAB 1a</option>
+                                        <option value="GAB 2">GAB 2</option>
+                                        <option value="GAB 2b">GAB 2b</option>
+                                        <option value="GAB 3">GAB 3</option>
+                                        <option value="GAB 3a">GAB 3a</option>
+                                        <option value="GAB 4">GAB 4</option>
+                                        <option value="GAB 4a">GAB 4a</option>
+                                        <option value="GAB 4b">GAB 4b</option>
+                                        <option value="GAB 5">GAB 5</option>
+                                        <option value="GAB 5a">GAB 5a</option>
+                                        <option value="GAB 6">GAB 6</option>
+                                        <option value="GAB 6a">GAB 6a</option>
+                                        <option value="GAB-PRES">GAB-PRES</option>
+                                        <option value="GAB-SG">GAB-SG</option>
+                                        <option value="GAB1b">GAB1b</option>
+                                        <option value="PFE">PFE</option>
+                                        <option value="PRES">PRES</option>
+                                        <option value="PRESIDÊNCIA">PRESIDÊNCIA</option>
+                                        <option value="PROT">PROT</option>
+                                        <option value="SAGEP">SAGEP</option>
+                                        <option value="SAGPRO">SAGPRO</option>
+                                        <option value="SEAAP">SEAAP</option>
+                                        <option value="SEACA">SEACA</option>
+                                        <option value="SEAPE">SEAPE</option>
+                                        <option value="SEAPRO">SEAPRO</option>
+                                        <option value="SEAUD">SEAUD</option>
+                                        <option value="SECOM">SECOM</option>
+                                        <option value="SECOP">SECOP</option>
+                                        <option value="SEDADOS">SEDADOS</option>
+                                        <option value="SEEAC">SEEAC</option>
+                                        <option value="SEMAP">SEMAP</option>
+                                        <option value="SEMMA">SEMMA</option>
+                                        <option value="SERCJ">SERCJ</option>
+                                        <option value="SEREP">SEREP</option>
+                                        <option value="SESIC">SESIC</option>
+                                        <option value="SESIN">SESIN</option>
+                                        <option value="SESIS">SESIS</option>
+                                        <option value="SETED">SETED</option>
+                                        <option value="SEGOV">SEGOV</option>
+                                        <option value="SG">SG</option>
+                                        <option value="SGA 1">SGA 1</option>
+                                        <option value="SGA 2">SGA 2</option>
+                                        <option value="SIDOC">SIDOC</option>
+                                        <option value="VIGILANTE">VIGILANTE</option>
+
+
+                                       
+                                        
+                                        
+                                </select>
                             </div>
                             <div class="invalid-feedback" id="departamentoInvalido">
                                 Por favor, informe o departamento do usuário.
@@ -74,7 +182,7 @@
                             <label for="matriculaSiape" class="form-label">Matrícula SIAPE</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-123"></i></span>
-                                <input type="text" class="form-control" id="matriculaSiape" name="matriculaSiape">
+                                <input type="text" maxlength="10" class="form-control" id="matriculaSiape" name="matriculaSiape" oninput="this.value = this.value.replace(/\D/g, '')">
                             </div>
                             <div class="invalid-feedback" id="matriculaInvalido">
                                 Por favor, informe uma matrícula SIAPE válida (apenas números).
@@ -161,6 +269,7 @@
         const nomeInput = document.getElementById('nomeUsuario');
         const cpfInput = document.getElementById('cpfUsuario');
         const dataNascimentoInput = document.getElementById('dataNascimentoUsuario');
+        const emailInput = document.getElementById('emailPessoal');
         const telefoneInput = document.getElementById('telefoneComercial');
         const departamentoInput = document.getElementById('departamento');
         const matriculaInput = document.getElementById('matriculaSiape');
@@ -185,6 +294,21 @@
             }
             
             e.target.value = value;
+        });
+        
+        // Validar email em tempo real
+        emailInput.addEventListener('input', function(e) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const emailInvalido = document.getElementById('emailInvalido');
+            
+            if (e.target.value.trim() !== '' && !emailRegex.test(e.target.value)) {
+                e.target.classList.add('is-invalid');
+                emailInvalido.textContent = 'Por favor, informe um email válido.';
+                emailInvalido.style.display = 'block';
+            } else {
+                e.target.classList.remove('is-invalid');
+                emailInvalido.style.display = 'none';
+            }
         });
         
         // Formatar telefone automaticamente
@@ -315,6 +439,21 @@
             dataNascimentoInvalido.textContent = 'Por favor, informe a data de nascimento.';
             dataNascimentoInvalido.style.display = 'block';
             formValido = false;
+        }
+        
+        // Validar email pessoal
+        const emailInput = document.getElementById('emailPessoal');
+        const emailInvalido = document.getElementById('emailInvalido');
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        
+        if (emailInput.value.trim() === '' || !emailRegex.test(emailInput.value)) {
+            emailInput.classList.add('is-invalid');
+            emailInvalido.textContent = 'Por favor, informe um email pessoal válido.';
+            emailInvalido.style.display = 'block';
+            formValido = false;
+        } else {
+            emailInput.classList.remove('is-invalid');
+            emailInvalido.style.display = 'none';
         }
         
         // Validar telefone
@@ -461,3 +600,4 @@
     }
 </script>
 {% endblock %}
+

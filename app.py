@@ -3,7 +3,8 @@ from markupsafe import escape
 from flask import render_template
 from funcoes import funcoes
 import logging
-from funcoes.banco import inserir_usuario, deletar_usuario, capitalizaNome
+from funcoes.banco import inserir_usuario, deletar_usuario
+from funcoes.funcoes import capitalizaNome
 import json
 
 app = Flask(__name__)
@@ -55,13 +56,14 @@ def executa_cria_usuario():
     nomeUsuarioCapitalizado = capitalizaNome(nomeUsuario)
     cpfUsuario = request.form['cpfUsuario']
     dataNascimentoUsuario = request.form['dataNascimentoUsuario']
+    emailPessoal = request.form['emailPessoal']
     telefoneComercial = request.form['telefoneComercial']
     departamento = request.form['departamento']
     matriculaSiape = request.form['matriculaSiape']
     empresa = request.form['empresa']
     localizacao = request.form['localizacao']
     cargo = request.form['cargo']
-    dicionarioUsuario = {'nome': nomeUsuarioCapitalizado, 'cpf': cpfUsuario, 'dataNascimento': dataNascimentoUsuario, 'empresa': empresa, 'localizacao': localizacao, 'cargo': cargo,
+    dicionarioUsuario = {'nome': nomeUsuarioCapitalizado, 'cpf': cpfUsuario, 'dataNascimento': dataNascimentoUsuario, 'email': emailPessoal, 'empresa': empresa, 'localizacao': localizacao, 'cargo': cargo,
                          'telefoneComercial': telefoneComercial, 'departamento': departamento, 'matriculaSiape': matriculaSiape,}
     dadosJson = json.dumps(dicionarioUsuario)
 
