@@ -5,7 +5,7 @@ from funcoes import funcoes
 import logging
 from funcoes.banco import inserir_usuario, deletar_usuario
 from funcoes.funcoes import capitalizaNome
-import json
+import json, time
 
 app = Flask(__name__)
 
@@ -31,7 +31,8 @@ def manutencao2():
 @app.route("/cria_usuario")
 def cria_usuario():
     app.logger.info(f"Chamou a rota cria_usuario")
-    return render_template("cria_usuario.html")
+    return render_template("formulario_com_loading.html")
+    # return render_template("cria_usuario.html")
 
 
 @app.route("/desativa_usuario")
@@ -66,15 +67,19 @@ def executa_cria_usuario():
     dicionarioUsuario = {'nome': nomeUsuarioCapitalizado, 'cpf': cpfUsuario, 'dataNascimento': dataNascimentoUsuario, 'email': emailPessoal, 'empresa': empresa, 'localizacao': localizacao, 'cargo': cargo,
                          'telefoneComercial': telefoneComercial, 'departamento': departamento, 'matriculaSiape': matriculaSiape,}
     dadosJson = json.dumps(dicionarioUsuario)
-
     app.logger.info(dicionarioUsuario)
     #Gera arquivo JSON caso necessário
-    criaArquivoJson(dicionarioUsuario)
+    # time.sleep(5)
     saida = inserir_usuario(json=dadosJson, acao='cadastrar_usuario')
     # app.logger.info(f"Usuário: {nome_usuario}")
     # app.logger.info(f"CPF: {cpf_usuario}")
     # execucao_comando = funcoes.exemplo_chamada_bash()
+
     return render_template("cria_usuario.html", variavel_execucao_comando=saida)
+    #Para o ajax
+    # variavel_execucao_comando=saida
+    #return str(saida)
+    # return render_template('formulario_com_loading.html', variavel_execucao_comando=saida)
 
 #Função criada para uma possível necessidade de gerar um arquivo json.
 def criaArquivoJson(dadosJson):

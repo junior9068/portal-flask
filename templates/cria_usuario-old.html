@@ -1,0 +1,560 @@
+{% extends "base.html" %}
+
+{% block title %}Portal CADE{% endblock %}
+
+{% block page_title %}Criar usuário no AD{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1>Criação de usuário do AD</h1>
+        <p class="lead">Preencha os campos abaixo para realizar a criação do usuário.</p>
+        
+        <div class="card mt-4">
+            <div class="card-body">
+                <div class="form-container">
+                    <!-- Formulário com action e validação JavaScript -->
+                    <form id="cadastroForm" action="/executa_cria_usuario" method="POST" onsubmit="return validarFormulario()">
+                        <div class="mb-4">
+                            <label for="nomeUsuario" class="form-label">Nome do Usuário</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                <input type="text" class="form-control" id="nomeUsuario" name="nomeUsuario" placeholder="Digite o nome completo" required>
+                            </div>
+                            <div class="invalid-feedback" id="nomeInvalido">
+                                Por favor, informe o nome completo do usuário.
+                            </div>
+                            <div class="form-text">Informe o nome completo do usuário.</div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="cpfUsuario" class="form-label">CPF</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-card-text"></i></span>
+                                <input type="text" class="form-control" id="cpfUsuario" name="cpfUsuario" placeholder="000.000.000-00" required>
+                            </div>
+                            <div class="invalid-feedback" id="cpfInvalido">
+                                Por favor, informe um CPF válido com 11 dígitos.
+                            </div>
+                            <div class="form-text">Informe o CPF sem pontos ou traços.</div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="dataNascimentoUsuario" class="form-label">Data de nascimento</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-calendar-date"></i></span>
+                                <input type="date" class="form-control" id="dataNascimentoUsuario" name="dataNascimentoUsuario" required>
+                            </div>
+                            <div class="invalid-feedback" id="dataNascimentoInvalido">
+                                Por favor, informe uma data de nascimento válida. A idade deve estar entre 18 e 100 anos.
+                            </div>
+                            <div class="form-text">Informe a data de nascimento do usuário.</div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="telefoneComercial" class="form-label">Telefone Comercial</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                                <input type="text" class="form-control" id="telefoneComercial" name="telefoneComercial" placeholder="(00) 0000-0000" required>
+                            </div>
+                            <div class="invalid-feedback" id="telefoneInvalido">
+                                Por favor, informe um telefone comercial válido.
+                            </div>
+                            <div class="form-text">Informe o telefone comercial do usuário (ramal).</div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="departamento" class="form-label">Departamento</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-buildings"></i></span>
+                                <!-- <input type="text" class="form-control" id="departamento" name="departamento" required> -->
+                                <select name="departamento" id="departamento" class="form-select" required>
+                                        <option value="">Selecione uma opção</option>
+                                        <option value="ASCOM">ASCOM</option>
+                                        <option value="ASINT">ASINT</option>
+                                        <option value="ASTEC">ASTEC</option>
+                                        <option value="AUDIT">AUDIT</option>
+                                        <option value="CCJ">CCJ</option>
+                                        <option value="CEACO">CEACO</option>
+                                        <option value="CECAN">CECAN</option>
+                                        <option value="CEMAC">CEMAC</option>
+                                        <option value="CEP">CEP</option>
+                                        <option value="CGAA 1">CGAA 1</option>
+                                        <option value="CGAA 10">CGAA 10</option>
+                                        <option value="CGAA 11">CGAA 11</option>
+                                        <option value="CGAA 2">CGAA 2</option>
+                                        <option value="CGAA 3">CGAA 3</option>
+                                        <option value="CGAA 4">CGAA 4</option>
+                                        <option value="CGAA 5">CGAA 5</option>
+                                        <option value="CGAA 6">CGAA 6</option>
+                                        <option value="CGAA 7">CGAA 7</option>
+                                        <option value="CGAA 8">CGAA 8</option>
+                                        <option value="CGAA 9">CGAA 9</option>
+                                        <option value="CGESP">CGESP</option>
+                                        <option value="CGOFL">CGOFL</option>
+                                        <option value="CGP">CGP</option>
+                                        <option value="CGTI">CGTI</option>
+                                        <option value="COA 1">COA 1</option>
+                                        <option value="COA 10">COA 10</option>
+                                        <option value="COA 11">COA 11</option>
+                                        <option value="COA 2">COA 2</option>
+                                        <option value="COA 3">COA 3</option>
+                                        <option value="COA 4">COA 4</option>
+                                        <option value="COA 5">COA 5</option>
+                                        <option value="COA 6">COA 6</option>
+                                        <option value="COA 7">COA 7</option>
+                                        <option value="COA 8">COA 8</option>
+                                        <option value="COA 9-I">COA 9-I</option>
+                                        <option value="COA 9-II">COA 9-II</option>
+                                        <option value="COF">COF</option>
+                                        <option value="COL">COL</option>
+                                        <option value="CORREG">CORREG</option>
+                                        <option value="DAP">DAP</option>
+                                        <option value="DEE">DEE</option>
+                                        <option value="DIAP">DIAP</option>
+                                        <option value="DICOR">DICOR</option>
+                                        <option value="DIPLAN">DIPLAN</option>
+                                        <option value="GAB 1">GAB 1</option>
+                                        <option value="GAB 1a">GAB 1a</option>
+                                        <option value="GAB 2">GAB 2</option>
+                                        <option value="GAB 2b">GAB 2b</option>
+                                        <option value="GAB 3">GAB 3</option>
+                                        <option value="GAB 3a">GAB 3a</option>
+                                        <option value="GAB 4">GAB 4</option>
+                                        <option value="GAB 4a">GAB 4a</option>
+                                        <option value="GAB 4b">GAB 4b</option>
+                                        <option value="GAB 5">GAB 5</option>
+                                        <option value="GAB 5a">GAB 5a</option>
+                                        <option value="GAB 6">GAB 6</option>
+                                        <option value="GAB 6a">GAB 6a</option>
+                                        <option value="GAB-PRES">GAB-PRES</option>
+                                        <option value="GAB-SG">GAB-SG</option>
+                                        <option value="GAB1b">GAB1b</option>
+                                        <option value="PFE">PFE</option>
+                                        <option value="PRES">PRES</option>
+                                        <option value="PRESIDÊNCIA">PRESIDÊNCIA</option>
+                                        <option value="PROT">PROT</option>
+                                        <option value="SAGEP">SAGEP</option>
+                                        <option value="SAGPRO">SAGPRO</option>
+                                        <option value="SEAAP">SEAAP</option>
+                                        <option value="SEACA">SEACA</option>
+                                        <option value="SEAPE">SEAPE</option>
+                                        <option value="SEAPRO">SEAPRO</option>
+                                        <option value="SEAUD">SEAUD</option>
+                                        <option value="SECOM">SECOM</option>
+                                        <option value="SECOP">SECOP</option>
+                                        <option value="SEDADOS">SEDADOS</option>
+                                        <option value="SEEAC">SEEAC</option>
+                                        <option value="SEMAP">SEMAP</option>
+                                        <option value="SEMMA">SEMMA</option>
+                                        <option value="SERCJ">SERCJ</option>
+                                        <option value="SEREP">SEREP</option>
+                                        <option value="SESIC">SESIC</option>
+                                        <option value="SESIN">SESIN</option>
+                                        <option value="SESIS">SESIS</option>
+                                        <option value="SETED">SETED</option>
+                                        <option value="SEGOV">SEGOV</option>
+                                        <option value="SG">SG</option>
+                                        <option value="SGA 1">SGA 1</option>
+                                        <option value="SGA 2">SGA 2</option>
+                                        <option value="SIDOC">SIDOC</option>
+                                        <option value="VIGILANTE">VIGILANTE</option>
+
+
+                                       
+                                        
+                                        
+                                </select>
+                            </div>
+                            <div class="invalid-feedback" id="departamentoInvalido">
+                                Por favor, informe o departamento do usuário.
+                            </div>
+                            <div class="form-text">Informe o departamento do usuário.</div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="matriculaSiape" class="form-label">Matrícula SIAPE</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-123"></i></span>
+                                <input type="text" maxlength="10" class="form-control" id="matriculaSiape" name="matriculaSiape" oninput="this.value = this.value.replace(/\D/g, '')">
+                            </div>
+                            <div class="invalid-feedback" id="matriculaInvalido">
+                                Por favor, informe uma matrícula SIAPE válida (apenas números).
+                            </div>
+                            <div class="form-text">Informe a matrícula SIAPE do usuário, caso se aplique.</div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="empresa" class="form-label">Empresa / Orgão</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-briefcase"></i></span>
+                                <input type="text" class="form-control" id="empresa" name="empresa" required>
+                            </div>
+                            <div class="invalid-feedback" id="empresaInvalido">
+                                Por favor, informe a empresa ou órgão do usuário.
+                            </div>
+                            <div class="form-text">Informe a empresa ou orgão do usuário.</div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label for="localizacao" class="form-label">Localização</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
+                                    <select name="localizacao" id="localizacao" class="form-select" required>
+                                        <option value="">Selecione uma opção</option>
+                                        <option value="Presencial">Presencial</option>
+                                        <option value="Remoto">Remoto</option>
+                                        <option value="Híbrido">Híbrido</option>
+                                    </select>
+                                </div>
+                                <div class="invalid-feedback" id="localizacaoInvalido">
+                                    Por favor, selecione uma localização.
+                                </div>
+                                <div class="form-text">Informe a localização.</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="cargo" class="form-label">Cargo</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-briefcase"></i></span>
+                                    <select name="cargo" id="cargo" class="form-select" required>
+                                        <option value="">Selecione uma opção</option>
+                                        <option value="Servidor">Servidor</option>
+                                        <option value="Terceiro">Terceiro</option>
+                                        <option value="Estagiário">Estagiário</option>
+                                    </select>
+                                </div>
+                                <div class="invalid-feedback" id="cargoInvalido">
+                                    Por favor, selecione um cargo.
+                                </div>
+                                <div class="form-text">Informe o cargo.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-center gap-2 mt-4">
+                            <button type="reset" class="btn btn-outline-secondary me-2" id="btnLimpar">
+                                <i class="bi bi-x-circle me-1"></i>Limpar
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-check-circle me-1"></i>Enviar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Explicação sobre a validação -->
+        <div class="card mt-4">
+            <div class="card-header bg-info text-white">
+                <i class="bi bi-info-circle me-2"></i>Resultado:
+            </div>
+            <div class="card-body" style="text-align: center;">
+                <p>{{ variavel_execucao_comando }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Referências aos elementos do formulário
+        const form = document.getElementById('cadastroForm');
+        const nomeInput = document.getElementById('nomeUsuario');
+        const cpfInput = document.getElementById('cpfUsuario');
+        const dataNascimentoInput = document.getElementById('dataNascimentoUsuario');
+        const telefoneInput = document.getElementById('telefoneComercial');
+        const departamentoInput = document.getElementById('departamento');
+        const matriculaInput = document.getElementById('matriculaSiape');
+        const empresaInput = document.getElementById('empresa');
+        const localizacaoSelect = document.getElementById('localizacao');
+        const cargoSelect = document.getElementById('cargo');
+        const btnLimpar = document.getElementById('btnLimpar');
+        
+        // Formatar CPF automaticamente
+        cpfInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 11) {
+                value = value.slice(0, 11);
+            }
+            
+            if (value.length > 9) {
+                value = value.replace(/^(\d{3})(\d{3})(\d{3})(\d{2}).*/, '$1.$2.$3-$4');
+            } else if (value.length > 6) {
+                value = value.replace(/^(\d{3})(\d{3})(\d{0,3}).*/, '$1.$2.$3');
+            } else if (value.length > 3) {
+                value = value.replace(/^(\d{3})(\d{0,3}).*/, '$1.$2');
+            }
+            
+            e.target.value = value;
+        });
+        
+        // Formatar telefone automaticamente
+        telefoneInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            
+            if (value.length > 11) {
+                value = value.slice(0, 11);
+            }
+            
+            if (value.length > 10) { // Celular com DDD (11 dígitos)
+                value = value.replace(/^(\d{2})(\d{5})(\d{4}).*/, '($1) $2-$3');
+            } else if (value.length > 6) { // Telefone com DDD (10 dígitos)
+                value = value.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, '($1) $2-$3');
+            } else if (value.length > 2) { // Começo do telefone
+                value = value.replace(/^(\d{2})(\d{0,5}).*/, '($1) $2');
+            } else if (value.length > 0) { // Apenas DDD
+                value = value.replace(/^(\d{0,2}).*/, '($1');
+            }
+            
+            e.target.value = value;
+        });
+        
+        // Validar matrícula SIAPE (apenas números)
+        matriculaInput.addEventListener('input', function(e) {
+            e.target.value = e.target.value.replace(/\D/g, '');
+        });
+        
+        // Limitar data de nascimento (idade entre 18 e 100 anos)
+        dataNascimentoInput.addEventListener('change', function() {
+            const hoje = new Date();
+            const dataNascimento = new Date(this.value);
+            
+            // Calcular idade
+            let idade = hoje.getFullYear() - dataNascimento.getFullYear();
+            const m = hoje.getMonth() - dataNascimento.getMonth();
+            if (m < 0 || (m === 0 && hoje.getDate() < dataNascimento.getDate())) {
+                idade--;
+            }
+            
+            // Validar idade
+            if (idade < 18 || idade > 100) {
+                this.classList.add('is-invalid');
+                document.getElementById('dataNascimentoInvalido').style.display = 'block';
+            } else {
+                this.classList.remove('is-invalid');
+                document.getElementById('dataNascimentoInvalido').style.display = 'none';
+            }
+            
+            // Formatar data para exibição (opcional)
+            const [ano, mes, dia] = this.value.split("-");
+            console.log(`Data no formato brasileiro: ${dia}/${mes}/${ano}`);
+        });
+        
+        // Botão limpar - resetar validações visuais
+        btnLimpar.addEventListener('click', function() {
+            const invalidFields = form.querySelectorAll('.is-invalid');
+            invalidFields.forEach(field => {
+                field.classList.remove('is-invalid');
+            });
+            
+            const feedbacks = form.querySelectorAll('.invalid-feedback');
+            feedbacks.forEach(feedback => {
+                feedback.style.display = 'none';
+            });
+        });
+    });
+    
+    // Função de validação do formulário
+    function validarFormulario() {
+        let formValido = true;
+        
+        // Validar nome (mínimo 5 caracteres, com espaço)
+        const nomeInput = document.getElementById('nomeUsuario');
+        const nomeInvalido = document.getElementById('nomeInvalido');
+        
+        if (nomeInput.value.trim() === '' || nomeInput.value.trim().length < 5 || !nomeInput.value.includes(' ')) {
+            nomeInput.classList.add('is-invalid');
+            nomeInvalido.textContent = 'Por favor, informe o nome completo do usuário (nome e sobrenome).';
+            nomeInvalido.style.display = 'block';
+            formValido = false;
+        } else {
+            nomeInput.classList.remove('is-invalid');
+            nomeInvalido.style.display = 'none';
+        }
+        
+        // Validar CPF
+        const cpfInput = document.getElementById('cpfUsuario');
+        const cpfInvalido = document.getElementById('cpfInvalido');
+        const cpfLimpo = cpfInput.value.replace(/\D/g, '');
+        
+        if (cpfLimpo.length !== 11 || !validarCPF(cpfLimpo)) {
+            cpfInput.classList.add('is-invalid');
+            cpfInvalido.textContent = 'Por favor, informe um CPF válido.';
+            cpfInvalido.style.display = 'block';
+            formValido = false;
+        } else {
+            cpfInput.classList.remove('is-invalid');
+            cpfInvalido.style.display = 'none';
+        }
+        
+        // Validar data de nascimento
+        const dataNascimentoInput = document.getElementById('dataNascimentoUsuario');
+        const dataNascimentoInvalido = document.getElementById('dataNascimentoInvalido');
+        
+        if (dataNascimentoInput.value) {
+            const hoje = new Date();
+            const dataNascimento = new Date(dataNascimentoInput.value);
+            
+            // Calcular idade
+            let idade = hoje.getFullYear() - dataNascimento.getFullYear();
+            const m = hoje.getMonth() - dataNascimento.getMonth();
+            if (m < 0 || (m === 0 && hoje.getDate() < dataNascimento.getDate())) {
+                idade--;
+            }
+            
+            // Validar idade
+            if (idade < 18 || idade > 100) {
+                dataNascimentoInput.classList.add('is-invalid');
+                dataNascimentoInvalido.style.display = 'block';
+                formValido = false;
+            } else {
+                dataNascimentoInput.classList.remove('is-invalid');
+                dataNascimentoInvalido.style.display = 'none';
+            }
+        } else {
+            dataNascimentoInput.classList.add('is-invalid');
+            dataNascimentoInvalido.textContent = 'Por favor, informe a data de nascimento.';
+            dataNascimentoInvalido.style.display = 'block';
+            formValido = false;
+        }
+        
+        // Validar telefone
+        const telefoneInput = document.getElementById('telefoneComercial');
+        const telefoneInvalido = document.getElementById('telefoneInvalido');
+        const telefoneLimpo = telefoneInput.value.replace(/\D/g, '');
+        
+        if (telefoneLimpo.length < 10 || telefoneLimpo.length > 11) {
+            telefoneInput.classList.add('is-invalid');
+            telefoneInvalido.style.display = 'block';
+            formValido = false;
+        } else {
+            telefoneInput.classList.remove('is-invalid');
+            telefoneInvalido.style.display = 'none';
+        }
+        
+        // Validar departamento
+        const departamentoInput = document.getElementById('departamento');
+        const departamentoInvalido = document.getElementById('departamentoInvalido');
+        
+        if (departamentoInput.value.trim() === '' || departamentoInput.value.trim().length < 2) {
+            departamentoInput.classList.add('is-invalid');
+            departamentoInvalido.style.display = 'block';
+            formValido = false;
+        } else {
+            departamentoInput.classList.remove('is-invalid');
+            departamentoInvalido.style.display = 'none';
+        }
+        
+        // Validar matrícula SIAPE (opcional, mas se preenchida deve ter apenas números)
+        const matriculaInput = document.getElementById('matriculaSiape');
+        const matriculaInvalido = document.getElementById('matriculaInvalido');
+        
+        if (matriculaInput.value.trim() !== '' && !/^\d+$/.test(matriculaInput.value)) {
+            matriculaInput.classList.add('is-invalid');
+            matriculaInvalido.style.display = 'block';
+            formValido = false;
+        } else {
+            matriculaInput.classList.remove('is-invalid');
+            matriculaInvalido.style.display = 'none';
+        }
+        
+        // Validar empresa
+        const empresaInput = document.getElementById('empresa');
+        const empresaInvalido = document.getElementById('empresaInvalido');
+        
+        if (empresaInput.value.trim() === '' || empresaInput.value.trim().length < 2) {
+            empresaInput.classList.add('is-invalid');
+            empresaInvalido.style.display = 'block';
+            formValido = false;
+        } else {
+            empresaInput.classList.remove('is-invalid');
+            empresaInvalido.style.display = 'none';
+        }
+        
+        // Validar localização
+        const localizacaoSelect = document.getElementById('localizacao');
+        const localizacaoInvalido = document.getElementById('localizacaoInvalido');
+        
+        if (localizacaoSelect.value === '') {
+            localizacaoSelect.classList.add('is-invalid');
+            localizacaoInvalido.style.display = 'block';
+            formValido = false;
+        } else {
+            localizacaoSelect.classList.remove('is-invalid');
+            localizacaoInvalido.style.display = 'none';
+        }
+        
+        // Validar cargo
+        const cargoSelect = document.getElementById('cargo');
+        const cargoInvalido = document.getElementById('cargoInvalido');
+        
+        if (cargoSelect.value === '') {
+            cargoSelect.classList.add('is-invalid');
+            cargoInvalido.style.display = 'block';
+            formValido = false;
+        } else {
+            cargoSelect.classList.remove('is-invalid');
+            cargoInvalido.style.display = 'none';
+        }
+        
+        // Se o formulário for válido, exibe uma mensagem antes de enviar
+        if (formValido) {
+            //alert('Formulário validado com sucesso! Enviando para o backend...');
+            // Retorna true para permitir o envio do formulário
+            return true;
+        }
+        
+        // Rolar até o primeiro campo com erro
+        const primeiroErro = document.querySelector('.is-invalid');
+        if (primeiroErro) {
+            primeiroErro.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            primeiroErro.focus();
+        }
+        
+        // Retorna false para impedir o envio do formulário se houver erros
+        return false;
+    }
+    
+    // Função para validar CPF
+    function validarCPF(cpf) {
+        // Elimina CPFs inválidos conhecidos
+        if (cpf.length !== 11 || 
+            cpf === "00000000000" || 
+            cpf === "11111111111" || 
+            cpf === "22222222222" || 
+            cpf === "33333333333" || 
+            cpf === "44444444444" || 
+            cpf === "55555555555" || 
+            cpf === "66666666666" || 
+            cpf === "77777777777" || 
+            cpf === "88888888888" || 
+            cpf === "99999999999") {
+            return false;
+        }
+        
+        // Valida 1o dígito
+        let add = 0;
+        for (let i = 0; i < 9; i++) {
+            add += parseInt(cpf.charAt(i)) * (10 - i);
+        }
+        let rev = 11 - (add % 11);
+        if (rev === 10 || rev === 11) {
+            rev = 0;
+        }
+        if (rev !== parseInt(cpf.charAt(9))) {
+            return false;
+        }
+        
+        // Valida 2o dígito
+        add = 0;
+        for (let i = 0; i < 10; i++) {
+            add += parseInt(cpf.charAt(i)) * (11 - i);
+        }
+        rev = 11 - (add % 11);
+        if (rev === 10 || rev === 11) {
+            rev = 0;
+        }
+        if (rev !== parseInt(cpf.charAt(10))) {
+            return false;
+        }
+        
+        return true;
+    }
+</script>
+{% endblock %}

@@ -8,10 +8,12 @@ VALIDAR FORMULÁRIO DE CRIAÇÃO DE USUÁRIO (resta apenas limitar a matricula)
 TO DO:
  
 1 - Preparar front-end para receber os dados da resposta da criação / desativação do usuário
- 
-2 - Criar select no formulário com todos departamentos;
 
-"PRES": "Alexandre Cordeiro Macedo",
+2 - Praparar o front-end com o nome dos departamentos juntamente com o nome da chefia. EX: CGTI - Vinicius Eloy dos Reis;
+ 
+3 - Enviar para o back-end o departamento e chefia separadamente;
+
+    "PRES": "Alexandre Cordeiro Macedo",
     "PRESIDÊNCIA": "Alexandre Cordeiro Macedo",
     "DAP": "Bruna Cardoso dos Santos",
     "CGESP": "Karine Lustosa Panerai",
@@ -104,9 +106,5 @@ TO DO:
     "COA 7": "Victor Lubambo Peixoto Accioly"
     "CEP": "Antônio Marcos Guerreiro Salmeirão"
     "VIGILANTE": "Marcos Alexandre Ribeiro Azevedo de Souza"
- 
-4 - Adicionar email pessoal no formulário;
- 
-5 - Limitar matrícula SIAPE com apenas 10 números.
 
 ```
