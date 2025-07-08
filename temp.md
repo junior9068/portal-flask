@@ -12,6 +12,10 @@ TO DO:
 2 - Praparar o front-end com o nome dos departamentos juntamente com o nome da chefia. EX: CGTI - Vinicius Eloy dos Reis;
  
 3 - Enviar para o back-end o departamento e chefia separadamente;
+Criar função com o dicionario com os departamentos e chefes;
+Pegar o que vem do formulário dar um split pelo "-" e varrer o dicionario pelo nome do chefe;
+Adicionar as informações no dicionario que vai para o banco.
+Falar para o Marcelo que vaou devolver os dados pra ele do jeito que está e ele trata no backend
 
     "PRES": "Alexandre Cordeiro Macedo",
     "PRESIDÊNCIA": "Alexandre Cordeiro Macedo",
