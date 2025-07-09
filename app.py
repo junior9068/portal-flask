@@ -70,19 +70,11 @@ def executa_cria_usuario():
                          'telefoneComercial': telefoneComercial, 'departamento': departamento, 'chefia': chefia, 'matriculaSiape': matriculaSiape,}
     dadosJson = json.dumps(dicionarioUsuario)
     logging.info(dicionarioUsuario)
-    #Gera arquivo JSON caso necessário
-    # time.sleep(5)
     saida = inserir_usuario(json=dadosJson, acao='cadastrar_usuario')
-    # logging.info(f"Usuário: {nome_usuario}")
-    # logging.info(f"CPF: {cpf_usuario}")
-    # execucao_comando = funcoes.exemplo_chamada_bash()
 
-    # return render_template("cria_usuario.html", variavel_execucao_comando=saida)
-    #Para o ajax
-    # variavel_execucao_comando=saida
     time.sleep(3)
     return str(saida)
-    # return render_template('formulario_com_loading.html', variavel_execucao_comando=saida)
+
 
 
 if __name__ == "__main__":
