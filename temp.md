@@ -3,7 +3,6 @@
 ```
 CRIAR OS ARQUIVOS DE LOG 
 trabalhar no select do banco com tela assincrona
-VALIDAR FORMULÁRIO DE CRIAÇÃO DE USUÁRIO (resta apenas limitar a matricula)
 
 TO DO:
  
@@ -17,13 +16,13 @@ Pegar o que vem do formulário dar um split pelo "-" e varrer o dicionario pelo 
 Adicionar as informações no dicionario que vai para o banco.
 Falar para o Marcelo que vaou devolver os dados pra ele do jeito que está e ele trata no backend
 
+Lista sem as duplicidades:
+
     "PRES": "Alexandre Cordeiro Macedo",
     "PRESIDÊNCIA": "Alexandre Cordeiro Macedo",
     "DAP": "Bruna Cardoso dos Santos",
     "CGESP": "Karine Lustosa Panerai",
     "SAGEP": "Gabrielle Drago Torpe",
-    "SEAPE": "Taynara Alessandra Dantas da Silva",
-    "SETED": "Silvia Regina Borges",
     "CGTI": "Vinicius Eloy dos Reis",
     "SESIN": "Thiago Nogueira de Oliveira",
     "CGAA 1": "Alden Caribé de Sousa",
@@ -31,14 +30,12 @@ Falar para o Marcelo que vaou devolver os dados pra ele do jeito que está e ele
     "SG": "Gabriel Mamede de Carvalho",
     "COA 5": "Amanda Bispo Menezes",
     "GAB 1": "Bruno Polonio Renzetti",
-    "GAB 1a": "Bruno Polonio Renzetti",
     "GAB 2": "Diogo Thomson de Andrade",
     "GAB 2b": "Paulo Henrique de Oliveira",
     "GAB 3a": "Bertrand Wanderer",
     "GAB 3": "Gustavo Augusto Freitas de Lima",
     "GAB 4": "Victor Oliveira Fernandes",
     "GAB 4a": "Fabiana Pereira Veloso",
-    "GAB 4b": "Victor Oliveira Fernandes",
     "GAB 5": "Camila Cabral Pires Alves",
     "GAB 5a": "Vitor Jardim Machado Barbosa",
     "GAB 6": "José Levi Mello do Amaral Júnior",
@@ -78,7 +75,6 @@ Falar para o Marcelo que vaou devolver os dados pra ele do jeito que está e ele
     "DIAP": "Jeruza Huckembeck Pardo",
     "COA 10": "Joice Arantes Luciano",
     "PROT": "Juliana Oliveira Marques Moraes",
-    "CGESP": "Karine Lustosa Panerai",
     "CGP": "Victor Kaled Sousa do Espirito Santo",
     "COA 6": "Leandro dos Reis Lucheses",
     "COA 8": "Leila Cristina Ferraresi Girardi",

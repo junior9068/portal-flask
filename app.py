@@ -4,7 +4,7 @@ from flask import render_template
 from funcoes import funcoes
 import logging
 from funcoes.banco import inserir_usuario, deletar_usuario
-from funcoes.funcoes import capitalizaNome
+from funcoes.funcoes import capitalizaNome, buscaDepartamento
 import json, time
 
 app = Flask(__name__)
@@ -31,7 +31,7 @@ def manutencao2():
 @app.route("/cria_usuario")
 def cria_usuario():
     app.logger.info(f"Chamou a rota cria_usuario")
-    return render_template("formulario_com_loading.html")
+    return render_template("formulario_ajax_simples.html")
     # return render_template("cria_usuario.html")
 
 
@@ -59,13 +59,14 @@ def executa_cria_usuario():
     dataNascimentoUsuario = request.form['dataNascimentoUsuario']
     emailPessoal = request.form['emailPessoal']
     telefoneComercial = request.form['telefoneComercial']
-    departamento = request.form['departamento']
+    departamentoHtml = request.form['departamento']
     matriculaSiape = request.form['matriculaSiape']
     empresa = request.form['empresa']
     localizacao = request.form['localizacao']
     cargo = request.form['cargo']
+    departamento, chefia = buscaDepartamento(departamentoHtml)
     dicionarioUsuario = {'nome': nomeUsuarioCapitalizado, 'cpf': cpfUsuario, 'dataNascimento': dataNascimentoUsuario, 'email': emailPessoal, 'empresa': empresa, 'localizacao': localizacao, 'cargo': cargo,
-                         'telefoneComercial': telefoneComercial, 'departamento': departamento, 'matriculaSiape': matriculaSiape,}
+                         'telefoneComercial': telefoneComercial, 'departamento': departamento, 'chefia': chefia, 'matriculaSiape': matriculaSiape,}
     dadosJson = json.dumps(dicionarioUsuario)
     app.logger.info(dicionarioUsuario)
     #Gera arquivo JSON caso necessário
@@ -75,26 +76,13 @@ def executa_cria_usuario():
     # app.logger.info(f"CPF: {cpf_usuario}")
     # execucao_comando = funcoes.exemplo_chamada_bash()
 
-    return render_template("cria_usuario.html", variavel_execucao_comando=saida)
+    # return render_template("cria_usuario.html", variavel_execucao_comando=saida)
     #Para o ajax
     # variavel_execucao_comando=saida
-    #return str(saida)
+    time.sleep(3)
+    return str(saida)
     # return render_template('formulario_com_loading.html', variavel_execucao_comando=saida)
 
-#Função criada para uma possível necessidade de gerar um arquivo json.
-def criaArquivoJson(dadosJson):
-    # Dicionário Python (estrutura de dados que vamos salvar como JSON)
-    dados = dadosJson
-    try:
-        # Criar e salvar em um arquivo JSON
-        with open("dados.json", "w", encoding="utf-8") as arquivo:
-            json.dump(dados, arquivo, ensure_ascii=False, indent=4)
-        saida = "Arquivo JSON criado" 
-    except:
-        saida = 'Erro na geração do arquivo JSON'
-        app.logger.error(saida)
-    finally:
-        return saida
 
 if __name__ == "__main__":
     app.run(debug=True)
