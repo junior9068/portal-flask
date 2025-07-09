@@ -3,7 +3,7 @@ from flask import render_template
 from funcoes.log import configurar_logs
 import logging
 from funcoes.banco import inserir_usuario, deletar_usuario
-from funcoes.funcoes import capitalizaNome, buscaDepartamento
+from funcoes.funcoes import capitalizaNome, buscaDepartamento, exemplo_chamada_bash
 import json, time
 
 configurar_logs()

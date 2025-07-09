@@ -1,7 +1,6 @@
 import subprocess
 import logging
 
-logger = logging.getLogger('flask.app')
 
 def capitalizaNome(nome):
     """
@@ -127,13 +126,13 @@ def exemplo_chamada_bash():
         if comando.stderr:
             txt = ['Houve um erro. Entre em contato com a CGTI']
             saida = f"{txt}"
-            logger.error(comando.stderr)
+            logging.error(comando.stderr)
         else:
             saida = comando.stdout.splitlines()
     except Exception as e:
         txt_erro = ['Houve um erro na execução do comando. Entre em contato com a CGTI']
         saida = f"{txt_erro}"  # a variavel "e" irá para o log
-        logger.error(e)
+        logging.error(e)
     return saida
 
 if __name__ == "__main__":
