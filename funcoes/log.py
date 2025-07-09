@@ -1,12 +1,11 @@
 import logging
+import sys
 
-def teste1():
-# Configuração para os Logs da aplicação
-    return logging.basicConfig(
-        level=logging.INFO,
+def configurar_logs():
+    logging.basicConfig(
+        level=logging.INFO,  # Ou DEBUG, se quiser mais detalhes
         format='%(asctime)s [%(levelname)s] %(message)s',
         handlers=[
-            # logging.FileHandler("app.log"),  # salva em arquivo
-            logging.StreamHandler()         # mostra no terminal
+            logging.StreamHandler(sys.stdout)  # Todos os logs vão para stdout
         ]
     )

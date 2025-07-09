@@ -1,11 +1,12 @@
 from flask import Flask, request
-from markupsafe import escape
 from flask import render_template
-from funcoes import funcoes
+from funcoes.log import configurar_logs
 import logging
 from funcoes.banco import inserir_usuario, deletar_usuario
 from funcoes.funcoes import capitalizaNome, buscaDepartamento
 import json, time
+
+configurar_logs()
 
 app = Flask(__name__)
 
@@ -30,22 +31,22 @@ def manutencao2():
 
 @app.route("/cria_usuario")
 def cria_usuario():
-    app.logger.info(f"Chamou a rota cria_usuario")
+    logging.info(f"Chamou a rota cria_usuario")
     return render_template("formulario_ajax_simples.html")
     # return render_template("cria_usuario.html")
 
 
 @app.route("/desativa_usuario")
 def desativa_usuario():
-    app.logger.info(f"Chamou a rota desativa_usuario")
+    logging.info(f"Chamou a rota desativa_usuario")
     return render_template("desativa_usuario.html")
 
 
 @app.route("/executa_desativa_usuario", methods=['POST'])
 def executa_desativa_usuario():
     cpf_usuario = request.form['cpfUsuario']
-    app.logger.info(f"Chamou a rota executa_desativa_usuario")
-    app.logger.info(f"CPF do usuário: {cpf_usuario}")
+    logging.info(f"Chamou a rota executa_desativa_usuario")
+    logging.info(f"CPF do usuário: {cpf_usuario}")
     saida = deletar_usuario(cpf=cpf_usuario)
     return render_template("desativa_usuario.html", nome_usuario=saida)
 
@@ -68,12 +69,12 @@ def executa_cria_usuario():
     dicionarioUsuario = {'nome': nomeUsuarioCapitalizado, 'cpf': cpfUsuario, 'dataNascimento': dataNascimentoUsuario, 'email': emailPessoal, 'empresa': empresa, 'localizacao': localizacao, 'cargo': cargo,
                          'telefoneComercial': telefoneComercial, 'departamento': departamento, 'chefia': chefia, 'matriculaSiape': matriculaSiape,}
     dadosJson = json.dumps(dicionarioUsuario)
-    app.logger.info(dicionarioUsuario)
+    logging.info(dicionarioUsuario)
     #Gera arquivo JSON caso necessário
     # time.sleep(5)
     saida = inserir_usuario(json=dadosJson, acao='cadastrar_usuario')
-    # app.logger.info(f"Usuário: {nome_usuario}")
-    # app.logger.info(f"CPF: {cpf_usuario}")
+    # logging.info(f"Usuário: {nome_usuario}")
+    # logging.info(f"CPF: {cpf_usuario}")
     # execucao_comando = funcoes.exemplo_chamada_bash()
 
     # return render_template("cria_usuario.html", variavel_execucao_comando=saida)
