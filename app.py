@@ -2,7 +2,7 @@ from flask import Flask, request
 from flask import render_template
 from funcoes.log import configurar_logs
 import logging
-from funcoes.banco import inserir_usuario, deletar_usuario
+from funcoes.banco import inserir_usuario, deletar_usuario, lerResultado
 from funcoes.funcoes import capitalizaNome, buscaDepartamento, exemplo_chamada_bash
 import json, time
 
@@ -70,9 +70,18 @@ def executa_cria_usuario():
                          'telefoneComercial': telefoneComercial, 'departamento': departamento, 'chefia': chefia, 'matriculaSiape': matriculaSiape,}
     dadosJson = json.dumps(dicionarioUsuario)
     logging.info(dicionarioUsuario)
-    saida = inserir_usuario(json=dadosJson, acao='cadastrar_usuario')
 
-    time.sleep(3)
+    idRegistro = inserir_usuario(json=dadosJson, acao='cadastrar_usuario')
+    saida = lerResultado(idRegistro)
+    if saida[0] == "Sucesso":
+        #COLOCAR AQUI A FUNÇÃO DE ENVIO DE EMAIL
+        saida = f"Usuário {nomeUsuarioCapitalizado} cadastrado com sucesso. Segue a senha: {saida[1]}"
+    elif saida[0] == "Erro":
+        saida = f"Ocorreu um erro ao cadastrar o usuário {nomeUsuarioCapitalizado}. Erro: {saida[1]}"
+    else:
+        saida = f"Erro desconhecido. Entre em contato com a CGTI."
+
+    # time.sleep(3)
     return str(saida)
 
 

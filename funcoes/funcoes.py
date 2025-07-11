@@ -22,6 +22,8 @@ def buscaDepartamento(departamentoComChefia):
     return departamento, chefia
 
 
+
+
 def exemplo_chamada_bash():
     saida = ''
     try:
