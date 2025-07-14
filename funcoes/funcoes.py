@@ -24,17 +24,55 @@ def buscaDepartamento(departamentoComChefia):
     return departamento, chefia
 
 
-def enviar_email(senha, destinatario, assunto, remetente, servidor_smtp='smtp.cade.gov.br', porta=25):
-    corpo = f"Prezado(a) {destinatario},\n\nSegue sua senha {senha}\n\nEste é um e-mail de teste.\n\nAtenciosamente,\nEquipe CGTI"
-    try:
-        # Cria a mensagem
-        msg = EmailMessage()
-        msg['Subject'] = assunto
-        msg['From'] = remetente
-        msg['To'] = destinatario
-        msg.set_content(corpo)
 
-        # Conexão com o SMTP (sem login)
+def enviar_email(senha, destinatario, servidor_smtp='smtp.cade.gov.br', porta=25):
+    # Extrai nome do e-mail (antes do @) para exibição
+    login = destinatario.split('@')[0]
+    nome = login.replace('.', ' ').title()  # ex: "edilson.junior" → "Edilson Junior"
+
+    # Corpo HTML do e-mail
+    html = f"""
+    <html>
+    <body style="font-family: Arial, sans-serif; border: 1px solid #7AA230; padding: 20px;">
+        <p>Prezado(a) <strong>{nome}</strong>,</p>
+        <p>Bem vindo ao CEDE! Seguem abaixo os seus dados de acesso à rede corporativa:</p>
+        <table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse;">
+            <tr>
+                <td><strong>Login</strong></td>
+                <td>{login}</td>
+            </tr>
+            <tr>
+                <td><strong>Senha</strong></td>
+                <td>{senha}</td>
+            </tr>
+            <tr>
+                <td><strong>E-mail</strong></td>
+                <td><a href="mailto:{destinatario}">{destinatario}</a></td>
+            </tr>
+        </table>
+        <br>
+        <p><strong>ATENÇÃO:</strong> sua caixa de e-mail poderá demorar até <strong>24 horas</strong> para ser disponibilizada.</p>
+        <p>A alteração da senha deve ser realizada no primeiro login</p>
+        <p>Em caso de dúvidas, favor entrar em contato com a equipe de TI da sua unidade.</p>
+        <br>
+        <p style="font-size: 12px;">
+        CADE - Conselho Administrativo de Defesa Econômica<br>
+        </p>
+    </body>
+    </html>
+    """
+
+    try:
+        msg = EmailMessage()
+        msg['Subject'] = "Dado de acesso à rede corporativa - CADE"
+        msg['From'] = "naoresponda@cade.gov.br"
+        msg['To'] = destinatario
+
+        # Corpo alternativo (texto puro) + HTML
+        msg.set_content(f"Prezado(a) {nome},\n\nSeu acesso à rede foi criado. Caso não visualize o conteúdo HTML, contate o suporte.")
+        msg.add_alternative(html, subtype='html')
+
+        # Envio
         with smtplib.SMTP(servidor_smtp, porta) as smtp:
             smtp.send_message(msg)
             logging.info(f"E-mail enviado para {destinatario}")
@@ -62,4 +100,4 @@ def exemplo_chamada_bash():
     return saida
 
 if __name__ == "__main__":
-    print(enviar_email("Essa_é_sua_senha@123456", "edilson.cade@cade.gov.br", "Teste de Envio de E-mail", "naoresponda@cade.gov.br"))
+    print(enviar_email("Senha@123456", "edilsonjuniorti@gmail.com"))
