@@ -35,7 +35,7 @@ def enviar_email(senha, destinatario, servidor_smtp='smtp.cade.gov.br', porta=25
     <html>
     <body style="font-family: Arial, sans-serif; border: 1px solid #7AA230; padding: 20px;">
         <p>Prezado(a) <strong>{nome}</strong>,</p>
-        <p>Bem vindo ao CEDE! Seguem abaixo os seus dados de acesso à rede corporativa:</p>
+        <p>Bem vindo ao CADE! Seguem abaixo os seus dados de acesso à rede corporativa:</p>
         <table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse;">
             <tr>
                 <td><strong>Login</strong></td>
@@ -52,7 +52,7 @@ def enviar_email(senha, destinatario, servidor_smtp='smtp.cade.gov.br', porta=25
         </table>
         <br>
         <p><strong>ATENÇÃO:</strong> sua caixa de e-mail poderá demorar até <strong>24 horas</strong> para ser disponibilizada.</p>
-        <p>A alteração da senha deve ser realizada no primeiro login</p>
+        <p>A alteração da senha deve ser realizada no primeiro login.</p>
         <p>Em caso de dúvidas, favor entrar em contato com a equipe de TI da sua unidade.</p>
         <br>
         <p style="font-size: 12px;">
@@ -64,7 +64,7 @@ def enviar_email(senha, destinatario, servidor_smtp='smtp.cade.gov.br', porta=25
 
     try:
         msg = EmailMessage()
-        msg['Subject'] = "Dado de acesso à rede corporativa - CADE"
+        msg['Subject'] = "Dados de acesso à rede corporativa - CADE"
         msg['From'] = "naoresponda@cade.gov.br"
         msg['To'] = destinatario
 
@@ -100,4 +100,4 @@ def exemplo_chamada_bash():
     return saida
 
 if __name__ == "__main__":
-    print(enviar_email("Senha@123456", "edilsonjuniorti@gmail.com"))
+    print(enviar_email("Senha@123456", "thiago.nogueiira@gmail.com"))
