@@ -53,7 +53,7 @@ def enviar_email(senha, destinatario, servidor_smtp='smtp.cade.gov.br', porta=25
         <br>
         <p><strong>ATENÇÃO:</strong> sua caixa de e-mail poderá demorar até <strong>24 horas</strong> para ser disponibilizada.</p>
         <p>A alteração da senha deve ser realizada no primeiro login.</p>
-        <p>Em caso de dúvidas, favor entrar em contato com a equipe de TI da sua unidade.</p>
+        <p>Em caso de dúvidas, favor entrar em contato com a CGTI</p>
         <br>
         <p style="font-size: 12px;">
         CADE - Conselho Administrativo de Defesa Econômica<br>
@@ -64,7 +64,7 @@ def enviar_email(senha, destinatario, servidor_smtp='smtp.cade.gov.br', porta=25
 
     try:
         msg = EmailMessage()
-        msg['Subject'] = "Dados de acesso à rede corporativa - CADE"
+        msg['Subject'] = "CADE - Criação de conta de acesso"
         msg['From'] = "naoresponda@cade.gov.br"
         msg['To'] = destinatario
 
