@@ -1,0 +1,28 @@
+{
+    "sp": {
+        "entityId": "https://yourapp.com",
+        "assertionConsumerService": {
+            "url": "https://yourapp.com/saml/acs",
+            "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+        },
+        "singleLogoutService": {
+            "url": "https://yourapp.com/saml/sls",
+            "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+        },
+        "NameIDFormat": "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress",
+        "x509cert": "",
+        "privateKey": ""
+    },
+    "idp": {
+        "entityId": "https://sts.windows.net/YOUR_TENANT_ID/",
+        "singleSignOnService": {
+            "url": "https://login.microsoftonline.com/YOUR_TENANT_ID/saml2",
+            "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+        },
+        "singleLogoutService": {
+            "url": "https://login.microsoftonline.com/YOUR_TENANT_ID/saml2",
+            "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+        },
+        "x509cert": "AZURE_AD_CERTIFICATE"
+    }
+}

@@ -6,8 +6,9 @@ trabalhar no select do banco com tela assincrona
 
 TO DO:
  
-Criar função para envio de email; JA FIZ. ESPERAR A CONFGURAÇÃO DO RELAY
-Criar tela de login
+Criar tela de login - já deixei os arquivos ai, falta analisar
+TENHO QUE IMPLEMENTAR A FUNÇÃO DO EMAIL DO CÓDIGO DE CRICAO DE USUÁRIO;
+DESATIVAR USUÁRIO - IMPLEMENTAR
 
 
 ```
