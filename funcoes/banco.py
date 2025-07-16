@@ -1,8 +1,10 @@
 import mysql.connector
 import logging
 from mysql.connector import IntegrityError
-import time
+import time, os
 
+USUARIO_BANCO = os.getenv('USUARIO_BANCO')
+SENHA_BANCO = os.getenv('SENHA_BANCO')
 # Configuração para os Logs da aplicação
 logging.basicConfig(
     level=logging.INFO,
@@ -17,8 +19,8 @@ def conexao_banco():
     try:
         return mysql.connector.connect(
         host="localhost",
-        user="user_banco",           # usuário
-        password="Usuariobanco@2025",  # senha do usuário
+        user=USUARIO_BANCO,           # usuário
+        password=SENHA_BANCO,  # senha do usuário
         database="portal"       # nome do banco
         )
     except Exception as erro:

@@ -23,7 +23,8 @@ saml_auth = create_saml_auth(app, saml_path='saml')
 app.saml_auth = saml_auth
 
 @app.route("/")
-# @login_required
+# 
+
 def home():
     return render_template("home.html")
 
@@ -86,7 +87,9 @@ def executa_cria_usuario():
     elif saida[0] == "Erro":
         saida = f"Ocorreu um erro ao cadastrar o usuário {nomeUsuarioCapitalizado}. Erro: {saida[1]}"
     else:
+        logging.error(f"Erro na criação do usuário: {saida}")
         saida = f"Erro desconhecido. Entre em contato com a CGTI."
+
 
     # time.sleep(3)
     return str(saida)
