@@ -1,0 +1,307 @@
+{% extends "base.html" %}
+
+{% block title %}Teste SAML - Portal SAML{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1><i class="bi bi-tools me-2"></i>Teste de Configurações SAML</h1>            <a href="{{ url_for('home') }}" class="btn btn-outline-secondary">                <i class="bi bi-arrow-left me-2"></i>Voltar
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Status geral -->
+<div class="row mb-4">
+    <div class="col-12">
+        {% if settings.sp_errors|length == 0 and settings.idp_errors|length == 0 %}
+        <div class="alert alert-success">
+            <i class="bi bi-check-circle me-2"></i>
+            <strong>Configurações SAML válidas!</strong> Todas as configurações estão corretas.
+        </div>
+        {% else %}
+        <div class="alert alert-warning">
+            <i class="bi bi-exclamation-triangle me-2"></i>
+            <strong>Problemas encontrados nas configurações SAML.</strong> Verifique os detalhes abaixo.
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Configurações do Service Provider (SP) -->
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">
+                    <i class="bi bi-server me-2"></i>Service Provider (SP) - Flask
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <strong>Entity ID:</strong>
+                    <p class="font-monospace text-muted">{{ settings.sp_entity_id or 'Não configurado' }}</p>
+                </div>
+                
+                <div class="mb-3">
+                    <strong>Assertion Consumer Service (ACS):</strong>
+                    <p class="font-monospace text-muted">{{ settings.sp_acs_url or 'Não configurado' }}</p>
+                </div>
+                
+                <div class="mb-3">
+                    <strong>Single Logout Service (SLS):</strong>
+                    <p class="font-monospace text-muted">{{ settings.sp_sls_url or 'Não configurado' }}</p>
+                </div>
+                
+                {% if settings.sp_errors %}
+                <div class="alert alert-danger">
+                    <strong>Erros do SP:</strong>
+                    <ul class="mb-0">
+                        {% for error in settings.sp_errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% else %}
+                <div class="alert alert-success">
+                    <i class="bi bi-check-circle me-2"></i>Configurações do SP válidas
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header microsoft-blue text-white">
+                <h5 class="mb-0">
+                    <i class="bi bi-microsoft me-2"></i>Identity Provider (IdP) - Azure AD
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <strong>Entity ID:</strong>
+                    <p class="font-monospace text-muted">{{ settings.idp_entity_id or 'Não configurado' }}</p>
+                </div>
+                
+                <div class="mb-3">
+                    <strong>Single Sign-On Service:</strong>
+                    <p class="font-monospace text-muted">{{ settings.idp_sso_url or 'Não configurado' }}</p>
+                </div>
+                
+                <div class="mb-3">
+                    <strong>Single Logout Service:</strong>
+                    <p class="font-monospace text-muted">{{ settings.idp_sls_url or 'Não configurado' }}</p>
+                </div>
+                
+                {% if settings.idp_errors %}
+                <div class="alert alert-danger">
+                    <strong>Erros do IdP:</strong>
+                    <ul class="mb-0">
+                        {% for error in settings.idp_errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% else %}
+                <div class="alert alert-success">
+                    <i class="bi bi-check-circle me-2"></i>Configurações do IdP válidas
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Ações de teste -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="bi bi-play-circle me-2"></i>Ações de Teste
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="d-grid">
+                            <a href="{{ url_for('saml_metadata') }}" class="btn btn-outline-info" target="_blank">
+                                <i class="bi bi-file-code me-2"></i>Ver Metadados SP
+                            </a>
+                        </div>
+                        <small class="text-muted mt-2 d-block">
+                            Visualizar os metadados XML do Service Provider
+                        </small>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="d-grid">
+                            <a href="{{ url_for('login') }}" class="btn btn-outline-primary">
+                                <i class="bi bi-box-arrow-in-right me-2"></i>Testar Login
+                            </a>
+                        </div>
+                        <small class="text-muted mt-2 d-block">
+                            Iniciar processo de autenticação SAML
+                        </small>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="d-grid">
+                            <button class="btn btn-outline-secondary" onclick="window.location.reload()">
+                                <i class="bi bi-arrow-clockwise me-2"></i>Atualizar Teste
+                            </button>
+                        </div>
+                        <small class="text-muted mt-2 d-block">
+                            Recarregar e verificar configurações
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Instruções de configuração -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">
+                    <i class="bi bi-lightbulb me-2"></i>Instruções de Configuração
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6><i class="bi bi-1-circle text-primary me-2"></i>Configurar Azure AD:</h6>
+                        <ul class="list-unstyled">
+                            <li><i class="bi bi-arrow-right me-2"></i>Criar aplicação Enterprise no Azure AD</li>
+                            <li><i class="bi bi-arrow-right me-2"></i>Configurar SAML SSO</li>
+                            <li><i class="bi bi-arrow-right me-2"></i>Usar Entity ID: <code>{{ settings.sp_entity_id }}</code></li>
+                            <li><i class="bi bi-arrow-right me-2"></i>Usar ACS URL: <code>{{ settings.sp_acs_url }}</code></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <h6><i class="bi bi-2-circle text-primary me-2"></i>Configurar Flask:</h6>
+                        <ul class="list-unstyled">
+                            <li><i class="bi bi-arrow-right me-2"></i>Editar <code>saml/settings/settings.json</code></li>
+                            <li><i class="bi bi-arrow-right me-2"></i>Adicionar certificado do Azure AD</li>
+                            <li><i class="bi bi-arrow-right me-2"></i>Configurar URLs do IdP</li>
+                            <li><i class="bi bi-arrow-right me-2"></i>Atualizar Tenant ID</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="mt-3">
+                    <h6><i class="bi bi-3-circle text-primary me-2"></i>Testar Integração:</h6>
+                    <ol>
+                        <li>Verificar se todas as configurações estão válidas (sem erros acima)</li>
+                        <li>Clicar em "Testar Login" para iniciar o fluxo SAML</li>
+                        <li>Fazer login no Azure AD quando solicitado</li>
+                        <li>Verificar se o redirecionamento funciona corretamente</li>
+                        <li>Confirmar se os atributos do usuário são recebidos</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Troubleshooting -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-warning text-dark">
+                <h5 class="mb-0">
+                    <i class="bi bi-exclamation-triangle me-2"></i>Troubleshooting
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="accordion" id="troubleshootingAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                                Erro: "Invalid SAML Response"
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#troubleshootingAccordion">
+                            <div class="accordion-body">
+                                <ul>
+                                    <li>Verificar se o certificado do Azure AD está correto</li>
+                                    <li>Confirmar se as URLs (ACS, Entity ID) estão configuradas corretamente no Azure AD</li>
+                                    <li>Verificar se o horário do servidor está sincronizado</li>
+                                    <li>Confirmar se o Tenant ID está correto</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                                Erro: "User not assigned to application"
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#troubleshootingAccordion">
+                            <div class="accordion-body">
+                                <ul>
+                                    <li>No Azure AD, ir para Enterprise Applications</li>
+                                    <li>Selecionar sua aplicação SAML</li>
+                                    <li>Ir em "Users and groups"</li>
+                                    <li>Adicionar os usuários/grupos que devem ter acesso</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                                Erro: "Destination validation failed"
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#troubleshootingAccordion">
+                            <div class="accordion-body">
+                                <ul>
+                                    <li>Verificar se a URL ACS no Azure AD corresponde exatamente à configurada no Flask</li>
+                                    <li>Confirmar se está usando HTTPS em produção</li>
+                                    <li>Verificar se não há problemas de proxy reverso</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Destacar URLs importantes para facilitar cópia
+    document.addEventListener('DOMContentLoaded', function() {
+        const codeElements = document.querySelectorAll('code');
+        codeElements.forEach(element => {
+            element.style.cursor = 'pointer';
+            element.title = 'Clique para copiar';
+            element.addEventListener('click', function() {
+                navigator.clipboard.writeText(this.textContent).then(function() {
+                    // Feedback visual
+                    const original = element.style.backgroundColor;
+                    element.style.backgroundColor = '#28a745';
+                    element.style.color = 'white';
+                    setTimeout(() => {
+                        element.style.backgroundColor = original;
+                        element.style.color = '';
+                    }, 1000);
+                });
+            });
+        });
+    });
+</script>
+{% endblock %}
+

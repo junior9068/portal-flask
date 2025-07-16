@@ -1,0 +1,32 @@
+{
+    "strict": true,
+    "debug": false,
+    "sp": {
+        "entityId": "https://servicosti.cade.gov.br/saml/metadata",
+        "assertionConsumerService": {
+            "url": "https://servicosti.cade.gov.br/saml/acs",
+            "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+        },
+        "singleLogoutService": {
+            "url": "https://servicosti.cade.gov.br/saml/sls",
+            "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+        },
+        "NameIDFormat": "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress",
+        "x509cert": "",
+        "privateKey": ""
+    },
+    "idp": {
+        "entityId": "https://sts.windows.net/0f45bbf5-e0b2-4611-869d-02cbccbc164c/",
+        "singleSignOnService": {
+            "url": "https://login.microsoftonline.com/0f45bbf5-e0b2-4611-869d-02cbccbc164c/saml2",
+            "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+        },
+        "singleLogoutService": {
+            "url": "https://login.microsoftonline.com/0f45bbf5-e0b2-4611-869d-02cbccbc164c/saml2",
+            "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+        },
+        "x509cert": "-----BEGIN CERTIFICATE-----MIIC8DCCAdigAwIBAgIQV0eiVar4EpNNhbePgSixOzANBgkqhkiG9w0BAQsFADA0MTIwMAYDVQQDEylNaWNyb3NvZnQgQXp1cmUgRmVkZXJhdGVkIFNTTyBDZXJ0aWZpY2F0ZTAeFw0yNTA3MTYwMDEyMzZaFw0yODA3MTYwMDEyMzZaMDQxMjAwBgNVBAMTKU1pY3Jvc29mdCBBenVyZSBGZWRlcmF0ZWQgU1NPIENlcnRpZmljYXRlMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAx0/anFjkfc51dkmkrnYJaRdJ1Xbqq627vHQKsj3hFLvJnyVhZO89a9iYKS8eQivLQlVI4gk7dwXmZQj72x9Mvy7OErnoSRzAscH8BAAcyi1q5BhKNNFMFeNzn0LQMljhC+VMAFuUpNB8UbDZxvl7FRcF/5c+jzh1tvpX2Nhpp2q4OL5EiUU84WoxM3kearOlGcMmC/jE0Q8Hlw7cJbAKYway8zuhyvsv8FgpULTbqC8eqD9pw5d6npsdJ1NF6tXNB7SR7Fft7+LF7uaTOCOaDOsHHwpFSiRdnDwWydNWdCcWmcrc6u19Vl1kyuFb5/BMoSyzuabf4SY5pzcBpvgb1QIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQBxy3mjXj+sYkAi0sqoQuxledYzd9MDYsyBB5pIJusNdXVaHkRP+YlqRSvT+8mFn92feE0+ssUvB5JFAwJB3iTG2TKA8A48FK8uPujBd3pNpNumtKLCOdC5EvZrW4xAGJWWLzyCDrbHyQPkkGvpGU/QATw9Ho6S5dzb5Hc5mHrA0Gb0qQJWCTX7xQM/5Vn0mLCArwoCEgZrAsKr+y0Nf+G7RFIzc0GLbYvq10+XhSWOQPe10Kw4gilDWuTo/iphAD3lHw7Ase2HIkJZtXEzWPnDgy9KKPERadGFRTXEQ+3lvvFQz5Z921C7FT4VkdWFU1AjTX61hxMnUO3SdoJxGQ/C-----END CERTIFICATE-----"
+
+    }
+}
+

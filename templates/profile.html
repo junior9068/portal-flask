@@ -1,0 +1,366 @@
+{% extends "base.html" %}
+
+{% block title %}Perfil - Portal SAML{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1><i class="bi bi-person me-2"></i>Meu Perfil SAML</h1>
+            <a href="{{ url_for('dashboard') }}" class="btn btn-outline-primary">
+                <i class="bi bi-arrow-left me-2"></i>Voltar ao Dashboard
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Informações principais -->
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="bi bi-person-badge me-2"></i>Informações Pessoais (Azure AD)
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <strong>Name ID (SAML):</strong>
+                    </div>
+                    <div class="col-sm-9">
+                        <span class="badge bg-primary font-monospace">{{ user.name_id or 'Não informado' }}</span>
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <strong>Nome de Exibição:</strong>
+                    </div>
+                    <div class="col-sm-9">
+                        {{ user.display_name or 'Não informado' }}
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <strong>Nome:</strong>
+                    </div>
+                    <div class="col-sm-9">
+                        {{ user.given_name or 'Não informado' }}
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <strong>Sobrenome:</strong>
+                    </div>
+                    <div class="col-sm-9">
+                        {{ user.surname or 'Não informado' }}
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <strong>Email:</strong>
+                    </div>
+                    <div class="col-sm-9">
+                        {% if user.email %}
+                            <a href="mailto:{{ user.email }}">{{ user.email }}</a>
+                        {% else %}
+                            <span class="text-muted">Não informado</span>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <strong>UPN (User Principal Name):</strong>
+                    </div>
+                    <div class="col-sm-9">
+                        <span class="font-monospace">{{ user.upn or 'Não informado' }}</span>
+                    </div>
+                </div>
+                
+                {% if user.tenant_id %}
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <strong>Tenant ID:</strong>
+                    </div>
+                    <div class="col-sm-9">
+                        <span class="font-monospace text-muted">{{ user.tenant_id }}</span>
+                    </div>
+                </div>
+                {% endif %}
+                
+                {% if user.object_id %}
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <strong>Object ID:</strong>
+                    </div>
+                    <div class="col-sm-9">
+                        <span class="font-monospace text-muted">{{ user.object_id }}</span>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Grupos do Azure AD -->
+        {% if user.groups %}
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="bi bi-people me-2"></i>Grupos do Azure Active Directory
+                    <span class="badge bg-secondary ms-2">{{ user.groups|length }}</span>
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {% for group in user.groups %}
+                    <div class="col-md-6 mb-2">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-diagram-3 text-muted me-2"></i>
+                            <span class="font-monospace small">{{ group }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- Todos os atributos SAML -->
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="bi bi-code-square me-2"></i>Todos os Atributos SAML
+                    <button class="btn btn-sm btn-outline-secondary float-end" onclick="toggleAttributes()">
+                        <i class="bi bi-eye" id="toggleIcon"></i> <span id="toggleText">Mostrar</span>
+                    </button>
+                </h5>
+            </div>
+            <div class="card-body" id="attributesBody" style="display: none;">
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Atributo</th>
+                                <th>Valor(es)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for key, values in user.all_attributes.items() %}
+                            <tr>
+                                <td class="font-monospace small">{{ key }}</td>
+                                <td>
+                                    {% if values is iterable and values is not string %}
+                                        {% for value in values %}
+                                            <span class="badge bg-light text-dark me-1">{{ value }}</span>
+                                        {% endfor %}
+                                    {% else %}
+                                        <span class="badge bg-light text-dark">{{ values }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Sidebar com ações -->
+    <div class="col-md-4">
+        <!-- Avatar e informações básicas -->
+        <div class="card">
+            <div class="card-body text-center">
+                <div class="mb-3">
+                    <i class="bi bi-person-circle text-primary" style="font-size: 4rem;"></i>
+                </div>
+                <h5>{{ user.display_name or user.given_name or 'Usuário' }}</h5>
+                <p class="text-muted">{{ user.email or 'Usuário do Sistema' }}</p>
+                
+                <div class="d-grid gap-2">
+                    {% if user.email %}
+                    <a href="mailto:{{ user.email }}" class="btn btn-outline-primary btn-sm">
+                        <i class="bi bi-envelope me-2"></i>Enviar Email
+                    </a>
+                    {% endif %}
+                    <button class="btn btn-outline-secondary btn-sm" onclick="window.print()">
+                        <i class="bi bi-printer me-2"></i>Imprimir Perfil
+                    </button>
+                    <button class="btn btn-outline-info btn-sm" onclick="copyToClipboard()">
+                        <i class="bi bi-clipboard me-2"></i>Copiar Informações
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Estatísticas -->
+        <div class="card mt-3">
+            <div class="card-header">
+                <h6 class="mb-0">
+                    <i class="bi bi-bar-chart me-2"></i>Estatísticas
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Grupos do Azure AD:</span>
+                    <strong>{{ user.groups|length if user.groups else 0 }}</strong>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Atributos SAML:</span>
+                    <strong>{{ user.all_attributes|length if user.all_attributes else 0 }}</strong>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Status:</span>
+                    <span class="badge bg-success">Ativo</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <span>Autenticação:</span>
+                    <span class="badge saml-badge">SAML 2.0</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Informações técnicas -->
+        <div class="card mt-3">
+            <div class="card-header">
+                <h6 class="mb-0">
+                    <i class="bi bi-gear me-2"></i>Informações Técnicas
+                </h6>
+            </div>
+            <div class="card-body">
+                <small class="text-muted">
+                    <strong>Identity Provider:</strong><br>
+                    Microsoft Azure Active Directory
+                </small>
+                <hr>
+                <small class="text-muted">
+                    <strong>Protocolo:</strong><br>
+                    SAML 2.0 (Security Assertion Markup Language)
+                </small>
+                <hr>
+                <small class="text-muted">
+                    <strong>Binding:</strong><br>
+                    HTTP-POST (Assertion Consumer Service)
+                </small>
+                <hr>
+                <small class="text-muted">
+                    <strong>NameID Format:</strong><br>
+                    Email Address
+                </small>
+            </div>
+        </div>
+        
+        <!-- Ações de segurança -->
+        <div class="card mt-3">
+            <div class="card-header">
+                <h6 class="mb-0">
+                    <i class="bi bi-shield-lock me-2"></i>Segurança
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <button class="btn btn-outline-warning btn-sm" onclick="confirmarLogout()">
+                        <i class="bi bi-box-arrow-right me-2"></i>Encerrar Sessão
+                    </button>
+                    <small class="text-muted text-center">
+                        <i class="bi bi-info-circle me-1"></i>
+                        Suas credenciais são gerenciadas pelo Azure AD
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de confirmação de logout -->
+<div class="modal fade" id="logoutModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="bi bi-question-circle me-2"></i>Confirmar Logout
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                Tem certeza que deseja encerrar sua sessão SAML?
+                <br><small class="text-muted">Isso também encerrará sua sessão no Azure AD (Single Logout).</small>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <a href="{{ url_for('logout') }}" class="btn btn-danger">
+                    <i class="bi bi-box-arrow-right me-2"></i>Sim, Sair
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    function confirmarLogout() {
+        const modal = new bootstrap.Modal(document.getElementById('logoutModal'));
+        modal.show();
+    }
+    
+    function toggleAttributes() {
+        const body = document.getElementById('attributesBody');
+        const icon = document.getElementById('toggleIcon');
+        const text = document.getElementById('toggleText');
+        
+        if (body.style.display === 'none') {
+            body.style.display = 'block';
+            icon.className = 'bi bi-eye-slash';
+            text.textContent = 'Ocultar';
+        } else {
+            body.style.display = 'none';
+            icon.className = 'bi bi-eye';
+            text.textContent = 'Mostrar';
+        }
+    }
+    
+    function copyToClipboard() {
+        const userInfo = `
+Nome: {{ user.display_name or 'N/A' }}
+Email: {{ user.email or 'N/A' }}
+UPN: {{ user.upn or 'N/A' }}
+Name ID: {{ user.name_id or 'N/A' }}
+Grupos: {{ user.groups|length if user.groups else 0 }}
+        `.trim();
+        
+        navigator.clipboard.writeText(userInfo).then(function() {
+            // Mostrar feedback visual
+            const toast = document.createElement('div');
+            toast.className = 'toast align-items-center text-white bg-success border-0 position-fixed top-0 end-0 m-3';
+            toast.style.zIndex = '9999';
+            toast.innerHTML = `
+                <div class="d-flex">
+                    <div class="toast-body">
+                        Informações copiadas para a área de transferência!
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                </div>
+            `;
+            document.body.appendChild(toast);
+            const bsToast = new bootstrap.Toast(toast);
+            bsToast.show();
+            
+            // Remover o toast após 3 segundos
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.parentNode.removeChild(toast);
+                }
+            }, 3000);
+        }).catch(function() {
+            alert('Erro ao copiar informações');
+        });
+    }
+</script>
+{% endblock %}
+

@@ -6,11 +6,24 @@ from funcoes.banco import inserir_usuario, deletar_usuario, lerResultado
 from funcoes.funcoes import capitalizaNome, buscaDepartamento, exemplo_chamada_bash
 import json, time
 
+# Importar módulo SAML
+from saml_auth import create_saml_auth, login_required
+
 configurar_logs()
 
 app = Flask(__name__)
 
+# Configurar chave secreta para sessões (IMPORTANTE: mude para uma chave segura em produção)
+app.config['SECRET_KEY'] = 'sua-chave-secreta-mude-em-producao'
+
+# Inicializar autenticação SAML
+saml_auth = create_saml_auth(app, saml_path='saml')
+
+# Disponibilizar saml_auth globalmente para o decorator standalone
+app.saml_auth = saml_auth
+
 @app.route("/")
+# @login_required
 def home():
     return render_template("home.html")
 
@@ -18,16 +31,13 @@ def home():
 def manutencao():
     return render_template("manutencao.html")
 
-
 @app.route("/manutencao1")
 def manutencao1():
     return render_template("manutencao.html")
 
-
 @app.route("/manutencao2")
 def manutencao2():
     return render_template("manutencao.html")
-
 
 @app.route("/cria_usuario")
 def cria_usuario():
@@ -35,12 +45,10 @@ def cria_usuario():
     return render_template("formulario_ajax_simples.html")
     # return render_template("cria_usuario.html")
 
-
 @app.route("/desativa_usuario")
 def desativa_usuario():
     logging.info(f"Chamou a rota desativa_usuario")
     return render_template("desativa_usuario.html")
-
 
 @app.route("/executa_desativa_usuario", methods=['POST'])
 def executa_desativa_usuario():
@@ -49,7 +57,6 @@ def executa_desativa_usuario():
     logging.info(f"CPF do usuário: {cpf_usuario}")
     saida = deletar_usuario(cpf=cpf_usuario)
     return render_template("desativa_usuario.html", nome_usuario=saida)
-
 
 @app.route("/executa_cria_usuario", methods=['POST'])
 def executa_cria_usuario():
@@ -84,7 +91,58 @@ def executa_cria_usuario():
     # time.sleep(3)
     return str(saida)
 
+# ===== ROTAS ADICIONAIS PARA SAML =====
 
+@app.route("/login")
+def login():
+    """Página de login - redireciona para SAML"""
+    return render_template("login_saml.html")
+
+@app.route("/dashboard")
+@login_required
+def dashboard():
+    """Dashboard para usuários autenticados"""
+    user_data = saml_auth.get_user_data()
+    return render_template("dashboard_saml.html", user=user_data)
+
+@app.route("/profile")
+@login_required
+def profile():
+    """Perfil do usuário autenticado"""
+    user_data = saml_auth.get_user_data()
+    return render_template("profile_saml.html", user=user_data)
+
+@app.route("/test-saml")
+def test_saml():
+    """Página para testar configurações SAML"""
+    settings_info = saml_auth.check_saml_settings()
+    return render_template("test_saml.html", settings=settings_info)
+
+# ===== EXEMPLO DE COMO PROTEGER ROTAS EXISTENTES =====
+# 
+# Para proteger uma rota existente, basta adicionar o decorator @login_required:
+#
+# @app.route("/cria_usuario")
+# @login_required  # <- Adicione esta linha
+# def cria_usuario():
+#     logging.info(f"Chamou a rota cria_usuario")
+#     return render_template("formulario_ajax_simples.html")
+#
+# @app.route("/desativa_usuario")
+# @login_required  # <- Adicione esta linha
+# def desativa_usuario():
+#     logging.info(f"Chamou a rota desativa_usuario")
+#     return render_template("desativa_usuario.html")
+
+# ===== EXEMPLO DE PROTEÇÃO POR GRUPO =====
+#
+# Para proteger uma rota por grupo específico:
+#
+# @app.route("/admin")
+# @saml_auth.require_group("Administradores")
+# def admin():
+#     return render_template("admin.html")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5000)
+
