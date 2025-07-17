@@ -3,7 +3,8 @@ from flask import render_template
 from funcoes.log import configurar_logs
 import logging
 from funcoes.banco import inserir_usuario, deletar_usuario, lerResultado
-from funcoes.funcoes import capitalizaNome, buscaDepartamento, exemplo_chamada_bash, modificaUsuario
+from funcoes.funcoes import capitalizaNome, buscaDepartamento, exemplo_chamada_bash, 
+from funcoes.ad import modificaUsuario
 import json, time
 
 # Importar módulo SAML
