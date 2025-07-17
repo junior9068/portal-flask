@@ -3,7 +3,7 @@ from flask import render_template
 from funcoes.log import configurar_logs
 import logging
 from funcoes.banco import inserir_usuario, deletar_usuario, lerResultado
-from funcoes.funcoes import capitalizaNome, buscaDepartamento, exemplo_chamada_bash
+from funcoes.funcoes import capitalizaNome, buscaDepartamento, exemplo_chamada_bash, modificaUsuario
 import json, time
 
 # Importar módulo SAML
@@ -56,7 +56,7 @@ def executa_desativa_usuario():
     cpf_usuario = request.form['cpfUsuario']
     logging.info(f"Chamou a rota executa_desativa_usuario")
     logging.info(f"CPF do usuário: {cpf_usuario}")
-    saida = deletar_usuario(cpf=cpf_usuario)
+    saida = modificaUsuario(cpf_usuario)
     return render_template("desativa_usuario.html", nome_usuario=saida)
 
 @app.route("/executa_cria_usuario", methods=['POST'])
