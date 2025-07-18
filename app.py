@@ -6,6 +6,7 @@ from funcoes.banco import inserir_usuario, deletar_usuario, lerResultado
 from funcoes.funcoes import capitalizaNome, buscaDepartamento, exemplo_chamada_bash
 from funcoes.ad import modificaUsuario
 import json, time
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 # Importar módulo SAML
 from saml_auth import create_saml_auth, login_required
@@ -13,6 +14,8 @@ from saml_auth import create_saml_auth, login_required
 configurar_logs()
 
 app = Flask(__name__)
+# Resolve encaminhamento do pacote
+app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1)
 
 # Configurar chave secreta para sessões (IMPORTANTE: mude para uma chave segura em produção)
 app.config['SECRET_KEY'] = 'sua-chave-secreta-mude-em-producao'
@@ -24,7 +27,7 @@ saml_auth = create_saml_auth(app, saml_path='saml')
 app.saml_auth = saml_auth
 
 @app.route("/")
-@saml_auth.login_required
+#@saml_auth.login_required
 def home():
     return render_template("home.html")
 
