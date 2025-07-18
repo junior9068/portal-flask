@@ -59,10 +59,10 @@ def home():
     # return jsonify(user)
     return render_template("home.html")
 
-# @app.route('/logout')
-# def logout():
-#     oidc.logout()
-#     return redirect(url_for('index'))
+@app.route('/logout')
+def logout():
+    oidc.logout()
+    return redirect(url_for('index'))
 
 #pegar os dados da sessão do usuário autenticado
 # @app.route('/perfil')
