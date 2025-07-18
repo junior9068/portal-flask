@@ -1,5 +1,6 @@
 import re
 from ldap3 import Server, Connection, ALL, MODIFY_REPLACE
+from ldap3.utils.conv import to_int
 import logging
 
 # --- CONFIGURAÇÕES DO AD ---
@@ -68,26 +69,16 @@ def modificaUsuario(cpfUsuario):
         conn = conectar_ad()
         dn_usuario = buscar_usuario_por_cpf(conn, cpf)
 
-        # if not dn_usuario:
-        #     print(dn_usuario)
-        #     print(f"[ERRO] Usuário com CPF {cpf} não encontrado.")
-        #     return
-
-        # cn_usuario = extrair_cn(dn_usuario)
-        # print(f"[INFO] Usuário encontrado: {cn_usuario}")
-
-        # if desativar_usuario(conn, dn_usuario):
-        #     print(f"[INFO] Conta desativada com sucesso.")
-        # else:
-        #     print(f"[ERRO] Falha ao desativar a conta: {conn.result['description']}")
-
-        # if mover_usuario(conn, dn_usuario, NOVA_OU):
-        #     print(f"[SUCESSO] Usuário movido para {NOVA_OU}")
-        # else:
-        #     print(f"[ERRO] Falha ao mover o usuário: {conn.result['description']}")
         if not dn_usuario:
             logging.error(f"Usuário com CPF {cpf} não encontrado.")
             return f"Usuário com CPF {cpf} não encontrado."
+        
+        # Verifica se a conta já está desativada
+        conn.search(dn_usuario, '(objectClass=person)', attributes=['userAccountControl'])
+        if conn.entries:
+            uac = to_int(conn.entries[0]['userAccountControl'].value)
+            if uac & 2:
+                return f"Usuário já está desativado."
         if not desativar_usuario(conn, dn_usuario):
             logging.error(f"Falha ao desativar a conta: {conn.result['description']}")
             return f"Falha ao desativar a conta."
