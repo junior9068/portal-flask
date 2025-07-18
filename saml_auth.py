@@ -156,9 +156,11 @@ class SAMLAuth:
         """Prepara o request do Flask para o formato esperado pelo python3-saml"""
         url_data = request.url.split('?')
         return {
-            'https': 'on' if request.scheme == 'https' else 'off',
+            #'https': 'on' if request.scheme == 'https' else 'off',
+            'https': 'on',
             'http_host': request.headers.get('Host', request.host),
-            'server_port': request.environ.get('SERVER_PORT'),
+            #'server_port': request.environ.get('SERVER_PORT'),
+            'server_port': 443,
             'script_name': request.path,
             'get_data': request.args.copy(),
             'post_data': request.form.copy(),
