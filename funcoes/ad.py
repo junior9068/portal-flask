@@ -74,11 +74,11 @@ def modificaUsuario(cpfUsuario):
             return f"Usuário com CPF {cpf} não encontrado."
         
         # Verifica se a conta já está desativada
-        conn.search(dn_usuario, '(objectClass=person)', attributes=['userAccountControl'])
-        if conn.entries:
-            uac = int(conn.entries[0]['userAccountControl'].value)
-            if uac & 2:
-                return f"Usuário já está desativado."
+        # conn.search(dn_usuario, '(objectClass=person)', attributes=['userAccountControl'])
+        # if conn.entries:
+        #     uac = int(conn.entries[0]['userAccountControl'].value)
+        #     if uac & 2:
+        #         return f"Usuário já está desativado."
         return f"Usuário encontrado: {nome}"
         # if not desativar_usuario(conn, dn_usuario):
         #     logging.error(f"Falha ao desativar a conta: {conn.result['description']}")
