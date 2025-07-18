@@ -27,7 +27,7 @@ saml_auth = create_saml_auth(app, saml_path='saml')
 app.saml_auth = saml_auth
 
 @app.route("/")
-#@saml_auth.login_required
+@saml_auth.login_required
 def home():
     return render_template("home.html")
 
