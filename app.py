@@ -10,9 +10,6 @@ import json, time
 from werkzeug.middleware.proxy_fix import ProxyFix
 from flask_oidc import OpenIDConnect
 
-# Importar módulo SAML
-# from saml_auth import create_saml_auth, login_required
-
 configurar_logs()
 
 app = Flask(__name__)
@@ -36,7 +33,7 @@ app.config.update({
 })
 
 oidc = OpenIDConnect(app)
-logging.info(f"OIDC: {oidc}")
+
 # Resolve encaminhamento do pacote
 #app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1)
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1)
@@ -44,20 +41,20 @@ app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1)
 # Configurar chave secreta para sessões (IMPORTANTE: mude para uma chave segura em produção)
 app.config['SECRET_KEY'] = 'sua-chave-secreta-mude-em-producao'
 
-# Inicializar autenticação SAML
-# saml_auth = create_saml_auth(app, saml_path='saml')
 
-# Disponibilizar saml_auth globalmente para o decorator standalone
-# app.saml_auth = saml_auth
+@app.route("/index")
+def index():
+    return render_template("index.html")
 
 @app.route("/")
-#@oidc.require_login
+@oidc.require_login
 def home():
     #após implementar o OIDC
     user = oidc.user_getinfo(['email', 'name'])
     logging.info(f"Usuário autenticado: {user}")
     # return jsonify(user)
     return render_template("home.html")
+
 
 @app.route('/logout')
 def logout():
@@ -161,59 +158,6 @@ def consulta_nome():
     saida = modificaUsuario(cpfUsuario)
     return saida
 
-
-
-# ===== ROTAS ADICIONAIS PARA SAML =====
-
-# @app.route("/login")
-# def login():
-#     """Página de login - redireciona para SAML"""
-#     return render_template("login_saml.html")
-
-# @app.route("/dashboard")
-# @login_required
-# def dashboard():
-#     """Dashboard para usuários autenticados"""
-#     user_data = saml_auth.get_user_data()
-#     return render_template("dashboard_saml.html", user=user_data)
-
-# @app.route("/profile")
-# @login_required
-# def profile():
-#     """Perfil do usuário autenticado"""
-#     user_data = saml_auth.get_user_data()
-#     return render_template("profile_saml.html", user=user_data)
-
-# @app.route("/test-saml")
-# def test_saml():
-#     """Página para testar configurações SAML"""
-#     settings_info = saml_auth.check_saml_settings()
-#     return render_template("test_saml.html", settings=settings_info)
-
-# ===== EXEMPLO DE COMO PROTEGER ROTAS EXISTENTES =====
-# 
-# Para proteger uma rota existente, basta adicionar o decorator @login_required:
-#
-# @app.route("/cria_usuario")
-# @login_required  # <- Adicione esta linha
-# def cria_usuario():
-#     logging.info(f"Chamou a rota cria_usuario")
-#     return render_template("formulario_ajax_simples.html")
-#
-# @app.route("/desativa_usuario")
-# @login_required  # <- Adicione esta linha
-# def desativa_usuario():
-#     logging.info(f"Chamou a rota desativa_usuario")
-#     return render_template("desativa_usuario.html")
-
-# ===== EXEMPLO DE PROTEÇÃO POR GRUPO =====
-#
-# Para proteger uma rota por grupo específico:
-#
-# @app.route("/admin")
-# @saml_auth.require_group("Administradores")
-# def admin():
-#     return render_template("admin.html")
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=5000)
