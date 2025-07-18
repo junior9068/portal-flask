@@ -1,171 +1,17 @@
 {% extends "base.html" %}
 
-{% block title %}Portal SAML - Login Microsoft{% endblock %}
+{% block title %}Portal CADE{% endblock %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-8 col-lg-6">
-        <div class="card shadow-lg">
-            <div class="card-header microsoft-blue text-white text-center">
-                <h3 class="mb-0">
-                    <i class="bi bi-microsoft me-2"></i>Autenticação Microsoft
-                </h3>
-                <small>Single Sign-On via SAML 2.0</small>
-            </div>
-            <div class="card-body p-5 text-center">
-                <div class="mb-4">
-                    <i class="bi bi-shield-check text-primary" style="font-size: 4rem;"></i>
-                </div>
-                
-                <h4 class="mb-3">Bem-vindo ao Portal SAML</h4>
-                <p class="text-muted mb-4">
-                    Faça login com sua conta Microsoft para acessar o sistema.
-                    Utilizamos autenticação segura via SAML 2.0 integrada ao Azure Active Directory.
-                </p>
-                
-                <div class="d-grid gap-2">
-                    <a href="{{ url_for('login') }}" class="btn microsoft-blue btn-lg">
-                        <i class="bi bi-microsoft me-2"></i>
-                        Entrar com Microsoft
-                    </a>
-                </div>
-                
-                <hr class="my-4">
-                
-                <div class="row text-center">
-                    <div class="col-md-4">
-                        <i class="bi bi-shield-lock text-success mb-2" style="font-size: 2rem;"></i>
-                        <h6>Seguro</h6>
-                        <small class="text-muted">Autenticação via Azure AD</small>
-                    </div>
-                    <div class="col-md-4">
-                        <i class="bi bi-lightning text-warning mb-2" style="font-size: 2rem;"></i>
-                        <h6>Rápido</h6>
-                        <small class="text-muted">Single Sign-On (SSO)</small>
-                    </div>
-                    <div class="col-md-4">
-                        <i class="bi bi-check-circle text-info mb-2" style="font-size: 2rem;"></i>
-                        <h6>Confiável</h6>
-                        <small class="text-muted">Protocolo SAML 2.0</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Informações técnicas -->
-        <div class="card mt-4">
-            <div class="card-header bg-info text-white">
-                <h6 class="mb-0">
-                    <i class="bi bi-info-circle me-2"></i>Informações Técnicas
-                </h6>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h6><i class="bi bi-gear text-primary me-2"></i>Protocolo:</h6>
-                        <ul class="list-unstyled">
-                            <li><i class="bi bi-arrow-right me-2"></i>SAML 2.0</li>
-                            <li><i class="bi bi-arrow-right me-2"></i>SP-initiated SSO</li>
-                            <li><i class="bi bi-arrow-right me-2"></i>HTTP-POST Binding</li>
-                        </ul>
-                    </div>
-                    <div class="col-md-6">
-                        <h6><i class="bi bi-microsoft text-primary me-2"></i>Identity Provider:</h6>
-                        <ul class="list-unstyled">
-                            <li><i class="bi bi-arrow-right me-2"></i>Microsoft Azure AD</li>
-                            <li><i class="bi bi-arrow-right me-2"></i>Enterprise Application</li>
-                            <li><i class="bi bi-arrow-right me-2"></i>Asserções assinadas</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="mt-3 text-center">
-                    <a href="{{ url_for('test_saml') }}" class="btn btn-outline-secondary btn-sm">
-                        <i class="bi bi-tools me-2"></i>Testar Configurações SAML
-                    </a>
-                    <a href="{{ url_for('saml_metadata') }}" class="btn btn-outline-info btn-sm" target="_blank">
-                        <i class="bi bi-file-code me-2"></i>Metadados SP
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- Fluxo de autenticação -->
 <div class="row justify-content-center mt-5">
-    <div class="col-md-10">
-        <div class="card">
-            <div class="card-header bg-secondary text-white">
-                <h5 class="mb-0">
-                    <i class="bi bi-diagram-3 me-2"></i>Fluxo de Autenticação SAML
-                </h5>
-            </div>
-            <div class="card-body">
-                <div class="row text-center">
-                    <div class="col-md-2">
-                        <div class="mb-3">
-                            <div class="badge bg-primary rounded-circle p-3">1</div>
-                        </div>
-                        <h6>Clique em "Entrar"</h6>
-                        <small class="text-muted">Usuário inicia o login</small>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="mb-3">
-                            <div class="badge bg-primary rounded-circle p-3">2</div>
-                        </div>
-                        <h6>Redirecionamento</h6>
-                        <small class="text-muted">Para Azure AD</small>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="mb-3">
-                            <div class="badge bg-primary rounded-circle p-3">3</div>
-                        </div>
-                        <h6>Autenticação</h6>
-                        <small class="text-muted">Login no Microsoft</small>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="mb-3">
-                            <div class="badge bg-primary rounded-circle p-3">4</div>
-                        </div>
-                        <h6>Asserção SAML</h6>
-                        <small class="text-muted">Azure AD responde</small>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="mb-3">
-                            <div class="badge bg-primary rounded-circle p-3">5</div>
-                        </div>
-                        <h6>Validação</h6>
-                        <small class="text-muted">Flask verifica</small>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="mb-3">
-                            <div class="badge bg-success rounded-circle p-3">6</div>
-                        </div>
-                        <h6>Acesso Liberado</h6>
-                        <small class="text-muted">Dashboard</small>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div>
+        Bem vindo!
     </div>
 </div>
 {% endblock %}
 
 {% block extra_js %}
-<script>
-    // Animação simples para os badges do fluxo
-    document.addEventListener('DOMContentLoaded', function() {
-        const badges = document.querySelectorAll('.badge.rounded-circle');
-        badges.forEach((badge, index) => {
-            setTimeout(() => {
-                badge.style.transform = 'scale(1.1)';
-                setTimeout(() => {
-                    badge.style.transform = 'scale(1)';
-                }, 200);
-            }, index * 300);
-        });
-    });
-</script>
+
 {% endblock %}
 
