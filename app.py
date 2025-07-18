@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify, redirect, url_for
+from flask_session import Session
 from flask import render_template
 from funcoes.log import configurar_logs
 import logging
@@ -15,6 +16,15 @@ from flask_oidc import OpenIDConnect
 configurar_logs()
 
 app = Flask(__name__)
+
+# Flask-Session config
+app.config['SESSION_TYPE'] = 'filesystem'  # ou 'redis', 'mongodb', 'sqlalchemy' se quiser
+app.config['SESSION_PERMANENT'] = False
+app.config['SESSION_USE_SIGNER'] = True
+app.config['SESSION_FILE_DIR'] = '/opt/.flask_session/'  # pasta onde sessões serão salvas
+
+# Inicializa Flask-Session
+Session(app)
 
 app.config.update({
     'SECRET_KEY': 'minha-chave-secreta',
