@@ -61,8 +61,22 @@ def home():
 
 @app.route('/logout')
 def logout():
-    oidc.logout()
-    return redirect(url_for('index'))
+    oidc.logout()  # limpa a sessão local
+
+    tenant_id = "0f45bbf5-e0b2-4611-869d-02cbccbc164c"
+    post_logout_redirect_uri = url_for('index', _external=True)
+
+    azure_logout_url = (
+        f"https://login.microsoftonline.com/{tenant_id}/oauth2/v2.0/logout"
+        f"?post_logout_redirect_uri={post_logout_redirect_uri}"
+    )
+
+    return redirect(azure_logout_url)
+
+# @app.route('/logout')
+# def logout():
+#     oidc.logout()
+#     return redirect(url_for('index'))
 
 #pegar os dados da sessão do usuário autenticado
 # @app.route('/perfil')
