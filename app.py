@@ -51,7 +51,7 @@ app.config['SECRET_KEY'] = 'sua-chave-secreta-mude-em-producao'
 # app.saml_auth = saml_auth
 
 @app.route("/")
-@oidc.require_login
+#@oidc.require_login
 def home():
     #após implementar o OIDC
     user = oidc.user_getinfo(['email', 'name'])
@@ -98,20 +98,20 @@ def manutencao2():
     return render_template("manutencao.html")
 
 @app.route("/cria_usuario")
-#@login_required
+@oidc.require_login
 def cria_usuario():
     logging.info(f"Chamou a rota cria_usuario")
     return render_template("formulario_ajax_simples.html")
     # return render_template("cria_usuario.html")
 
 @app.route("/desativa_usuario")
-#@login_required
+@oidc.require_login
 def desativa_usuario():
     logging.info(f"Chamou a rota desativa_usuario")
     return render_template("desativa_usuario.html")
 
 @app.route("/executa_desativa_usuario", methods=['POST'])
-#@login_required
+@oidc.require_login
 def executa_desativa_usuario():
     cpf_usuario = request.form['cpfUsuario']
     logging.info(f"Chamou a rota executa_desativa_usuario")
@@ -120,7 +120,7 @@ def executa_desativa_usuario():
     return render_template("desativa_usuario.html", nome_usuario=saida)
 
 @app.route("/executa_cria_usuario", methods=['POST'])
-#@login_required
+@oidc.require_login
 def executa_cria_usuario():
     # Cria um dicionário para armazenar os dados do usuário
     nomeUsuario = request.form['nomeUsuario']
