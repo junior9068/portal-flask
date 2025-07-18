@@ -41,12 +41,15 @@ app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1)
 # Configurar chave secreta para sessões (IMPORTANTE: mude para uma chave segura em produção)
 app.config['SECRET_KEY'] = 'sua-chave-secreta-mude-em-producao'
 
+@app.route("/")
+def raiz():
+    return redirect(url_for("index"))
 
 @app.route("/index")
 def index():
     return render_template("index.html")
 
-@app.route("/")
+@app.route("/home")
 @oidc.require_login
 def home():
     #após implementar o OIDC
