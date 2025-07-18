@@ -1,3 +1,26 @@
+# #Para rodar com o Gunicorn
+
+# import logging
+# import sys
+
+# def configurar_logs():
+#     gunicorn_logger = logging.getLogger('gunicorn.error')
+#     root_logger = logging.getLogger()
+
+#     if gunicorn_logger.handlers:
+#         # Se estiver rodando com Gunicorn, herda os handlers
+#         root_logger.handlers = gunicorn_logger.handlers
+#         root_logger.setLevel(gunicorn_logger.level)
+#     else:
+#         # Executando localmente (flask run, python app.py, etc.)
+#         logging.basicConfig(
+#             level=logging.INFO,
+#             format='%(asctime)s [%(levelname)s] %(message)s',
+#             handlers=[
+#                 logging.StreamHandler(sys.stdout)
+#             ]
+#         )
+
 import logging
 import sys
 

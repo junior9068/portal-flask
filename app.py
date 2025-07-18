@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify, redirect, url_for
 from flask import render_template
 from funcoes.log import configurar_logs
 import logging
@@ -7,13 +7,26 @@ from funcoes.funcoes import capitalizaNome, buscaDepartamento, exemplo_chamada_b
 from funcoes.ad import modificaUsuario
 import json, time
 from werkzeug.middleware.proxy_fix import ProxyFix
+from flask_oidc import OpenIDConnect
 
 # Importar módulo SAML
-from saml_auth import create_saml_auth, login_required
+# from saml_auth import create_saml_auth, login_required
 
 configurar_logs()
 
 app = Flask(__name__)
+
+app.config.update({
+    'SECRET_KEY': 'minha-chave-secreta',
+    'OIDC_CLIENT_SECRETS': 'client_secrets.json',
+    'OIDC_SCOPES': ['openid', 'email', 'profile'],
+    'OIDC_RESOURCE_SERVER_ONLY': False,
+    'OIDC_INTROSPECTION_AUTH_METHOD': 'client_secret_post',
+    'OIDC_ID_TOKEN_COOKIE_SECURE': False  # True em produção com HTTPS
+})
+
+oidc = OpenIDConnect(app)
+logging.info(f"OIDC: {oidc}")
 # Resolve encaminhamento do pacote
 #app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1)
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1)
@@ -22,15 +35,31 @@ app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1)
 app.config['SECRET_KEY'] = 'sua-chave-secreta-mude-em-producao'
 
 # Inicializar autenticação SAML
-saml_auth = create_saml_auth(app, saml_path='saml')
+# saml_auth = create_saml_auth(app, saml_path='saml')
 
 # Disponibilizar saml_auth globalmente para o decorator standalone
-app.saml_auth = saml_auth
+# app.saml_auth = saml_auth
 
 @app.route("/")
-@saml_auth.login_required
+@oidc.require_login
 def home():
+    #após implementar o OIDC
+    user = oidc.user_getinfo(['email', 'name'])
+    logging.info(f"Usuário autenticado: {user}")
+    # return jsonify(user)
     return render_template("home.html")
+
+# @app.route('/logout')
+# def logout():
+#     oidc.logout()
+#     return redirect(url_for('index'))
+
+#pegar os dados da sessão do usuário autenticado
+# @app.route('/perfil')
+# @oidc.require_login
+# def perfil():
+#     user_info = oidc.user_getinfo(['sub', 'email', 'name'])
+#     return jsonify(user_info)
 
 @app.route("/manutencao")
 def manutencao():
@@ -112,30 +141,30 @@ def consulta_nome():
 
 # ===== ROTAS ADICIONAIS PARA SAML =====
 
-@app.route("/login")
-def login():
-    """Página de login - redireciona para SAML"""
-    return render_template("login_saml.html")
+# @app.route("/login")
+# def login():
+#     """Página de login - redireciona para SAML"""
+#     return render_template("login_saml.html")
 
-@app.route("/dashboard")
-@login_required
-def dashboard():
-    """Dashboard para usuários autenticados"""
-    user_data = saml_auth.get_user_data()
-    return render_template("dashboard_saml.html", user=user_data)
+# @app.route("/dashboard")
+# @login_required
+# def dashboard():
+#     """Dashboard para usuários autenticados"""
+#     user_data = saml_auth.get_user_data()
+#     return render_template("dashboard_saml.html", user=user_data)
 
-@app.route("/profile")
-@login_required
-def profile():
-    """Perfil do usuário autenticado"""
-    user_data = saml_auth.get_user_data()
-    return render_template("profile_saml.html", user=user_data)
+# @app.route("/profile")
+# @login_required
+# def profile():
+#     """Perfil do usuário autenticado"""
+#     user_data = saml_auth.get_user_data()
+#     return render_template("profile_saml.html", user=user_data)
 
-@app.route("/test-saml")
-def test_saml():
-    """Página para testar configurações SAML"""
-    settings_info = saml_auth.check_saml_settings()
-    return render_template("test_saml.html", settings=settings_info)
+# @app.route("/test-saml")
+# def test_saml():
+#     """Página para testar configurações SAML"""
+#     settings_info = saml_auth.check_saml_settings()
+#     return render_template("test_saml.html", settings=settings_info)
 
 # ===== EXEMPLO DE COMO PROTEGER ROTAS EXISTENTES =====
 # 

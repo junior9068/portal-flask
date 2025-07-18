@@ -72,7 +72,8 @@ class SAMLAuth:
                 logging.info(f"Login SAML bem-sucedido: {auth.get_nameid()}")
                 
                 # Redirecionar para a URL solicitada ou home
-                # self_url = OneLogin_Saml2_Utils.get_self_url(req)
+                self_url = OneLogin_Saml2_Utils.get_self_url(req)
+                logging.info(f"Redirecionando para: {self_url}")
                 # if 'RelayState' in request.form and OneLogin_Saml2_Utils.get_self_url(req) != request.form['RelayState']:
                 #     return redirect(auth.redirect_to(request.form['RelayState']))
                 # else:
