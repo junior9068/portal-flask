@@ -21,7 +21,7 @@ app = Flask(__name__)
 app.config['SESSION_TYPE'] = 'filesystem'  # ou 'redis', 'mongodb', 'sqlalchemy' se quiser
 app.config['SESSION_PERMANENT'] = False
 app.config['SESSION_USE_SIGNER'] = True
-app.config['SESSION_FILE_DIR'] = '/opt/.flask_session/'  # pasta onde sessões serão salvas
+app.config['SESSION_FILE_DIR'] = '/opt/portal-flask/.flask_session/'  # pasta onde sessões serão salvas
 
 # Inicializa Flask-Session
 Session(app)
