@@ -15,7 +15,8 @@ configurar_logs()
 
 app = Flask(__name__)
 # Resolve encaminhamento do pacote
-app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1)
+# app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1)
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1)
 
 # Configurar chave secreta para sessões (IMPORTANTE: mude para uma chave segura em produção)
 app.config['SECRET_KEY'] = 'sua-chave-secreta-mude-em-producao'
