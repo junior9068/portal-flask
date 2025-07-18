@@ -82,6 +82,7 @@ def logout():
 @app.route("/oidc_callback")
 def oidc_callback():
     # Essa é a rota que o Azure chama após login
+    logging.info("Callback do OIDC chamado")
     return redirect(url_for("home"))
 
 
