@@ -95,6 +95,14 @@ def executa_cria_usuario():
     # time.sleep(3)
     return str(saida)
 
+@app.route("/consulta_nome", methods=['POST'])
+def consulta_nome():
+    cpfUsuario = request.form['cpfUsuario']
+    saida = modificaUsuario(cpfUsuario)
+    return saida
+
+
+
 # ===== ROTAS ADICIONAIS PARA SAML =====
 
 @app.route("/login")
