@@ -67,26 +67,27 @@ def modificaUsuario(cpfUsuario):
     try:
         conn = conectar_ad()
         dn_usuario = buscar_usuario_por_cpf(conn, cpf)
-        nome = extrair_cn(dn_usuario)
+        #Variável para armazenar o nome do usuário
+        # nome = extrair_cn(dn_usuario)
 
         if not dn_usuario:
             logging.error(f"Usuário com CPF {cpf} não encontrado.")
             return f"Usuário com CPF {cpf} não encontrado."
         
-        # Verifica se a conta já está desativada
-        # conn.search(dn_usuario, '(objectClass=person)', attributes=['userAccountControl'])
-        # if conn.entries:
-        #     uac = int(conn.entries[0]['userAccountControl'].value)
-        #     if uac & 2:
-        #         return f"Usuário já está desativado."
-        return f"Usuário encontrado: {nome}"
-        # if not desativar_usuario(conn, dn_usuario):
-        #     logging.error(f"Falha ao desativar a conta: {conn.result['description']}")
-        #     return f"Falha ao desativar a conta."
-        # if not mover_usuario(conn, dn_usuario, NOVA_OU):
-        #     logging.error(f"Falha ao mover o usuário de OU: {conn.result['description']}")
-        #     return f"Falha ao desativar a conta."
-        # return f"Usuário desativado com sucesso!"
+        #Verifica se a conta já está desativada
+        conn.search(dn_usuario, '(objectClass=person)', attributes=['userAccountControl'])
+        if conn.entries:
+            uac = int(conn.entries[0]['userAccountControl'].value)
+            if uac & 2:
+                return f"Usuário já está desativado."
+        # return f"Usuário encontrado: {nome}"
+        if not desativar_usuario(conn, dn_usuario):
+            logging.error(f"Falha ao desativar a conta: {conn.result['description']}")
+            return f"Falha ao desativar a conta."
+        if not mover_usuario(conn, dn_usuario, NOVA_OU):
+            logging.error(f"Falha ao mover o usuário de OU: {conn.result['description']}")
+            return f"Falha ao desativar a conta."
+        return f"Usuário desativado com sucesso!"
     except Exception as e:
         logging.error(f"[EXCEÇÃO] {e}")
         return f"Falha ao desativar a conta."
