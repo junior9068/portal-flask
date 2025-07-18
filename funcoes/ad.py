@@ -1,6 +1,5 @@
 import re
 from ldap3 import Server, Connection, ALL, MODIFY_REPLACE
-from ldap3.utils.conv import to_int
 import logging
 
 # --- CONFIGURAÇÕES DO AD ---
@@ -76,7 +75,7 @@ def modificaUsuario(cpfUsuario):
         # Verifica se a conta já está desativada
         conn.search(dn_usuario, '(objectClass=person)', attributes=['userAccountControl'])
         if conn.entries:
-            uac = to_int(conn.entries[0]['userAccountControl'].value)
+            uac = int(conn.entries[0]['userAccountControl'].value)
             if uac & 2:
                 return f"Usuário já está desativado."
         if not desativar_usuario(conn, dn_usuario):
