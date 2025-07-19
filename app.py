@@ -31,6 +31,7 @@ app.config.update({
     'OIDC_SCOPES': ['openid', 'email', 'profile'],
     'OIDC_RESOURCE_SERVER_ONLY': False,
     'OIDC_INTROSPECTION_AUTH_METHOD': 'client_secret_post',
+    'OIDC_SCOPES': ['openid', 'email', 'profile', 'User.Read'],
     'OIDC_ID_TOKEN_COOKIE_SECURE': False  # True em produção com HTTPS
 })
 
