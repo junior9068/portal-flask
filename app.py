@@ -56,8 +56,10 @@ def index():
 def home():
     #após implementar o OIDC
     user = oidc.user_getinfo(['email', 'name'])
-    logging.info(f"Usuário autenticado: {user}")
-    logging.info(f"SÓ O NOME: {user.get('name')}")
+    # Salva o access_token na sessão manualmente
+    token = oidc.get_access_token()
+    session['access_token'] = token
+    logging.info(f"Access Token: {token}")
     nome = user.get('name')
     # return jsonify(user)
     return render_template("home.html", nome=nome)
