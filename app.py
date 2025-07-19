@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, redirect, url_for
 from flask_session import Session
+from flask import session
 from flask import render_template
 from funcoes.log import configurar_logs
 import logging
@@ -58,9 +59,12 @@ def home():
     # return jsonify(user)
     return render_template("home.html")
 
+
 @app.route('/logout')
 def logout():
-    # Evita redirecionamento automático do oidc.logout()
+    session.clear()  # Limpa a sessão local
+
+    # Impede o Flask-OIDC de redirecionar automaticamente
     oidc.logout(redirect_to=None)
 
     tenant_id = "0f45bbf5-e0b2-4611-869d-02cbccbc164c"
