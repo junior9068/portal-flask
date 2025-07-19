@@ -43,7 +43,7 @@ app.config['SECRET_KEY'] = 'sua-chave-secreta-mude-em-producao'
 
 @app.route("/")
 def raiz():
-    return redirect(url_for("index"))
+    return redirect(url_for("home"))
 
 @app.route("/index")
 def index():
@@ -58,32 +58,41 @@ def home():
     # return jsonify(user)
     return render_template("home.html")
 
-
-@app.route("/logout")
+@app.route('/logout')
 def logout():
-    oidc.logout()  # limpa a sessão local
+    # Limpa sessão local
+    oidc.logout()
 
+    # Redireciona para o logout da Microsoft
     tenant_id = "0f45bbf5-e0b2-4611-869d-02cbccbc164c"
-    client_id = "06481e38-e31c-44e2-add1-8975884c921c"
+    post_logout_redirect_uri = url_for('index', _external=True)
 
-    # Essa URL força a tela de login
-    azure_login_url = (
-        f"https://login.microsoftonline.com/{tenant_id}/oauth2/v2.0/authorize"
-        f"?client_id={client_id}"
-        f"&response_type=code"
-        f"&redirect_uri={url_for('oidc_callback', _external=True)}"
-        f"&response_mode=query"
-        f"&scope=openid+email+profile"
-        f"&prompt=login"
+    logout_url = (
+        f"https://login.microsoftonline.com/{tenant_id}/oauth2/v2.0/logout"
+        f"?post_logout_redirect_uri={post_logout_redirect_uri}"
     )
 
-    return redirect(azure_login_url)
+    return redirect(logout_url)
 
-@app.route("/oidc_callback")
-def oidc_callback():
-    # Essa é a rota que o Azure chama após login
-    logging.info("Callback do OIDC chamado")
-    return redirect(url_for("home"))
+# @app.route("/logout")
+# def logout():
+#     oidc.logout()  # limpa a sessão local
+
+#     tenant_id = "0f45bbf5-e0b2-4611-869d-02cbccbc164c"
+#     client_id = "06481e38-e31c-44e2-add1-8975884c921c"
+
+#     # Essa URL força a tela de login
+#     azure_login_url = (
+#         f"https://login.microsoftonline.com/{tenant_id}/oauth2/v2.0/authorize"
+#         f"?client_id={client_id}"
+#         f"&response_type=code"
+#         f"&redirect_uri={url_for('oidc_callback', _external=True)}"
+#         f"&response_mode=query"
+#         f"&scope=openid+email+profile"
+#         f"&prompt=login"
+#     )
+
+#     return redirect(azure_login_url)
 
 
 # @app.route('/logout')
