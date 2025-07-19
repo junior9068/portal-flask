@@ -60,10 +60,9 @@ def home():
 
 @app.route('/logout')
 def logout():
-    # Limpa sessão local
-    oidc.logout()
+    # Evita redirecionamento automático do oidc.logout()
+    oidc.logout(redirect_to=None)
 
-    # Redireciona para o logout da Microsoft
     tenant_id = "0f45bbf5-e0b2-4611-869d-02cbccbc164c"
     post_logout_redirect_uri = url_for('index', _external=True)
 
