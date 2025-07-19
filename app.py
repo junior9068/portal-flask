@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify, redirect, url_for
 from flask_session import Session
-from flask import session
 from flask import render_template
 from funcoes.log import configurar_logs
 import logging
@@ -10,6 +9,8 @@ from funcoes.ad import modificaUsuario
 import json, time
 from werkzeug.middleware.proxy_fix import ProxyFix
 from flask_oidc import OpenIDConnect
+import requests
+from flask import Response, session
 
 configurar_logs()
 
@@ -79,52 +80,21 @@ def logout():
 
     return redirect(logout_url)
 
-# @app.route("/logout")
-# def logout():
-#     oidc.logout()  # limpa a sessão local
 
-#     tenant_id = "0f45bbf5-e0b2-4611-869d-02cbccbc164c"
-#     client_id = "06481e38-e31c-44e2-add1-8975884c921c"
+@app.route('/user/photo')
+def user_photo():
+    token = session.get('access_token')  # seu token armazenado na sessão
+    if not token:
+        return "Unauthorized", 401
 
-#     # Essa URL força a tela de login
-#     azure_login_url = (
-#         f"https://login.microsoftonline.com/{tenant_id}/oauth2/v2.0/authorize"
-#         f"?client_id={client_id}"
-#         f"&response_type=code"
-#         f"&redirect_uri={url_for('oidc_callback', _external=True)}"
-#         f"&response_mode=query"
-#         f"&scope=openid+email+profile"
-#         f"&prompt=login"
-#     )
+    headers = {'Authorization': f'Bearer {token}'}
+    graph_url = "https://graph.microsoft.com/v1.0/me/photo/$value"
+    r = requests.get(graph_url, headers=headers)
 
-#     return redirect(azure_login_url)
-
-
-# @app.route('/logout')
-# def logout():
-#     oidc.logout()  # limpa a sessão local
-
-#     tenant_id = "0f45bbf5-e0b2-4611-869d-02cbccbc164c"
-#     post_logout_redirect_uri = url_for('index', _external=True)
-
-#     azure_logout_url = (
-#         f"https://login.microsoftonline.com/{tenant_id}/oauth2/v2.0/logout"
-#         f"?post_logout_redirect_uri={post_logout_redirect_uri}"
-#     )
-
-#     return redirect(azure_logout_url)
-
-# @app.route('/logout')
-# def logout():
-#     oidc.logout()
-#     return redirect(url_for('index'))
-
-#pegar os dados da sessão do usuário autenticado
-# @app.route('/perfil')
-# @oidc.require_login
-# def perfil():
-#     user_info = oidc.user_getinfo(['sub', 'email', 'name'])
-#     return jsonify(user_info)
+    if r.status_code == 200:
+        return Response(r.content, content_type=r.headers['Content-Type'])
+    else:
+        return "Photo not found", r.status_code
 
 @app.route("/manutencao")
 def manutencao():
