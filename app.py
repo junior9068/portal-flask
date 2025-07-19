@@ -92,8 +92,10 @@ def user_photo():
     r = requests.get(graph_url, headers=headers)
 
     if r.status_code == 200:
+        logging.info(f"Foto do usuário obtida com sucesso. {Response(r.content, content_type=r.headers['Content-Type'])}")
         return Response(r.content, content_type=r.headers['Content-Type'])
     else:
+        logging.error(f"Erro ao obter foto do usuário: {r.status_code} - {r.text}")
         return "Photo not found", r.status_code
 
 @app.route("/manutencao")
