@@ -56,10 +56,12 @@ def home():
     #após implementar o OIDC
     user = oidc.user_getinfo(['email', 'name'])
     logging.info(f"Usuário autenticado: {user}")
+    logging.info(f"SÓ O NOME: {user.get('name')}")
+    nome = user.get('name')
     # return jsonify(user)
-    return render_template("home.html")
+    return render_template("home.html", nome)
 
-
+# NÃO FUNCIONOU. TEMOS QUE CORRIGIR
 @app.route('/logout')
 def logout():
     session.clear()  # Limpa a sessão local
