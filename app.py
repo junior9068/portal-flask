@@ -59,7 +59,7 @@ def home():
     logging.info(f"SÓ O NOME: {user.get('name')}")
     nome = user.get('name')
     # return jsonify(user)
-    return render_template("home.html", nome)
+    return render_template("home.html", nome=nome)
 
 # NÃO FUNCIONOU. TEMOS QUE CORRIGIR
 @app.route('/logout')
