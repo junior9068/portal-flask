@@ -21,10 +21,10 @@
                                 <span class="input-group-text"><i class="bi bi-person"></i></span>
                                 <input type="text" class="form-control" id="cpfUsuario" name="cpfUsuario" placeholder="000.000.000-00" required>
                             </div>
-                            <!-- <div class="input-group">
+                            <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-person"></i></span>
                                 <input type="text" class="form-control" id="nomeUsuario" name="nomeUsuario" placeholder="" readonly>
-                            </div> -->
+                            </div>
                             <div class="invalid-feedback" id="nomeInvalido">
                                 Por favor, informe o CPF do usuário.
                             </div>
@@ -108,29 +108,29 @@
         return false;
     };
 
-    // const cpfInput = document.getElementById('cpfUsuario');
-    // const nomeInput = document.getElementById('nomeUsuario');
+    const cpfInput = document.getElementById('cpfUsuario');
+    const nomeInput = document.getElementById('nomeUsuario');
 
-    // cpfInput.addEventListener('blur', function () {
-    // const cpfLimpo = cpfInput.value.replace(/\D/g, '');
+    cpfInput.addEventListener('blur', function () {
+    const cpfLimpo = cpfInput.value.replace(/\D/g, '');
 
-    // if (cpfLimpo.length === 11) {
-    //     const formData = new FormData();
-    //     formData.append('cpf', cpfLimpo);
+    if (cpfLimpo.length === 11) {
+        const formData = new FormData();
+        formData.append('cpf', cpfLimpo);
 
-    //     fetch('/consulta_nome', {
-    //         method: 'POST',
-    //         body: formData
-    //     })
-    //     .then(response => response.text())
-    //     .then(nome => {
-    //         nomeInput.value = nome || '';
-    //     })
-    //     .catch(error => {
-    //         console.error('Erro ao buscar nome:', error);
-    //         nomeInput.value = '';
-    //     });
-    // }
-    // });
+        fetch('/consulta_nome', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(nome => {
+            nomeInput.value = nome || '';
+        })
+        .catch(error => {
+            console.error('Erro ao buscar nome:', error);
+            nomeInput.value = '';
+        });
+    }
+    });
 </script>
 {% endblock %}

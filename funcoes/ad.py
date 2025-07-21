@@ -28,6 +28,20 @@ def conectar_ad():
     return conn
 
 
+def buscar_nome(cpf):
+    conn = conectar_ad()
+    filtro = f"(employeeNumber={cpf})"
+    conn.search(BASE_DN, filtro, attributes=["distinguishedName"])
+
+    if conn.entries:
+        dn = conn.entries[0].distinguishedName.value
+        nome = dn.split(',')[0].split('=')[1]
+        return nome  # Retorna o DN completo do usuário
+        #return f"AQUI: {conn.entries[0].distinguishedName.value}"
+    logging.error(f"Usuário com CPF {cpf} não encontrado.")
+    return f"Usuário com CPF {cpf} não encontrado."
+
+
 def buscar_usuario_por_cpf(conn, cpf):
     filtro = f"(employeeNumber={cpf})"
     conn.search(BASE_DN, filtro, attributes=["distinguishedName"])

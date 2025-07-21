@@ -5,7 +5,7 @@ from funcoes.log import configurar_logs
 import logging
 from funcoes.banco import inserir_usuario, deletar_usuario, lerResultado
 from funcoes.funcoes import capitalizaNome, buscaDepartamento, exemplo_chamada_bash
-from funcoes.ad import modificaUsuario
+from funcoes.ad import modificaUsuario, buscar_nome
 import json, time
 from werkzeug.middleware.proxy_fix import ProxyFix
 from flask_oidc import OpenIDConnect
@@ -120,13 +120,13 @@ def cria_usuario():
     # return render_template("cria_usuario.html")
 
 @app.route("/desativa_usuario")
-@oidc.require_login
+#@oidc.require_login
 def desativa_usuario():
     logging.info(f"Chamou a rota desativa_usuario")
     return render_template("desativa_usuario.html")
 
 @app.route("/executa_desativa_usuario", methods=['POST'])
-@oidc.require_login
+#@oidc.require_login
 def executa_desativa_usuario():
     cpf_usuario = request.form['cpfUsuario']
     logging.info(f"Chamou a rota executa_desativa_usuario")
@@ -172,8 +172,9 @@ def executa_cria_usuario():
 
 @app.route("/consulta_nome", methods=['POST'])
 def consulta_nome():
-    cpfUsuario = request.form['cpfUsuario']
-    saida = modificaUsuario(cpfUsuario)
+    cpfUsuario = request.form['cpf']
+    saida = buscar_nome(cpfUsuario)
+    #saida = modificaUsuario(cpfUsuario)
     return saida
 
 
