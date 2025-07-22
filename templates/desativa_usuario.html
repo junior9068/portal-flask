@@ -2,7 +2,7 @@
 
 {% block title %}Portal CADE{% endblock %}
 
-{% block page_title %}Desativar usuário no AD{% endblock %}
+{% block page_title %}Desativar usuário{% endblock %}
 
 {% block content %}
 <div id="loadingOverlay" style="display: none;">
@@ -43,7 +43,7 @@
 </style>
 <div class="row">
     <div class="col-12">
-        <h1>Desativar usuário</h1>
+        <!-- <h1>Desativar usuário</h1> -->
         <p class="lead">Preencha o CPF para realizar a desativação do usuário.</p>
         
         <div class="card mt-4">
@@ -52,22 +52,29 @@
                     <!-- Formulário com action e validação JavaScript -->
                     <form id="desativaForm">
                         <div class="mb-4">
-                            <label for="cpfUsuario" class="form-label">CPF</label>
+                            <label for="cpfUsuario" class="form-label">CPF:</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-person"></i></span>
                                 <input type="text" class="form-control" id="cpfUsuario" name="cpfUsuario" placeholder="000.000.000-00" required>
                             </div>
-                            <label for="nomeUsuario" class="form-label">Nome</label>
+                            <br>
+                            <label for="nomeUsuario" class="form-label">Nome:</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-person"></i></span>
                                 <input type="text" class="form-control" id="nomeUsuario" name="nomeUsuario" placeholder="O nome aparecerá automaticamante após informar o CPF" readonly>
+                            </div>
+                            <br>
+                            <label for="emailUsuario" class="form-label">Email:</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                <input type="text" class="form-control" id="emailUsuario" name="emailUsuario" placeholder="O email aparecerá automaticamante após informar o CPF" readonly>
                             </div>
                         </div>                                        
                         <div class="d-flex justify-content-center gap-2 mt-4">
                             <button type="reset" class="btn btn-outline-secondary me-2">
                                 <i class="bi bi-x-circle me-1"></i>Limpar
                             </button>
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" id="botaoSubmit" class="btn btn-primary" disabled>
                                 <i class="bi bi-check-circle me-1"></i>Enviar
                             </button>
                         </div>
@@ -82,7 +89,7 @@
                 <i class="bi bi-info-circle me-2"></i>Resultado:
             </div>
             <div class="card-body" style="text-align: center;">
-                <p>{{ nome_usuario }}</p>
+                <p id="mensagemResultado">{{ resultado }}</p>
             </div>
         </div>
     </div>
@@ -95,9 +102,25 @@
         const form = document.getElementById('desativaForm');
         const cpfInput = document.getElementById('cpfUsuario');
         const nomeInput = document.getElementById('nomeUsuario');
+        const emailInput = document.getElementById('emailUsuario');
         const loadingOverlay = document.getElementById('loadingOverlay');
 
         let cpfTimeout = null;
+        const botaoSubmit = document.getElementById('botaoSubmit');
+
+        function verificarCampos() {
+            if (cpfInput.value.trim() !== '' &&
+                nomeInput.value.trim() !== '' &&
+                emailInput.value.trim() !== '') {
+                botaoSubmit.disabled = false;
+            } else {
+                botaoSubmit.disabled = true;
+            }
+        }
+
+        cpfInput.addEventListener('input', verificarCampos);
+        nomeInput.addEventListener('input', verificarCampos);
+        emailInput.addEventListener('input', verificarCampos);
 
         // CPF formatador
         cpfInput.addEventListener('input', function (e) {
@@ -110,37 +133,71 @@
 
             e.target.value = value;
         });
+// Auto preenchimento do nome e email
+    cpfInput.addEventListener('input', function () {
+        clearTimeout(cpfTimeout);
+        const cpfLimpo = cpfInput.value.replace(/\D/g, '');
 
-        // Auto preenchimento do nome
-        cpfInput.addEventListener('input', function () {
-            clearTimeout(cpfTimeout);
-            const cpfLimpo = cpfInput.value.replace(/\D/g, '');
+        if (cpfLimpo.length === 11) {
+            cpfTimeout = setTimeout(() => {
+                const formData = new FormData();
+                formData.append('cpf', cpfLimpo);
 
-            if (cpfLimpo.length === 11) {
-                cpfTimeout = setTimeout(() => {
-                    const formData = new FormData();
-                    formData.append('cpf', cpfLimpo);
+                loadingOverlay.style.display = 'flex';
 
-                    loadingOverlay.style.display = 'flex';
+                fetch('/consulta_nome', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(res => res.json())  // espera um JSON do backend
+                .then(data => {
+                    // Atualiza os campos com os valores retornados
+                    nomeInput.value = data.nome || '';
+                    emailInput.value = data.email || '';
+                    verificarCampos();
 
-                    fetch('/consulta_nome', {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(res => res.text())
-                    .then(nome => {
-                        nomeInput.value = nome || '';
-                    })
-                    .catch(err => {
-                        console.error('Erro ao buscar nome:', err);
-                        nomeInput.value = '';
-                    })
-                    .finally(() => {
-                        loadingOverlay.style.display = 'none';
-                    });
-                }, 500);
-            }
-        });
+                })
+                .catch(err => {
+                    console.error('Erro ao buscar nome/email:', err);
+                    nomeInput.value = '';
+                    emailInput.value = '';
+                })
+                .finally(() => {
+                    loadingOverlay.style.display = 'none';
+                });
+            }, 500);
+        }
+    });
+        // // Auto preenchimento do nome
+        // cpfInput.addEventListener('input', function () {
+        //     clearTimeout(cpfTimeout);
+        //     const cpfLimpo = cpfInput.value.replace(/\D/g, '');
+
+        //     if (cpfLimpo.length === 11) {
+        //         cpfTimeout = setTimeout(() => {
+        //             const formData = new FormData();
+        //             formData.append('cpf', cpfLimpo);
+
+        //             loadingOverlay.style.display = 'flex';
+
+        //             fetch('/consulta_nome', {
+        //                 method: 'POST',
+        //                 body: formData
+        //             })
+        //             .then(res => res.text())
+        //             .then(nome => {
+        //                 nomeInput.value = nome || '';
+        //             })
+        //             .catch(err => {
+        //                 console.error('Erro ao buscar nome:', err);
+        //                 nomeInput.value = '';
+        //             })
+        //             .finally(() => {
+        //                 loadingOverlay.style.display = 'none';
+        //             });
+        //         }, 500);
+        //     }
+        // });
 
         // SUBMISSÃO DO FORMULÁRIO VIA FETCH
         form.addEventListener('submit', function (event) {
@@ -165,9 +222,11 @@
             })
             .then(res => res.text())
             .then(msg => {
-                alert(msg); // Ou insira em algum lugar da tela
-                form.reset(); // Limpa o formulário após sucesso
+                document.getElementById('mensagemResultado').innerText = msg;
+                form.reset();
                 nomeInput.value = '';
+                emailInput.value = '';
+                botaoSubmit.disabled = true;
             })
             .catch(err => {
                 alert("Erro ao desativar o usuário.");

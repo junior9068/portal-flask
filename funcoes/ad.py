@@ -1,6 +1,7 @@
 import re
 from ldap3 import Server, Connection, ALL, MODIFY_REPLACE
 import logging
+from flask import jsonify
 
 # --- CONFIGURAÇÕES DO AD ---
 SERVIDOR_AD = "ldaps://SRVPADDNS02.cade.gov.br"
@@ -31,15 +32,18 @@ def conectar_ad():
 def buscar_nome(cpf):
     conn = conectar_ad()
     filtro = f"(employeeNumber={cpf})"
-    conn.search(BASE_DN, filtro, attributes=["distinguishedName"])
+    #conn.search(BASE_DN, filtro, attributes=["distinguishedName"])
+    conn.search(BASE_DN, filtro, attributes=["mail", "distinguishedName"])
 
+    # return conn.entries[0]
     if conn.entries:
         dn = conn.entries[0].distinguishedName.value
         nome = dn.split(',')[0].split('=')[1]
-        return nome  # Retorna o DN completo do usuário
-        #return f"AQUI: {conn.entries[0].distinguishedName.value}"
+        email = conn.entries[0].mail.value
+        # retorna uma tupla com nome e email (o Flask deve estar em execução para funcionar)
+        return jsonify({"nome": nome, "email": email})
     logging.error(f"Usuário com CPF {cpf} não encontrado.")
-    return f"Usuário com CPF {cpf} não encontrado."
+    return jsonify({"nome": "Não encontrado", "email": "Não encontrado"})
 
 
 def buscar_usuario_por_cpf(conn, cpf):
@@ -115,4 +119,4 @@ def modificaUsuario(cpfUsuario):
 if __name__ == "__main__":
     # Se quiser só testar a conexão, descomente a linha abaixo:
     # testar_conexao_ad()
-    modificaUsuario("11111111111")
+    print(buscar_nome("02982448530"))
