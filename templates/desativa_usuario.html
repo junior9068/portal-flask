@@ -5,30 +5,63 @@
 {% block page_title %}Desativar usuário no AD{% endblock %}
 
 {% block content %}
+<div id="loadingOverlay" style="display: none;">
+  <div class="loader"></div>
+  <p>Buscando nome, aguarde...</p>
+</div>
+<style>
+#loadingOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.8);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.loader {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #3498db;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 10px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
 <div class="row">
     <div class="col-12">
-        <h1>Desativação de usuário do AD</h1>
-        <p class="lead">Preencha os campos abaixo para realizar a desativação do usuário.</p>
+        <h1>Desativar usuário</h1>
+        <p class="lead">Preencha o CPF para realizar a desativação do usuário.</p>
         
         <div class="card mt-4">
             <div class="card-body">
                 <div class="form-container">
                     <!-- Formulário com action e validação JavaScript -->
-                    <form id="desativaForm" action="/executa_desativa_usuario" method="POST" onsubmit="return validarFormulario()">
+                    <form id="desativaForm">
                         <div class="mb-4">
-                            <label for="cpfUsuario" class="form-label">CPF do Usuário</label>
+                            <label for="cpfUsuario" class="form-label">CPF</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-person"></i></span>
                                 <input type="text" class="form-control" id="cpfUsuario" name="cpfUsuario" placeholder="000.000.000-00" required>
                             </div>
+                            <label for="nomeUsuario" class="form-label">Nome</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-person"></i></span>
-                                <input type="text" class="form-control" id="nomeUsuario" name="nomeUsuario" placeholder="" readonly>
+                                <input type="text" class="form-control" id="nomeUsuario" name="nomeUsuario" placeholder="O nome aparecerá automaticamante após informar o CPF" readonly>
                             </div>
-                            <div class="invalid-feedback" id="nomeInvalido">
-                                Por favor, informe o CPF do usuário.
-                            </div>
-                            <div class="form-text">Informe o CPF do usuário.</div>
                         </div>                                        
                         <div class="d-flex justify-content-center gap-2 mt-4">
                             <button type="reset" class="btn btn-outline-secondary me-2">
@@ -58,79 +91,93 @@
 
 {% block extra_js %}
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Formatar CPF automaticamente
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('desativaForm');
         const cpfInput = document.getElementById('cpfUsuario');
-        cpfInput.addEventListener('input', function(e) {
+        const nomeInput = document.getElementById('nomeUsuario');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+
+        let cpfTimeout = null;
+
+        // CPF formatador
+        cpfInput.addEventListener('input', function (e) {
             let value = e.target.value.replace(/\D/g, '');
-            if (value.length > 11) {
-                value = value.slice(0, 11);
-            }
-            
-            if (value.length > 9) {
-                value = value.replace(/^(\d{3})(\d{3})(\d{3})(\d{2}).*/, '$1.$2.$3-$4');
-            } else if (value.length > 6) {
-                value = value.replace(/^(\d{3})(\d{3})(\d{0,3}).*/, '$1.$2.$3');
-            } else if (value.length > 3) {
-                value = value.replace(/^(\d{3})(\d{0,3}).*/, '$1.$2');
-            }
-            
+            if (value.length > 11) value = value.slice(0, 11);
+
+            if (value.length > 9) value = value.replace(/^(\d{3})(\d{3})(\d{3})(\d{2}).*/, '$1.$2.$3-$4');
+            else if (value.length > 6) value = value.replace(/^(\d{3})(\d{3})(\d{0,3}).*/, '$1.$2.$3');
+            else if (value.length > 3) value = value.replace(/^(\d{3})(\d{0,3}).*/, '$1.$2');
+
             e.target.value = value;
         });
-    });
-    
-    // Função de validação do formulário
-    function validarFormulario() {
-        let formValido = true;
-        
-        // Validar CPF
-        const cpfInput = document.getElementById('cpfUsuario');
-        const cpfInvalido = document.getElementById('cpfInvalido');
-        const cpfLimpo = cpfInput.value.replace(/\D/g, '');
-        
-        if (cpfLimpo.length !== 11) {
-            cpfInput.classList.add('is-invalid');
-            cpfInvalido.style.display = 'block';
-            formValido = false;
-        } else {
-            cpfInput.classList.remove('is-invalid');
-            cpfInvalido.style.display = 'none';
-        }
-        
-        // Se o formulário for válido, exibe uma mensagem antes de enviar
-        if (formValido) {
-            //alert('Formulário validado com sucesso! Enviando para o backend...');
-            // Retorna true para permitir o envio do formulário
-            return true;
-        }
-        
-        // Retorna false para impedir o envio do formulário se houver erros
-        return false;
-    };
 
-    const cpfInput = document.getElementById('cpfUsuario');
-    const nomeInput = document.getElementById('nomeUsuario');
+        // Auto preenchimento do nome
+        cpfInput.addEventListener('input', function () {
+            clearTimeout(cpfTimeout);
+            const cpfLimpo = cpfInput.value.replace(/\D/g, '');
 
-    cpfInput.addEventListener('blur', function () {
-    const cpfLimpo = cpfInput.value.replace(/\D/g, '');
+            if (cpfLimpo.length === 11) {
+                cpfTimeout = setTimeout(() => {
+                    const formData = new FormData();
+                    formData.append('cpf', cpfLimpo);
 
-    if (cpfLimpo.length === 11) {
-        const formData = new FormData();
-        formData.append('cpf', cpfLimpo);
+                    loadingOverlay.style.display = 'flex';
 
-        fetch('/consulta_nome', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.text())
-        .then(nome => {
-            nomeInput.value = nome || '';
-        })
-        .catch(error => {
-            console.error('Erro ao buscar nome:', error);
-            nomeInput.value = '';
+                    fetch('/consulta_nome', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(res => res.text())
+                    .then(nome => {
+                        nomeInput.value = nome || '';
+                    })
+                    .catch(err => {
+                        console.error('Erro ao buscar nome:', err);
+                        nomeInput.value = '';
+                    })
+                    .finally(() => {
+                        loadingOverlay.style.display = 'none';
+                    });
+                }, 500);
+            }
         });
-    }
+
+        // SUBMISSÃO DO FORMULÁRIO VIA FETCH
+        form.addEventListener('submit', function (event) {
+            event.preventDefault(); // Impede envio tradicional
+
+            const cpfLimpo = cpfInput.value.replace(/\D/g, '');
+
+            if (cpfLimpo.length !== 11) {
+                alert("CPF inválido. Insira os 11 dígitos.");
+                cpfInput.classList.add("is-invalid");
+                return;
+            }
+
+            cpfInput.classList.remove("is-invalid");
+            loadingOverlay.style.display = 'flex';
+
+            const formData = new FormData(form);
+
+            fetch('/executa_desativa_usuario', {
+                method: 'POST',
+                body: formData
+            })
+            .then(res => res.text())
+            .then(msg => {
+                alert(msg); // Ou insira em algum lugar da tela
+                form.reset(); // Limpa o formulário após sucesso
+                nomeInput.value = '';
+            })
+            .catch(err => {
+                alert("Erro ao desativar o usuário.");
+                console.error(err);
+            })
+            .finally(() => {
+                loadingOverlay.style.display = 'none';
+            });
+        });
     });
 </script>
+
 {% endblock %}

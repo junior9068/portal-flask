@@ -132,7 +132,8 @@ def executa_desativa_usuario():
     logging.info(f"Chamou a rota executa_desativa_usuario")
     logging.info(f"CPF do usuário: {cpf_usuario}")
     saida = modificaUsuario(cpf_usuario)
-    return render_template("desativa_usuario.html", nome_usuario=saida)
+    #return render_template("desativa_usuario.html", nome_usuario=saida)
+    return saida
 
 @app.route("/executa_cria_usuario", methods=['POST'])
 @oidc.require_login
