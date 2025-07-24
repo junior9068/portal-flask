@@ -16,17 +16,6 @@
                     <!-- Formulário SEM action/method - será enviado via AJAX -->
                     <form id="cadastroForm" onsubmit="return enviarFormulario(event)">
                         <div class="mb-4">
-                            <label for="nomeUsuario" class="form-label">Nome do Usuário</label>
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="bi bi-person"></i></span>
-                                <input type="text" class="form-control" id="nomeUsuario" name="nomeUsuario" placeholder="Digite o nome completo" required>
-                            </div>
-                            <div class="invalid-feedback" id="nomeInvalido">
-                                Por favor, informe o nome completo do usuário.
-                            </div>
-                            <div class="form-text">Informe o nome completo do usuário.</div>
-                        </div>
-                        <div class="mb-4">
                             <label for="cpfUsuario" class="form-label">CPF</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-card-text"></i></span>
@@ -36,6 +25,17 @@
                                 Por favor, informe um CPF válido com 11 dígitos.
                             </div>
                             <div class="form-text">Informe o CPF sem pontos ou traços.</div>
+                        </div>
+                                                <div class="mb-4">
+                            <label for="nomeUsuario" class="form-label">Nome do Usuário</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                <input type="text" class="form-control" id="nomeUsuario" name="nomeUsuario" placeholder="Digite o nome completo" required>
+                            </div>
+                            <div class="invalid-feedback" id="nomeInvalido">
+                                Por favor, informe o nome completo do usuário.
+                            </div>
+                            <div class="form-text">Informe o nome completo do usuário.</div>
                         </div>
                         <div class="mb-4">
                             <label for="dataNascimentoUsuario" class="form-label">Data de nascimento</label>

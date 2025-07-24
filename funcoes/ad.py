@@ -56,6 +56,35 @@ def buscar_usuario_por_cpf(conn, cpf):
     return None
 
 
+def nome_login(nome_completo):
+    partes = nome_completo.strip().split()
+    if len(partes) < 2:
+        return None, None
+    nome = partes[0].lower()
+    sobrenome1 = partes[-1].lower()
+    login1 = f"{nome}.{sobrenome1}"
+    login2 = f"{nome}.{partes[1].lower()}" if len(partes) >= 3 else None
+    return login1, login2
+
+
+def buscar_login(nome_completo):
+    conn_ad = conectar_ad()
+    # Gera login
+    login1, login2 = nome_login(nome_completo)
+    login_final = None
+
+    for login in [login1, login2]:
+        if not login:
+            continue
+        filtro_login = f"(sAMAccountName={login})"
+        conn_ad.search(BASE_DN, filtro_login, attributes=["distinguishedName"])
+        if not conn_ad.entries:
+            login_final = login
+            return login_final
+    logging.error(f"Todos os logins {login1} e {login2} já existem no AD.")
+    return "Todos os logins que tentamos criar já existem no AD."
+
+
 def extrair_cn(dn):
     match = re.search(r"CN=([^,]+)", dn)
     return match.group(1) if match else None
@@ -119,4 +148,5 @@ def modificaUsuario(cpfUsuario):
 if __name__ == "__main__":
     # Se quiser só testar a conexão, descomente a linha abaixo:
     # testar_conexao_ad()
-    print(buscar_nome("02982448530"))
+    # conn = conectar_ad()
+    print(buscar_login("Edilson Cardoso de Souza Junior"))

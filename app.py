@@ -113,7 +113,7 @@ def manutencao2():
     return render_template("manutencao.html")
 
 @app.route("/cria_usuario")
-@oidc.require_login
+#@oidc.require_login
 def cria_usuario():
     logging.info(f"Chamou a rota cria_usuario")
     return render_template("formulario_ajax_simples.html")
@@ -136,7 +136,7 @@ def executa_desativa_usuario():
     return saida
 
 @app.route("/executa_cria_usuario", methods=['POST'])
-@oidc.require_login
+#@oidc.require_login
 def executa_cria_usuario():
     # Cria um dicionário para armazenar os dados do usuário
     nomeUsuario = request.form['nomeUsuario']
