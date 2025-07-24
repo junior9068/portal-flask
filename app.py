@@ -61,8 +61,11 @@ def home():
     token = oidc.get_access_token()
     session['access_token'] = token
     nome = user.get('name')
+    nomes = nome.split(" ")
+    nomeLista = [nomes[0], nomes[1]]
+    nomeExibicao = " ".join(nomeLista)
     # return jsonify(user)
-    return render_template("home.html", nome=nome)
+    return render_template("home.html", nome=nomeExibicao)
 
 # NÃO FUNCIONOU. TEMOS QUE CORRIGIR
 @app.route('/logout')
