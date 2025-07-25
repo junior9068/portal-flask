@@ -5,7 +5,7 @@ from funcoes.log import configurar_logs
 import logging
 from funcoes.banco import inserir_usuario, deletar_usuario, lerResultado
 from funcoes.funcoes import capitalizaNome, buscaDepartamento, exemplo_chamada_bash
-from funcoes.ad import modificaUsuario, buscar_nome
+from funcoes.ad import modificaUsuario, buscar_nome, cria_usuario_ad, buscar_login, gerar_senha
 import json, time
 from werkzeug.middleware.proxy_fix import ProxyFix
 from flask_oidc import OpenIDConnect
@@ -144,31 +144,45 @@ def executa_cria_usuario():
     # Cria um dicionário para armazenar os dados do usuário
     nomeUsuario = request.form['nomeUsuario']
     nomeUsuarioCapitalizado = capitalizaNome(nomeUsuario)
-    cpfUsuario = request.form['cpfUsuario']
-    dataNascimentoUsuario = request.form['dataNascimentoUsuario']
-    emailPessoal = request.form['emailPessoal']
-    telefoneComercial = request.form['telefoneComercial']
     departamentoHtml = request.form['departamento']
-    matriculaSiape = request.form['matriculaSiape']
-    empresa = request.form['empresa']
-    localizacao = request.form['localizacao']
-    cargo = request.form['cargo']
     departamento, chefia = buscaDepartamento(departamentoHtml)
-    dicionarioUsuario = {'nome': nomeUsuarioCapitalizado, 'cpf': cpfUsuario, 'dataNascimento': dataNascimentoUsuario, 'email': emailPessoal, 'empresa': empresa, 'localizacao': localizacao, 'cargo': cargo,
-                         'telefoneComercial': telefoneComercial, 'departamento': departamento, 'chefia': chefia, 'matriculaSiape': matriculaSiape,}
-    dadosJson = json.dumps(dicionarioUsuario)
-    logging.info(dicionarioUsuario)
+    try:
+        saida = cria_usuario_ad(
+            nomeUsuarioCapitalizado,
+            cpfUsuario = request.form['cpfUsuario'],
+            dataNascimentoUsuario = request.form['dataNascimentoUsuario'],
+            emailPessoal = request.form['emailPessoal'],
+            telefoneComercial = request.form['telefoneComercial'],
+            matriculaSiape = request.form['matriculaSiape'],
+            empresa = request.form['empresa'],
+            localizacao = request.form['localizacao'],
+            cargo = request.form['cargo'],
+            departamento = departamento,
+            chefia = chefia
+        )
 
-    idRegistro = inserir_usuario(json=dadosJson, acao='cadastrar_usuario')
-    saida = lerResultado(idRegistro)
-    if saida[0] == "Sucesso":
-        #COLOCAR AQUI A FUNÇÃO DE ENVIO DE EMAIL
-        saida = f"Usuário {nomeUsuarioCapitalizado} cadastrado com sucesso. Segue a senha: {saida[1]}"
-    elif saida[0] == "Erro":
-        saida = f"Ocorreu um erro ao cadastrar o usuário {nomeUsuarioCapitalizado}. Erro: {saida[1]}"
-    else:
-        logging.error(f"Erro na criação do usuário: {saida}")
-        saida = f"Erro desconhecido. Entre em contato com a CGTI."
+    except Exception as e:
+        logging.error(f"Erro ao criar usuário: {e}")
+        return jsonify({"status": "Erro", "mensagem": str(e)})
+
+
+    # dicionarioUsuario = {'nome': nomeUsuarioCapitalizado, 'cpf': cpfUsuario, 'dataNascimento': dataNascimentoUsuario, 'email': emailPessoal, 'empresa': empresa, 'localizacao': localizacao, 'cargo': cargo,
+    #                      'telefoneComercial': telefoneComercial, 'departamento': departamento, 'chefia': chefia, 'matriculaSiape': matriculaSiape,}
+    # dadosJson = json.dumps(dicionarioUsuario)
+    # logging.info(dicionarioUsuario)
+
+    # idRegistro = inserir_usuario(json=dadosJson, acao='cadastrar_usuario')
+    # saida = lerResultado(idRegistro)
+
+
+    # if saida[0] == "Sucesso":
+    #     #COLOCAR AQUI A FUNÇÃO DE ENVIO DE EMAIL
+    #     saida = f"Usuário {nomeUsuarioCapitalizado} cadastrado com sucesso. Segue a senha: {saida[1]}"
+    # elif saida[0] == "Erro":
+    #     saida = f"Ocorreu um erro ao cadastrar o usuário {nomeUsuarioCapitalizado}. Erro: {saida[1]}"
+    # else:
+    #     logging.error(f"Erro na criação do usuário: {saida}")
+    #     saida = f"Erro desconhecido. Entre em contato com a CGTI."
 
 
     # time.sleep(3)
