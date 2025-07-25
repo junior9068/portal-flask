@@ -150,14 +150,15 @@ def cria_usuario_ad(nomeUsuarioCapitalizado,cpfUsuario,dataNascimentoUsuario,ema
     "employeeNumber": cpfUsuario,
     }
     senha_gerada = gerar_senha()
-
+    logging.info(f"Gerou a senha: {senha_gerada}")       
     # Verifica se a chefia existe. Caso não exista ou seja inválida, não adiciona o atributo manager
     manager_dn = busca_manager(chefia)
     if manager_dn:
         atributos["manager"] = manager_dn
+    logging.info(f"Verificou o manager : {manager_dn}")  
 
     if conn_ad.add(dn_usuario, attributes=atributos):
-        print(f"[SUCESSO] Conta criada: {login_final}")
+        logging.info(f"[SUCESSO] Conta criada: {login_final}")
         # Gera a senha segura
         #print(f"  - Senha gerada {senha_gerada}")
         try:
@@ -176,8 +177,10 @@ def cria_usuario_ad(nomeUsuarioCapitalizado,cpfUsuario,dataNascimentoUsuario,ema
             saida = f"Erro ao criar usuário. Entre em contato com a CGTI"
             return saida
     else:
+        logging.error("Caiu no Else")
         saida = f"Erro: Falha ao criar {nome_login}: {conn_ad.result}"
         return saida
+    return "Não executou nada"
 
 
 def extrair_cn(dn):
@@ -244,13 +247,14 @@ if __name__ == "__main__":
     # Se quiser só testar a conexão, descomente a linha abaixo:
     # testar_conexao_ad()
     #conn = conectar_ad()
-    cria_usuario_ad(nomeUsuarioCapitalizado="Suvaco Pires de Melo",cpfUsuario="11111111111",
-                    dataNascimentoUsuario="1988-06-16",emailPessoal="suvaco@gmail.com",telefoneComercial="6199999999",
-        matriculaSiape="123456",
-        empresa="LENATEC",
-        localizacao="Remoto",
-        cargo="Terceiro",
-        departamento="SESIN",
-        chefia="Thiago Nogueira de Oliveira"
-    )  # Exemplo de CPF
-    #print(busca_manager("Thiago Nogueira de Oliveiraddd"))
+    # cria_usuario_ad(nomeUsuarioCapitalizado="Suvaco Pires de Melo",cpfUsuario="11111111111",
+    #                 dataNascimentoUsuario="1988-06-16",emailPessoal="suvaco@gmail.com",telefoneComercial="6199999999",
+    #     matriculaSiape="123456",
+    #     empresa="LENATEC",
+    #     localizacao="Remoto",
+    #     cargo="Terceiro",
+    #     departamento="SESIN",
+    #     chefia="Thiago Nogueira de Oliveira"
+    # )  # Exemplo de CPF
+    # #print(busca_manager("Thiago Nogueira de Oliveiraddd"))
+    pass
