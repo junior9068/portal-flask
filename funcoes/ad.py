@@ -5,6 +5,7 @@ import logging
 from flask import jsonify
 import string
 import random
+from funcoes.funcoes import enviar_email
 # --- CONFIGURAÇÕES DO AD ---
 SERVIDOR_AD = "ldaps://SRVPADDNS02.cade.gov.br"
 USUARIO_AD = "srvportalad@cade.gov.br"
@@ -113,6 +114,20 @@ def busca_manager(chefia):
     logging.error(f"Erro ao buscar manager: {chefia} não encontrado ou múltiplos resultados.")
     return None
 
+def convete_data(data):
+    if not data:
+        return None
+    try:
+        partes = data.split('-')
+        if len(partes) == 3:
+            return f"{partes[2]}/{partes[1]}/{partes[0]}"
+        else:
+            logging.error(f"Formato de data inválido: {data}")
+            return None
+    except Exception as e:
+        logging.error(f"Erro ao converter data: {e}")
+        return None
+    
 
 def cria_usuario_ad(nomeUsuarioCapitalizado,cpfUsuario,dataNascimentoUsuario,emailPessoal,telefoneComercial,
         matriculaSiape,
@@ -124,6 +139,7 @@ def cria_usuario_ad(nomeUsuarioCapitalizado,cpfUsuario,dataNascimentoUsuario,ema
     ):
     conn_ad = conectar_ad()
     saida = ""
+    dataConvertida = convete_data(dataNascimentoUsuario)
     # Monta DN do novo usuário
     if cargo == 'Servidor':
         ou_destino = "OU=Servidores,OU=Usuarios,OU=CADE"
@@ -132,23 +148,31 @@ def cria_usuario_ad(nomeUsuarioCapitalizado,cpfUsuario,dataNascimentoUsuario,ema
 
     dn_usuario = f"CN={nomeUsuarioCapitalizado},{ou_destino},{BASE_DN}"
     login_final = buscar_login(nomeUsuarioCapitalizado)
+    # Separa o nome e sobrenome
+    nomes = nomeUsuarioCapitalizado.split()
+    nomes.pop(0)
+    sobrenome = " ".join(nomes)
 
     atributos = {
     "objectClass": ["top", "person", "organizationalPerson", "user"],
     "cn": nomeUsuarioCapitalizado,
     "displayName": nomeUsuarioCapitalizado,
     "sAMAccountName": login_final,
-    #"userPrincipalName": login_final,
     "userPrincipalName": f"{login_final}@cade.gov.br",
-    #"mail": email,
     "title": cargo,
     "department": departamento,
     "telephoneNumber": telefoneComercial,
     "company": empresa,
-    "extensionAttribute1": dataNascimentoUsuario,
-    #"homePhone": data_nascimento,
+    "extensionAttribute1": dataConvertida,
     "employeeNumber": cpfUsuario,
+    "mail": f"{login_final}@cade.gov.br",
+    "physicalDeliveryOfficeName": localizacao,
+    "givenName": nomeUsuarioCapitalizado.split()[0],
+    "sn": sobrenome
     }
+    # Adiciona o atributo de matricula SIAPE
+    if matriculaSiape != "":
+        atributos["employeeID"] = matriculaSiape
     senha_gerada = gerar_senha()
     logging.info(f"Gerou a senha: {senha_gerada}")       
     # Verifica se a chefia existe. Caso não exista ou seja inválida, não adiciona o atributo manager
@@ -170,8 +194,16 @@ def cria_usuario_ad(nomeUsuarioCapitalizado,cpfUsuario,dataNascimentoUsuario,ema
                 "userAccountControl": [(ldap3.MODIFY_REPLACE, [544])],
                 "pwdLastSet": [(ldap3.MODIFY_REPLACE, [0])]
             })
+            envio_email = enviar_email(senha_gerada, emailPessoal)
+            if envio_email:
+                logging.info(f"[SUCESSO] E-mail enviado para {emailPessoal}")
+            else:
+                saida = f"Usuário {nomeUsuarioCapitalizado} criado, mas tivemos uma falha ao enviar e-mail para {emailPessoal}."
+                logging.error(f"[ERRO] Falha ao enviar e-mail para {emailPessoal}")
 
-            saida = (f"Conta criada, senha aplicada e troca exigida no primeiro logon. E-mail enviado com a senha criada.")
+            logging.info(f"[SUCESSO] Senha definida e conta ativada)")
+            saida = f"Conta criada, senha aplicada e troca exigida no primeiro logon. E-mail enviado com a senha criada."
+            return saida
         except Exception as e:
             logging.error(f"[EXCEÇÃO] Falha ao definir senha ou ativar conta: {e}")
             saida = f"Erro ao criar usuário. Entre em contato com a CGTI"
@@ -180,7 +212,6 @@ def cria_usuario_ad(nomeUsuarioCapitalizado,cpfUsuario,dataNascimentoUsuario,ema
         logging.error("Caiu no Else")
         saida = f"Erro: Falha ao criar {nome_login}: {conn_ad.result}"
         return saida
-    return "Não executou nada"
 
 
 def extrair_cn(dn):
@@ -247,14 +278,15 @@ if __name__ == "__main__":
     # Se quiser só testar a conexão, descomente a linha abaixo:
     # testar_conexao_ad()
     #conn = conectar_ad()
-    # cria_usuario_ad(nomeUsuarioCapitalizado="Suvaco Pires de Melo",cpfUsuario="11111111111",
-    #                 dataNascimentoUsuario="1988-06-16",emailPessoal="suvaco@gmail.com",telefoneComercial="6199999999",
-    #     matriculaSiape="123456",
-    #     empresa="LENATEC",
-    #     localizacao="Remoto",
-    #     cargo="Terceiro",
-    #     departamento="SESIN",
-    #     chefia="Thiago Nogueira de Oliveira"
-    # )  # Exemplo de CPF
-    # #print(busca_manager("Thiago Nogueira de Oliveiraddd"))
-    pass
+    print(cria_usuario_ad(nomeUsuarioCapitalizado="Pedro de Lara Cancum",
+        cpfUsuario="704.466.230-75",
+        dataNascimentoUsuario="1980-01-01",
+        emailPessoal="pedro@gmail.com",
+        telefoneComercial="61999999999",
+        matriculaSiape="1234567",
+        empresa="CADE",
+        localizacao="Remoto",
+        cargo="Servidor",
+        departamento="SESIN",
+        chefia="Thiago Nogueira de Oliveira"
+    ))

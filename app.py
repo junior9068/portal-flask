@@ -141,6 +141,7 @@ def executa_desativa_usuario():
 @app.route("/executa_cria_usuario", methods=['POST'])
 #@oidc.require_login
 def executa_cria_usuario():
+    saida = ""
     # Cria um dicionário para armazenar os dados do usuário
     nomeUsuario = request.form['nomeUsuario']
     nomeUsuarioCapitalizado = capitalizaNome(nomeUsuario)
@@ -160,11 +161,10 @@ def executa_cria_usuario():
             departamento = departamento,
             chefia = chefia
         )
-
     except Exception as e:
         logging.error(f"Erro ao criar usuário: {e}")
-        return jsonify({"status": "Erro", "mensagem": str(e)})
-
+        saida = jsonify({"status": "Erro", "mensagem": str(e)})
+    return saida
 
     # dicionarioUsuario = {'nome': nomeUsuarioCapitalizado, 'cpf': cpfUsuario, 'dataNascimento': dataNascimentoUsuario, 'email': emailPessoal, 'empresa': empresa, 'localizacao': localizacao, 'cargo': cargo,
     #                      'telefoneComercial': telefoneComercial, 'departamento': departamento, 'chefia': chefia, 'matriculaSiape': matriculaSiape,}
@@ -186,7 +186,7 @@ def executa_cria_usuario():
 
 
     # time.sleep(3)
-    return str(saida)
+    # return str(saida)
 
 @app.route("/consulta_nome", methods=['POST'])
 def consulta_nome():

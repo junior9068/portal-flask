@@ -11,4 +11,6 @@ Flask==3.1.1
 python3-saml==1.16.0
 flask-session==0.8.0
 
+tirar os traços do CPF
+
 ```
