@@ -25,9 +25,9 @@ def buscaDepartamento(departamentoComChefia):
 
 
 
-def enviar_email(senha, destinatario, servidor_smtp='smtp.cade.gov.br', porta=25):
+def enviar_email(senha, destinatario, login, servidor_smtp='smtp.cade.gov.br', porta=25):
     # Extrai nome do e-mail (antes do @) para exibição
-    login = destinatario.split('@')[0]
+    # login = destinatario.split('@')[0]
     nome = login.replace('.', ' ').title()  # ex: "edilson.junior" → "Edilson Junior"
 
     # Corpo HTML do e-mail
@@ -47,7 +47,7 @@ def enviar_email(senha, destinatario, servidor_smtp='smtp.cade.gov.br', porta=25
             </tr>
             <tr>
                 <td><strong>E-mail</strong></td>
-                <td><a href="mailto:{destinatario}">{destinatario}</a></td>
+                <td>{login}@cade.gov.br</td>
             </tr>
         </table>
         <br>
@@ -100,4 +100,5 @@ def exemplo_chamada_bash():
     return saida
 
 if __name__ == "__main__":
-    print(enviar_email("Senha@123456", "thiago.nogueiira@gmail.com"))
+    # print(enviar_email("Senha@123456", "thiago.nogueiira@gmail.com"))
+    enviar_email("Senha@123456", "edilsonjuniorti@gmail.com", "edilson.junior")
