@@ -194,7 +194,7 @@ def cria_usuario_ad(nomeUsuarioCapitalizado,cpfUsuario,dataNascimentoUsuario,ema
                 "userAccountControl": [(ldap3.MODIFY_REPLACE, [544])],
                 "pwdLastSet": [(ldap3.MODIFY_REPLACE, [0])]
             })
-            envio_email = enviar_email(senha_gerada, emailPessoal)
+            envio_email = enviar_email(senha_gerada, emailPessoal, login_final)
             if envio_email:
                 logging.info(f"[SUCESSO] E-mail enviado para {emailPessoal}")
             else:
