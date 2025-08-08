@@ -5,7 +5,7 @@ from funcoes.log import configurar_logs
 import logging
 from funcoes.banco import inserir_usuario, deletar_usuario, lerResultado
 from funcoes.funcoes import capitalizaNome, buscaDepartamento, exemplo_chamada_bash
-from funcoes.ad import modificaUsuario, buscar_nome, cria_usuario_ad, buscar_login, gerar_senha
+from funcoes.ad import modificaUsuario, consultar_usuario, cria_usuario_ad, buscar_login, gerar_senha
 import json, time
 from werkzeug.middleware.proxy_fix import ProxyFix
 from flask_oidc import OpenIDConnect
@@ -128,6 +128,13 @@ def desativa_usuario():
     logging.info(f"Chamou a rota desativa_usuario")
     return render_template("desativa_usuario.html")
 
+@app.route("/consulta_usuario")
+#@oidc.require_login
+def consulta_usuario():
+    logging.info(f"Chamou a rota consulta_usuario")
+    return render_template("consulta_usuario.html")
+
+
 @app.route("/executa_desativa_usuario", methods=['POST'])
 #@oidc.require_login
 def executa_desativa_usuario():
@@ -189,11 +196,20 @@ def executa_cria_usuario():
     # return str(saida)
 
 @app.route("/consulta_nome", methods=['POST'])
-def consulta_nome():
-    cpfUsuario = request.form['cpf']
-    saida = buscar_nome(cpfUsuario)
+def consulta_dados_usuario():
+    #Função utilizada nas páginas de consulta do usuário e desativação do usuário
+    identificadorPesquisa = ""
+    if 'identificador' in request.form:
+        identificadorPesquisa = request.form['identificador']
+    else:
+        identificadorPesquisa = request.form['cpf']
+    saida = consultar_usuario(identificadorPesquisa)
+    if saida is None:
+        return jsonify({"nome": "Não encontrado", "email": "Não encontrado"})
+    else:
+        return jsonify(saida)
     #saida = modificaUsuario(cpfUsuario)
-    return saida
+    # return saida
 
 
 if __name__ == "__main__":

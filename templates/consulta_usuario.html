@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+
+{% block title %}Portal CADE{% endblock %}
+
+{% block page_title %}Consultar usuário{% endblock %}
+
+{% block content %}
+<div id="loadingOverlay" style="display: none;">
+  <div class="loader"></div>
+  <p>Buscando dados, aguarde...</p>
+</div>
+<style>
+#loadingOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.8);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.loader {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #3498db;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 10px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
+<div class="row">
+    <div class="col-12">
+        <!-- <h1>Desativar usuário</h1> -->
+        <p class="lead">Preencha o CPF ou e-mail para realizar a consulta do usuário.</p>
+        
+        <div class="card mt-4">
+            <div class="card-body">
+                <div class="form-container">
+                    <!-- Formulário com action e validação JavaScript -->
+                    <form id="desativaForm">
+                        <div class="mb-4">
+                            <label for="identificador" class="form-label">CPF ou e-mail:</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                <input type="text" class="form-control" id="identificador" name="identificador" placeholder="CPF ou e-mail" required>
+                            </div>
+                            <br>
+                        </div>                                        
+                        <div class="d-flex justify-content-center gap-2 mt-4">
+                            <button type="reset" class="btn btn-outline-secondary me-2">
+                                <i class="bi bi-x-circle me-1"></i>Limpar
+                            </button>
+                            <button type="submit" id="botaoSubmit" class="btn btn-primary">
+                                <i class="bi bi-check-circle me-1"></i>Enviar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Explicação sobre a validação -->
+        <div class="card mt-4">
+            <div class="card-header bg-info text-white">
+                <i class="bi bi-info-circle me-2"></i>Resultado:
+            </div>
+            <div class="card-body" style="text-align: center;">
+                <p id="mensagemResultado">{{ resultado }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("desativaForm");
+    const overlay = document.getElementById("loadingOverlay");
+    const resultadoDiv = document.getElementById("mensagemResultado");
+    const inputIdentificador = document.getElementById("identificador");
+    const botaoSubmit = document.getElementById("botaoSubmit");
+
+    // Validação simples de CPF
+    function validarCPF(cpf) {
+        cpf = cpf.replace(/[^\d]+/g, '');
+        if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
+        let soma = 0, resto;
+        for (let i = 1; i <= 9; i++) soma += parseInt(cpf.substring(i - 1, i)) * (11 - i);
+        resto = (soma * 10) % 11;
+        if (resto === 10 || resto === 11) resto = 0;
+        if (resto !== parseInt(cpf.substring(9, 10))) return false;
+        soma = 0;
+        for (let i = 1; i <= 10; i++) soma += parseInt(cpf.substring(i - 1, i)) * (12 - i);
+        resto = (soma * 10) % 11;
+        if (resto === 10 || resto === 11) resto = 0;
+        return resto === parseInt(cpf.substring(10, 11));
+    }
+
+    // Validação simples de e-mail
+    function validarEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const identificador = inputIdentificador.value.trim();
+
+        // Validação antes de enviar
+        if (!validarCPF(identificador) && !validarEmail(identificador)) {
+            resultadoDiv.innerHTML = "<span class='text-danger'>Digite um CPF ou e-mail válido.</span>";
+            return;
+        }
+
+        overlay.style.display = "flex"; // mostra loading
+
+        const formData = new FormData();
+        formData.append("identificador", identificador);
+
+        fetch("/consulta_nome", {
+            method: "POST",
+            body: formData
+        })
+        .then(res => res.json())
+        .then(data => {
+            overlay.style.display = "none";
+
+            if (data.erro) {
+                resultadoDiv.innerHTML = `<span class="text-danger">${data.erro}</span>`;
+                return;
+            }
+            resultadoDiv.innerHTML = `
+                <style>
+                    .resultado-tabela {
+                        border-collapse: collapse;
+                        width: 100%;
+                        font-family: Arial, sans-serif;
+                        margin-top: 10px;
+                    }
+                    .resultado-tabela th {
+                        background-color: #007BFF;
+                        color: white;
+                        padding: 8px;
+                        text-align: left;
+                    }
+                    .resultado-tabela td {
+                        padding: 8px;
+                        border-bottom: 1px solid #ddd;
+                    }
+                    .resultado-tabela tr:nth-child(even) {
+                        background-color: #f9f9f9;
+                    }
+                    .resultado-tabela tr:hover {
+                        background-color: #f1f1f1;
+                    }
+                </style>
+
+                <table class="resultado-tabela">
+                    <tr><td><strong>Nome</strong></td><td>${data.nome || '-'}</td></tr>
+                    <tr><td><strong>Email</strong></td><td>${data.email || '-'}</td></tr>
+                    <tr><td><strong>Departamento</strong></td><td>${data.departamento || '-'}</td></tr>
+                    <tr><td><strong>Cargo</strong></td><td>${data.cargo || '-'}</td></tr>
+                    <tr><td><strong>Empresa</strong></td><td>${data.empresa || '-'}</td></tr>
+                    <tr><td><strong>Data de Nascimento</strong></td><td>${data.data_de_nascimento || '-'}</td></tr>
+                    <tr><td><strong>SIAPE</strong></td><td>${data.siape || '-'}</td></tr>
+                    <tr><td><strong>Chefia</strong></td><td>${data.chefia || '-'}</td></tr>
+                    <tr><td><strong>CPF</strong></td><td>${data.cpf || '-'}</td></tr>
+                </table>
+            `;
+            // resultadoDiv.innerHTML = `
+            //     <table border="1" cellpadding="5" cellspacing="0" style="border-collapse: collapse; width: 100%;">
+            //         <tr>
+            //             <th>Campo</th>
+            //             <th>Valor</th>
+            //         </tr>
+            //         <tr><td><strong>Nome</strong></td><td>${data.nome || '-'}</td></tr>
+            //         <tr><td><strong>Email</strong></td><td>${data.email || '-'}</td></tr>
+            //         <tr><td><strong>Departamento</strong></td><td>${data.departamento || '-'}</td></tr>
+            //         <tr><td><strong>Cargo</strong></td><td>${data.cargo || '-'}</td></tr>
+            //         <tr><td><strong>Empresa</strong></td><td>${data.empresa || '-'}</td></tr>
+            //         <tr><td><strong>Data de Nascimento</strong></td><td>${data.data_de_nascimento || '-'}</td></tr>
+            //         <tr><td><strong>SIAPE</strong></td><td>${data.siape || '-'}</td></tr>
+            //         <tr><td><strong>Chefia</strong></td><td>${data.chefia || '-'}</td></tr>
+            //         <tr><td><strong>CPF</strong></td><td>${data.cpf || '-'}</td></tr>
+            //     </table>
+            // `;
+        })
+        .catch(err => {
+            overlay.style.display = "none";
+            console.error(err);
+            resultadoDiv.innerHTML = "<span class='text-danger'>Erro ao consultar o usuário.</span>";
+        });
+    });
+});
+</script>
+
+
+{% endblock %}

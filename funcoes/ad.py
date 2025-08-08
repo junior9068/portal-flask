@@ -5,7 +5,7 @@ import logging
 from flask import jsonify
 import string
 import random
-from funcoes.funcoes import enviar_email
+#from funcoes.funcoes import enviar_email
 # --- CONFIGURAÇÕES DO AD ---
 SERVIDOR_AD = "ldaps://SRVPADDNS02.cade.gov.br"
 USUARIO_AD = "srvportalad@cade.gov.br"
@@ -32,21 +32,54 @@ def conectar_ad():
     return conn
 
 
-def buscar_nome(cpf):
-    conn = conectar_ad()
-    filtro = f"(employeeNumber={cpf})"
-    #conn.search(BASE_DN, filtro, attributes=["distinguishedName"])
-    conn.search(BASE_DN, filtro, attributes=["mail", "distinguishedName"])
+def consultar_usuario(identificador):
+    # Verifica se o identificador é um email ou CPF
+    if "@" in identificador:
+        email = identificador.strip()
+        filtro = f"(mail={email})"
+    else:
+        cpf = identificador.strip()
+        filtro = f"(employeeNumber={cpf})"
+    try:
+        conn = conectar_ad()
+        #filtro = f"(employeeNumber={cpf})"
+        # email = "edilson.junio@cade.gov.br"
+        # filtro = f"(mail={email})"
+        #conn.search(BASE_DN, filtro, attributes=["distinguishedName"])
+        conn.search(BASE_DN, filtro, attributes=["mail", "distinguishedName","cn", "title", "department", "company", "extensionAttribute1", "employeeID", "manager", "employeeNumber"])
 
-    # return conn.entries[0]
-    if conn.entries:
-        dn = conn.entries[0].distinguishedName.value
-        nome = dn.split(',')[0].split('=')[1]
-        email = conn.entries[0].mail.value
-        # retorna uma tupla com nome e email (o Flask deve estar em execução para funcionar)
-        return jsonify({"nome": nome, "email": email})
-    logging.error(f"Usuário com CPF {cpf} não encontrado.")
-    return jsonify({"nome": "Não encontrado", "email": "Não encontrado"})
+        # return conn.entries[0]
+        if conn.entries:
+            # dn = conn.entries[0].distinguishedName.value
+            # nome = dn.split(',')[0].split('=')[1]
+            nome = conn.entries[0].cn.value
+            email = conn.entries[0].mail.value
+            departamento = conn.entries[0].department.value
+            cargo = conn.entries[0].title.value
+            empresa = conn.entries[0].company.value
+            data_nascimento = conn.entries[0].extensionAttribute1.value
+            siape = conn.entries[0].employeeID.value
+            chefia = conn.entries[0].manager.value.split(',')[0].replace('CN=', '')
+            cpf = conn.entries[0].employeeNumber.value
+            # print(f"Nome: {nome}, Email: {email}, Departamento: {departamento}, Cargo: {cargo}, Empresa: {empresa}, Data de Nascimento: {data_nascimento}, SIAPE: {siape}, Chefia: {chefia}, CPF: {cpf}")
+            # retorna uma tupla com nome e email (o Flask deve estar em execução para funcionar)
+            return {
+                "nome": nome, 
+                "email": email, 
+                "departamento": departamento,
+                "cargo": cargo, 
+                "empresa": empresa, 
+                "data_de_nascimento": data_nascimento,
+                "siape": siape, 
+                "chefia": chefia, 
+                "cpf": cpf
+            }
+        logging.warning(f"Usuário não encontrado.")
+        return None
+        # return jsonify({"nome": "Não encontrado", "email": "Não encontrado"})
+    except Exception as e:
+        logging.error(f"Erro ao consultar usuário: {e}")
+        return None
 
 
 def buscar_usuario_por_cpf(conn, cpf):
@@ -278,15 +311,16 @@ if __name__ == "__main__":
     # Se quiser só testar a conexão, descomente a linha abaixo:
     # testar_conexao_ad()
     #conn = conectar_ad()
-    print(cria_usuario_ad(nomeUsuarioCapitalizado="Pedro de Lara Cancum",
-        cpfUsuario="704.466.230-75",
-        dataNascimentoUsuario="1980-01-01",
-        emailPessoal="pedro@gmail.com",
-        telefoneComercial="61999999999",
-        matriculaSiape="1234567",
-        empresa="CADE",
-        localizacao="Remoto",
-        cargo="Servidor",
-        departamento="SESIN",
-        chefia="Thiago Nogueira de Oliveira"
-    ))
+    print(consultar_usuario("02982448530"))
+    # print(cria_usuario_ad(nomeUsuarioCapitalizado="Pedro de Lara Cancum",
+    #     cpfUsuario="704.466.230-75",
+    #     dataNascimentoUsuario="1980-01-01",
+    #     emailPessoal="pedro@gmail.com",
+    #     telefoneComercial="61999999999",
+    #     matriculaSiape="1234567",
+    #     empresa="CADE",
+    #     localizacao="Remoto",
+    #     cargo="Servidor",
+    #     departamento="SESIN",
+    #     chefia="Thiago Nogueira de Oliveira"
+    # ))
