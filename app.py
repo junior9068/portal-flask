@@ -119,7 +119,7 @@ def manutencao2():
 #@oidc.require_login
 def cria_usuario():
     logging.info(f"Chamou a rota cria_usuario")
-    return render_template("formulario_ajax_simples.html")
+    return render_template("cria_usuario.html")
     # return render_template("cria_usuario.html")
 
 @app.route("/desativa_usuario")
@@ -205,7 +205,17 @@ def consulta_dados_usuario():
         identificadorPesquisa = request.form['cpf']
     saida = consultar_usuario(identificadorPesquisa)
     if saida is None:
-        return jsonify({"nome": "Não encontrado", "email": "Não encontrado"})
+        return jsonify({
+            "nome": "Não encontrado", 
+            "email": "Não encontrado",
+            "departamento": "Não encontrado",
+            "cargo": "Não encontrado", 
+            "empresa": "Não encontrado", 
+            "data_de_nascimento": "Não encontrado",
+            "siape": "Não encontrado",
+            "chefia": "Não encontrado", 
+            "cpf": "Não encontrado",
+            })
     else:
         return jsonify(saida)
     #saida = modificaUsuario(cpfUsuario)
