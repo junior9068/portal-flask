@@ -84,6 +84,7 @@
         </div>
         
         <!-- Explicação sobre a validação -->
+        <div id="resultadoCard" class="card mt-4" style="display:none;">
         <div class="card mt-4">
             <div class="card-header bg-info text-white">
                 <i class="bi bi-info-circle me-2"></i>Resultado:
@@ -91,6 +92,7 @@
             <div class="card-body" style="text-align: center;">
                 <p id="mensagemResultado">{{ resultado }}</p>
             </div>
+        </div>
         </div>
     </div>
 </div>
@@ -223,6 +225,7 @@
             .then(res => res.text())
             .then(msg => {
                 document.getElementById('mensagemResultado').innerText = msg;
+                document.getElementById('resultadoCard').style.display = 'block'; // <-- mostra o resultado
                 form.reset();
                 nomeInput.value = '';
                 emailInput.value = '';

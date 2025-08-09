@@ -5,6 +5,7 @@ CRIAR OS ARQUIVOS DE LOG
 
 TO DO:
  
-CORRIGIR A TELA DE RESULTADO QUANDO NÃO ENCONTRAR CPF
+Capturar a sessão e enviar para o banco;
+
 
 ```

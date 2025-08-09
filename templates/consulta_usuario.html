@@ -44,7 +44,7 @@
 <div class="row">
     <div class="col-12">
         <!-- <h1>Desativar usuário</h1> -->
-        <p class="lead">Preencha o CPF ou e-mail para realizar a consulta do usuário.</p>
+        <p class="lead">Preencha o CPF ou e-mail para realizar a consulta.</p>
         
         <div class="card mt-4">
             <div class="card-body">
@@ -73,12 +73,14 @@
         </div>
         
         <!-- Explicação sobre a validação -->
-        <div class="card mt-4">
-            <div class="card-header bg-info text-white">
-                <i class="bi bi-info-circle me-2"></i>Resultado:
-            </div>
-            <div class="card-body" style="text-align: center;">
-                <p id="mensagemResultado">{{ resultado }}</p>
+        <div id="resultadoCard" class="card mt-4" style="display:none;">
+            <div class="card mt-4">
+                <div class="card-header bg-info text-white">
+                    <i class="bi bi-info-circle me-2"></i>Resultado:
+                </div>
+                <div class="card-body" style="text-align: center;">
+                    <p id="mensagemResultado">{{ resultado }}</p>
+                </div>
             </div>
         </div>
     </div>
@@ -143,6 +145,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 resultadoDiv.innerHTML = `<span class="text-danger">${data.erro}</span>`;
                 return;
             }
+            document.getElementById('resultadoCard').style.display = 'block'; // <-- mostra o resultado
             resultadoDiv.innerHTML = `
                 <style>
                     .resultado-tabela {

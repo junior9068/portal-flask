@@ -117,12 +117,12 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ url_for('desativa_usuario') }}" class="nav-link {% if request.endpoint == 'desativa_usuario' %}active{% endif %}">
-                        <i class="bi bi-person-fill-x"></i> Desativar usuário
+                        <i class="bi bi-x-circle"></i> Desativar usuário
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ url_for('consulta_usuario') }}"  class="nav-link {% if request.endpoint == 'consulta_usuario' %}active{% endif %}">
-                        <i class="bi bi-gear"></i> Consultar usuário
+                        <i class="bi bi-search"></i> Consultar usuário
                     </a>
                 </li>
                 <!-- <li class="nav-item">
@@ -183,12 +183,12 @@
                 <!-- O conteúdo específico de cada página será inserido aqui -->
                 {% endblock %}
             </div>
-            
-            <footer class="bg-light text-center text-muted py-3 mt-5">
+            <!-- RODAPÉ -->
+            <!-- <footer class="bg-light text-center text-muted py-3 mt-5">
                 <div class="container">
                     <p class="mb-0">&copy; 2025 Portal CADE. Todos os direitos reservados.</p>
                 </div>
-            </footer>
+            </footer> -->
         </div>
     </div>
 
