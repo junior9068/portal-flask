@@ -48,9 +48,9 @@ app.config['SECRET_KEY'] = 'sua-chave-secreta-mude-em-producao'
 def raiz():
     return redirect(url_for("home"))
 
-@app.route("/index")
-def index():
-    return render_template("index.html")
+# @app.route("/index")
+# def index():
+#     return render_template("index.html")
 
 @app.route("/home")
 @oidc.require_login
@@ -116,27 +116,27 @@ def manutencao2():
     return render_template("manutencao.html")
 
 @app.route("/cria_usuario")
-#@oidc.require_login
+@oidc.require_login
 def cria_usuario():
     logging.info(f"Chamou a rota cria_usuario")
     return render_template("cria_usuario.html")
     # return render_template("cria_usuario.html")
 
 @app.route("/desativa_usuario")
-#@oidc.require_login
+@oidc.require_login
 def desativa_usuario():
     logging.info(f"Chamou a rota desativa_usuario")
     return render_template("desativa_usuario.html")
 
 @app.route("/consulta_usuario")
-#@oidc.require_login
+@oidc.require_login
 def consulta_usuario():
     logging.info(f"Chamou a rota consulta_usuario")
     return render_template("consulta_usuario.html")
 
 
 @app.route("/executa_desativa_usuario", methods=['POST'])
-#@oidc.require_login
+@oidc.require_login
 def executa_desativa_usuario():
     cpf_usuario = request.form['cpfUsuario']
     logging.info(f"Chamou a rota executa_desativa_usuario")
@@ -146,7 +146,7 @@ def executa_desativa_usuario():
     return saida
 
 @app.route("/executa_cria_usuario", methods=['POST'])
-#@oidc.require_login
+@oidc.require_login
 def executa_cria_usuario():
     saida = ""
     # Cria um dicionário para armazenar os dados do usuário
