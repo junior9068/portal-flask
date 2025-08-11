@@ -4,12 +4,14 @@ from ldap3 import Server, Connection, ALL, MODIFY_REPLACE
 import logging
 from flask import jsonify
 import string
-import random
+import random, os
 #from funcoes.funcoes import enviar_email
 # --- CONFIGURAÇÕES DO AD ---
 SERVIDOR_AD = "ldaps://SRVPADDNS02.cade.gov.br"
 USUARIO_AD = "srvportalad@cade.gov.br"
-SENHA_AD = "s2G2x2xgKc54."
+# SENHA_AD = "s2G2x2xgKc54."
+#Senha do AD está definida como variável de ambiente
+SENHA_AD = os.environ.get("SENHA_AD")
 BASE_DN = 'DC=cade,DC=gov,DC=br'
 NOVA_OU = 'OU=Usuarios,OU=NoSync--M365,DC=cade,DC=gov,DC=br'
 
@@ -311,7 +313,6 @@ if __name__ == "__main__":
     # Se quiser só testar a conexão, descomente a linha abaixo:
     # testar_conexao_ad()
     #conn = conectar_ad()
-    print(consultar_usuario("02982448530"))
     # print(cria_usuario_ad(nomeUsuarioCapitalizado="Pedro de Lara Cancum",
     #     cpfUsuario="704.466.230-75",
     #     dataNascimentoUsuario="1980-01-01",
@@ -324,3 +325,5 @@ if __name__ == "__main__":
     #     departamento="SESIN",
     #     chefia="Thiago Nogueira de Oliveira"
     # ))
+    print(consultar_usuario("02982448530"))
+    # print(os.environ.get("SENHA_AD"))
