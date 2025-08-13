@@ -64,6 +64,7 @@ def home():
     nomes = nome.split(" ")
     nomeLista = [nomes[0], nomes[1]]
     nomeExibicao = " ".join(nomeLista)
+    logging.info(user)
     # return jsonify(user)
     return render_template("home.html", nome=nomeExibicao)
 
@@ -197,6 +198,8 @@ def executa_cria_usuario():
 
 @app.route("/consulta_nome", methods=['POST'])
 def consulta_dados_usuario():
+    user = oidc.user_getinfo(['email', 'name'])
+    logging.info(f"Usuário autenticado: {user}")
     #Função utilizada nas páginas de consulta do usuário e desativação do usuário
     identificadorPesquisa = ""
     if 'identificador' in request.form:
