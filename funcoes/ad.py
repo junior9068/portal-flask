@@ -7,10 +7,9 @@ import string
 import random, os
 #from funcoes.funcoes import enviar_email
 # --- CONFIGURAÇÕES DO AD ---
+# Senha e usuario do AD estão definidos como variável de ambiente
 SERVIDOR_AD = "ldaps://SRVPADDNS02.cade.gov.br"
-USUARIO_AD = "srvportalad@cade.gov.br"
-# SENHA_AD = "s2G2x2xgKc54."
-#Senha do AD está definida como variável de ambiente
+USUARIO_AD = os.environ.get("USUARIO_AD")
 SENHA_AD = os.environ.get("SENHA_AD")
 BASE_DN = 'DC=cade,DC=gov,DC=br'
 NOVA_OU = 'OU=Usuarios,OU=NoSync--M365,DC=cade,DC=gov,DC=br'
