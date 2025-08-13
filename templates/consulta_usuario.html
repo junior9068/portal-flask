@@ -124,6 +124,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Validação antes de enviar
         if (!validarCPF(identificador) && !validarEmail(identificador)) {
+            document.getElementById('resultadoCard').style.display = 'block'; // <-- mostra o resultado
             resultadoDiv.innerHTML = "<span class='text-danger'>Digite um CPF ou e-mail válido.</span>";
             return;
         }

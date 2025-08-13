@@ -29,7 +29,7 @@ def testar_conexao_ad():
 
 def conectar_ad():
     server = Server(SERVIDOR_AD, get_info=ALL)
-    conn = Connection(server, user=USUARIO_AD, password=SENHA_AD, auto_bind=True)
+    conn = Connection(server, user=USUARIO_AD, password=SENHA_AD, auto_bind=True, raise_exceptions=True)
     return conn
 
 
