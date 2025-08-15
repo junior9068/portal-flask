@@ -64,7 +64,7 @@ def home():
     nomes = nome.split(" ")
     nomeLista = [nomes[0], nomes[1]]
     nomeExibicao = " ".join(nomeLista)
-    logging.info(f"TESTE PARA PEGAR EMAIL DO USUÁRIO: {oidc.user_getinfo(['email'])}")
+    logging.info(f"TESTE PARA PEGAR EMAIL DO USUÁRIO: {oidc.user_getinfo(['email']).get('email')}")
     # return jsonify(user)
     return render_template("home.html", nome=nomeExibicao)
 
@@ -158,6 +158,7 @@ def executa_cria_usuario():
     nomeUsuarioCapitalizado = capitalizaNome(nomeUsuario)
     departamentoHtml = request.form['departamento']
     departamento, chefia = buscaDepartamento(departamentoHtml)
+    usuarioLogado = oidc.user_getinfo(['email'])
     try:
         saida = cria_usuario_ad(
             nomeUsuarioCapitalizado,
@@ -170,7 +171,8 @@ def executa_cria_usuario():
             localizacao = request.form['localizacao'],
             cargo = request.form['cargo'],
             departamento = departamento,
-            chefia = chefia
+            chefia = chefia,
+            usuarioLogado = usuarioLogado
         )
     except Exception as e:
         logging.error(f"Erro ao criar usuário: {e}")

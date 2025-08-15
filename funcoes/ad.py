@@ -7,7 +7,6 @@ import string
 import random, os
 from funcoes.funcoes import enviar_email
 from funcoes.banco import registrar_log
-from app import oidc
 # --- CONFIGURAÇÕES DO AD ---
 # Senha e usuario do AD estão definidos como variável de ambiente
 SERVIDOR_AD = "ldaps://SRVPADDNS02.cade.gov.br"
@@ -171,7 +170,8 @@ def cria_usuario_ad(nomeUsuarioCapitalizado,cpfUsuario,dataNascimentoUsuario,ema
         localizacao,
         cargo,
         departamento,
-        chefia
+        chefia,
+        usuarioLogado
     ):
     conn_ad = conectar_ad()
     saida = ""
@@ -239,7 +239,7 @@ def cria_usuario_ad(nomeUsuarioCapitalizado,cpfUsuario,dataNascimentoUsuario,ema
 
             logging.info(f"[SUCESSO] Senha definida e conta ativada)")
             registrar_log(
-                usuario_sistema=oidc.user_getinfo(['email']),
+                usuario_sistema=usuarioLogado.get('email'),
                 usuario_ad=login_final,
                 acao="criar_usuario",
                 observacoes=f"Usuário {nomeUsuarioCapitalizado} criado com sucesso."
