@@ -1,8 +1,8 @@
-from flask import Flask, request, jsonify, redirect, url_for
+from flask import Flask, request, jsonify, redirect, url_for, send_file
 from flask_session import Session
 from flask import render_template
 from funcoes.log import configurar_logs
-import logging
+import logging, os
 from funcoes.banco import inserir_usuario, deletar_usuario, lerResultado
 from funcoes.funcoes import capitalizaNome, buscaDepartamento, exemplo_chamada_bash
 from funcoes.ad import modificaUsuario, consultar_usuario, cria_usuario_ad, buscar_login, gerar_senha
@@ -102,7 +102,10 @@ def user_photo():
         return Response(r.content, content_type=r.headers['Content-Type'])
     else:
         logging.error(f"Erro ao obter foto do usuário: {r.status_code} - {r.text}")
-        return "Photo not found", r.status_code
+        # Caminho da imagem padrão dentro da pasta static
+        default_image_path = os.path.join(app.root_path, 'static', 'images', 'default_user.png')
+        return send_file(default_image_path, mimetype='image/png')
+
 
 @app.route("/manutencao")
 def manutencao():
