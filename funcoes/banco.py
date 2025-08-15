@@ -171,4 +171,9 @@ def deletar_usuario(cpf):
 
 
 if __name__ == "__main__":
-    print(lerResultado(25))
+    print(registrar_log(
+                usuario_sistema="edilson.junior@cade.gov.br",
+                usuario_ad="teste.fulano",
+                acao="criar_usuario",
+                observacoes=f"Usuário teste.fulano criado com sucesso."
+            ))
