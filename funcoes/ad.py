@@ -242,7 +242,7 @@ def cria_usuario_ad(nomeUsuarioCapitalizado,cpfUsuario,dataNascimentoUsuario,ema
                 usuario_sistema=usuarioLogado.get('email'),
                 usuario_ad=login_final,
                 acao="criar_usuario",
-                observacoes=f"Usuário {nomeUsuarioCapitalizado} criado com sucesso."
+                observacoes=f"Usuário criado!"
             )
             # Retorna uma mensagem de sucesso
             saida = f"Conta criada com sucesso. As informações de acesso foram enviadas para o email {emailPessoal}."
@@ -274,7 +274,7 @@ def mover_usuario(conn, dn, nova_ou):
     return conn.modify_dn(dn, f"CN={cn}", new_superior=nova_ou)
 
 
-def modificaUsuario(cpfUsuario):
+def modificaUsuario(cpfUsuario, usuarioLogado):
     cpf_input = cpfUsuario.strip()
     # Remove caracteres não numéricos do CPF
     cpf = re.sub(r'\D', '', cpf_input)
@@ -294,8 +294,9 @@ def modificaUsuario(cpfUsuario):
             return f"Usuário com CPF {cpf} não encontrado."
         
         #Verifica se a conta já está desativada
-        conn.search(dn_usuario, '(objectClass=person)', attributes=['userAccountControl'])
+        conn.search(dn_usuario, '(objectClass=person)', attributes=['userAccountControl', 'sAMAccountName'])
         if conn.entries:
+            login_usuario_ad = conn.entries[0]['sAMAccountName'].value
             uac = int(conn.entries[0]['userAccountControl'].value)
             if uac & 2:
                 return f"Usuário já está desativado."
@@ -306,6 +307,12 @@ def modificaUsuario(cpfUsuario):
         if not mover_usuario(conn, dn_usuario, NOVA_OU):
             logging.error(f"Falha ao mover o usuário de OU: {conn.result['description']}")
             return f"Falha ao desativar a conta."
+        registrar_log(
+            usuario_sistema=usuarioLogado.get('email'),
+            usuario_ad=login_usuario_ad,
+            acao="desativar_usuario",
+            observacoes=f"Usuário desativado!"
+        )
         return f"Usuário desativado com sucesso!"
     except Exception as e:
         logging.error(f"[EXCEÇÃO] {e}")

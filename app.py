@@ -145,7 +145,8 @@ def executa_desativa_usuario():
     cpf_usuario = request.form['cpfUsuario']
     logging.info(f"Chamou a rota executa_desativa_usuario")
     logging.info(f"CPF do usuário: {cpf_usuario}")
-    saida = modificaUsuario(cpf_usuario)
+    usuarioLogado = oidc.user_getinfo(['email'])
+    saida = modificaUsuario(cpf_usuario, usuarioLogado)
     #return render_template("desativa_usuario.html", nome_usuario=saida)
     return saida
 
