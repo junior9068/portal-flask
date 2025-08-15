@@ -28,6 +28,32 @@ def conexao_banco():
 
 # cursor = conexao.cursor()
 
+def registrar_log(usuario_sistema, usuario_ad, acao, observacoes=None):
+    conexao = None
+    cursor = None
+    try:
+        conexao = conexao_banco()
+        cursor = conexao.cursor()
+        sql = """
+            INSERT INTO log_ad (usuario_sistema, usuario_ad, acao, observacoes)
+            VALUES (%s, %s, %s, %s)
+        """
+        valores = (usuario_sistema, usuario_ad, acao, observacoes)
+        cursor.execute(sql, valores)
+        conexao.commit()
+        log_id = cursor.lastrowid
+        logging.info(f"Log inserido: {usuario_sistema} -> {usuario_ad} ({acao})")
+        return log_id
+    except Exception as erro:
+        logging.error(f"Erro ao inserir log de registro no banco: {erro}")
+        return None
+    finally:
+        if cursor:
+            cursor.close()
+        if conexao:
+            conexao.close()
+
+
 def inserir_usuario(json, acao):
     cursor = ''
     saida = ''
@@ -52,40 +78,6 @@ def inserir_usuario(json, acao):
         if conexao:
             conexao.close()
         return saida
-
-
-# def lerResultado(id):
-#     cursor = None
-#     conexao = None
-#     saida = ''
-
-#     try:
-#         conexao = conexao_banco()
-#         cursor = conexao.cursor()
-#         sql = "SELECT status FROM registros WHERE id = %s"
-#         valores = (id,)  # Tupla com um elemento
-
-#         cursor.execute(sql, valores)
-#         resultado = cursor.fetchone()
-#         print(resultado)
-#         if resultado:
-#             saida = resultado  # ou adapte conforme seu uso
-#             logging.info(f"Registro encontrado para ID {id}: {resultado}")
-#         else:
-#             saida = f"Nenhum registro encontrado com ID {id}"
-#             logging.warning(saida)
-
-#     except Exception as erro:
-#         saida = "Erro ao buscar o registro. Entre em contato com a CGTI."
-#         logging.error(f"Erro ao buscar registro: {erro}")
-
-#     finally:
-#         if cursor:
-#             cursor.close()
-#         if conexao:
-#             conexao.close()
-#         return saida
-
 
 def lerResultado(id, timeout=10, intervalo=1):
     """

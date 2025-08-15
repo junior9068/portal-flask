@@ -5,7 +5,9 @@ import logging
 from flask import jsonify
 import string
 import random, os
-#from funcoes.funcoes import enviar_email
+from funcoes.funcoes import enviar_email
+from funcoes.banco import registrar_log
+from app import oidc
 # --- CONFIGURAÇÕES DO AD ---
 # Senha e usuario do AD estão definidos como variável de ambiente
 SERVIDOR_AD = "ldaps://SRVPADDNS02.cade.gov.br"
@@ -236,7 +238,14 @@ def cria_usuario_ad(nomeUsuarioCapitalizado,cpfUsuario,dataNascimentoUsuario,ema
                 logging.error(f"[ERRO] Falha ao enviar e-mail para {emailPessoal}")
 
             logging.info(f"[SUCESSO] Senha definida e conta ativada)")
-            saida = f"Conta criada, senha aplicada e troca exigida no primeiro logon. E-mail enviado com a senha criada."
+            registrar_log(
+                usuario_sistema=oidc.user_getinfo(['email']),
+                usuario_ad=login_final,
+                acao="criar_usuario",
+                observacoes=f"Usuário {nomeUsuarioCapitalizado} criado com sucesso."
+            )
+            # Retorna uma mensagem de sucesso
+            saida = f"Conta criada com sucesso. As informações de acesso foram enviadas para o email {emailPessoal}."
             return saida
         except Exception as e:
             logging.error(f"[EXCEÇÃO] Falha ao definir senha ou ativar conta: {e}")

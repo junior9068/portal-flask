@@ -64,7 +64,7 @@ def home():
     nomes = nome.split(" ")
     nomeLista = [nomes[0], nomes[1]]
     nomeExibicao = " ".join(nomeLista)
-    logging.info(user)
+    logging.info(f"TESTE PARA PEGAR EMAIL DO USUÁRIO: {oidc.user_getinfo(['email'])}")
     # return jsonify(user)
     return render_template("home.html", nome=nomeExibicao)
 
