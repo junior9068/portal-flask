@@ -120,10 +120,13 @@ document.addEventListener("DOMContentLoaded", function () {
     form.addEventListener("submit", function (event) {
         event.preventDefault();
 
-        const identificador = inputIdentificador.value.trim();
+        // const identificador = inputIdentificador.value.trim();
+        let identificador = inputIdentificador.value.trim();
+        // Remove máscara se for CPF
+        let identificadorLimpo = identificador.replace(/\D/g, "");
 
         // Validação antes de enviar
-        if (!validarCPF(identificador) && !validarEmail(identificador)) {
+        if (!validarCPF(identificadorLimpo) && !validarEmail(identificador)) {
             document.getElementById('resultadoCard').style.display = 'block'; // <-- mostra o resultado
             resultadoDiv.innerHTML = "<span class='text-danger'>Digite um CPF ou e-mail válido.</span>";
             return;
@@ -132,7 +135,8 @@ document.addEventListener("DOMContentLoaded", function () {
         overlay.style.display = "flex"; // mostra loading
 
         const formData = new FormData();
-        formData.append("identificador", identificador);
+        // formData.append("identificador", identificador);
+        formData.append("identificador", validarEmail(identificador) ? identificador : identificadorLimpo);
 
         fetch("/consulta_nome", {
             method: "POST",

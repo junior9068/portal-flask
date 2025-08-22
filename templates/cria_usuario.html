@@ -380,6 +380,11 @@
         
         // Coletar dados do formulário
         const formData = new FormData(document.getElementById('cadastroForm'));
+
+        // Garante que o CPF vá apenas com números
+        const cpfInput = document.getElementById('cpfUsuario');
+        const cpfLimpo = cpfInput.value.replace(/\D/g, '');
+        formData.set('cpfUsuario', cpfLimpo);
         
         // Enviar via AJAX usando fetch()
         fetch('/executa_cria_usuario', {

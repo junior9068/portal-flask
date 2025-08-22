@@ -1,11 +1,11 @@
 import re
 import ldap3
-from ldap3 import Server, Connection, ALL, MODIFY_REPLACE
+from ldap3 import Server, Connection, ALL, MODIFY_REPLACE, ALL_ATTRIBUTES
 import logging
 from flask import jsonify
 import string
 import random, os
-from funcoes.funcoes import enviar_email
+from funcoes.funcoes import enviar_email_criacao
 from funcoes.banco import registrar_log
 # --- CONFIGURAÇÕES DO AD ---
 # Senha e usuario do AD estão definidos como variável de ambiente
@@ -230,7 +230,7 @@ def cria_usuario_ad(nomeUsuarioCapitalizado,cpfUsuario,dataNascimentoUsuario,ema
                 "userAccountControl": [(ldap3.MODIFY_REPLACE, [544])],
                 "pwdLastSet": [(ldap3.MODIFY_REPLACE, [0])]
             })
-            envio_email = enviar_email(senha_gerada, emailPessoal, login_final)
+            envio_email = enviar_email_criacao(senha_gerada, emailPessoal, login_final)
             if envio_email:
                 logging.info(f"[SUCESSO] E-mail enviado para {emailPessoal}")
             else:
@@ -342,3 +342,7 @@ if __name__ == "__main__":
     # ))
     print(consultar_usuario("02982448530"))
     # print(os.environ.get("SENHA_AD"))
+    # conn = conectar_ad()
+    # dn_usuario = buscar_usuario_por_cpf(conn,"02982448530")
+    # conn.search(dn_usuario,'(objectClass=person)',attributes=ALL_ATTRIBUTES)
+    # print(conn.entries[0])
