@@ -1,1 +1,0 @@
-dir /home/edilson/projetos/
