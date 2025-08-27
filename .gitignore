@@ -1,6 +1,7 @@
 # OIDC client secrets
 # This file contains sensitive information and should not be committed to version control.
 client_secrets.json
+.env
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

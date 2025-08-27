@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  web:
+    build: .
+    container_name: portal-flask
+    env_file: 
+      - .env
+    network_mode: "host" #usando a rede do host para não ter problemas com o OIDC, envio de email e etc.
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "3307:3306" #usando a porta 3307 do host para evitar conflito com outro mysql local
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
