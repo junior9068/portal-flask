@@ -300,7 +300,6 @@ def modificaUsuario(cpfUsuario, usuarioLogado):
         #Verifica se a conta já está desativada
         conn.search(dn_usuario, '(objectClass=person)', attributes=['userAccountControl', 'sAMAccountName', 'otherMailbox'])
         if conn.entries:
-            logging.info(f"email: {conn.entries[0]['otherMailbox'].value}")
             login_usuario_ad = conn.entries[0]['sAMAccountName'].value
             uac = int(conn.entries[0]['userAccountControl'].value)
             if uac & 2:
@@ -312,13 +311,13 @@ def modificaUsuario(cpfUsuario, usuarioLogado):
         if not mover_usuario(conn, dn_usuario, NOVA_OU):
             logging.error(f"Falha ao mover o usuário de OU: {conn.result['description']}")
             return f"Falha ao desativar a conta."
-        #Envia o e-mail de desativação
-        # email_usuario = conn.entries[0]['otherMailbox'].value
-        # envio_email = enviar_email_desativacao(email_usuario, login_usuario_ad)
-        # if envio_email:
-        #     logging.info(f"[SUCESSO] E-mail de desativação enviado para {email_usuario}")
-        # else:
-        #     logging.error(f"[ERRO] Falha ao enviar e-mail de desativação para {email_usuario}")
+        # Envia o e-mail de desativação
+        email_usuario = conn.entries[0]['otherMailbox'].value
+        envio_email = enviar_email_desativacao(email_usuario, login_usuario_ad)
+        if envio_email:
+            logging.info(f"[SUCESSO] E-mail de desativação enviado para {email_usuario}")
+        else:
+            logging.error(f"[ERRO] Falha ao enviar e-mail de desativação para {email_usuario}")
         registrar_log(
             usuario_sistema=usuarioLogado.get('email'),
             usuario_ad=login_usuario_ad,
