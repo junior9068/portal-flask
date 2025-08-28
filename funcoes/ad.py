@@ -5,7 +5,7 @@ import logging
 from flask import jsonify
 import string
 import random, os
-from funcoes.funcoes import enviar_email_criacao
+from funcoes.funcoes import enviar_email_criacao, enviar_email_desativacao
 from funcoes.banco import registrar_log
 # --- CONFIGURAÇÕES DO AD ---
 # Senha e usuario do AD estão definidos como variável de ambiente
@@ -48,7 +48,7 @@ def consultar_usuario(identificador):
         # email = "edilson.junio@cade.gov.br"
         # filtro = f"(mail={email})"
         #conn.search(BASE_DN, filtro, attributes=["distinguishedName"])
-        conn.search(BASE_DN, filtro, attributes=["mail", "distinguishedName","cn", "title", "department", "company", "extensionAttribute1", "employeeID", "manager", "employeeNumber"])
+        conn.search(BASE_DN, filtro, attributes=["mail", "distinguishedName","cn", "title", "department", "company", "extensionAttribute1", "employeeID", "manager", "employeeNumber", "otherMailbox"])
 
         # return conn.entries[0]
         if conn.entries:
@@ -63,8 +63,10 @@ def consultar_usuario(identificador):
             siape = conn.entries[0].employeeID.value
             chefia = conn.entries[0].manager.value.split(',')[0].replace('CN=', '')
             cpf = conn.entries[0].employeeNumber.value
+            email_pessoal = conn.entries[0].otherMailbox.value
             # print(f"Nome: {nome}, Email: {email}, Departamento: {departamento}, Cargo: {cargo}, Empresa: {empresa}, Data de Nascimento: {data_nascimento}, SIAPE: {siape}, Chefia: {chefia}, CPF: {cpf}")
             # retorna uma tupla com nome e email (o Flask deve estar em execução para funcionar)
+            logging.info(f"Usuário encontrado: {nome}, Email: {email}")
             return {
                 "nome": nome, 
                 "email": email, 
@@ -74,7 +76,8 @@ def consultar_usuario(identificador):
                 "data_de_nascimento": data_nascimento,
                 "siape": siape, 
                 "chefia": chefia, 
-                "cpf": cpf
+                "cpf": cpf,
+                "email_pessoal": email_pessoal
             }
         logging.warning(f"Usuário não encontrado.")
         return None
@@ -204,7 +207,8 @@ def cria_usuario_ad(nomeUsuarioCapitalizado,cpfUsuario,dataNascimentoUsuario,ema
     "mail": f"{login_final}@cade.gov.br",
     "physicalDeliveryOfficeName": localizacao,
     "givenName": nomeUsuarioCapitalizado.split()[0],
-    "sn": sobrenome
+    "sn": sobrenome,
+    "otherMailbox": emailPessoal
     }
     # Adiciona o atributo de matricula SIAPE
     if matriculaSiape != "":
@@ -294,7 +298,7 @@ def modificaUsuario(cpfUsuario, usuarioLogado):
             return f"Usuário com CPF {cpf} não encontrado."
         
         #Verifica se a conta já está desativada
-        conn.search(dn_usuario, '(objectClass=person)', attributes=['userAccountControl', 'sAMAccountName'])
+        conn.search(dn_usuario, '(objectClass=person)', attributes=['userAccountControl', 'sAMAccountName', 'otherMailbox'])
         if conn.entries:
             login_usuario_ad = conn.entries[0]['sAMAccountName'].value
             uac = int(conn.entries[0]['userAccountControl'].value)
@@ -307,6 +311,13 @@ def modificaUsuario(cpfUsuario, usuarioLogado):
         if not mover_usuario(conn, dn_usuario, NOVA_OU):
             logging.error(f"Falha ao mover o usuário de OU: {conn.result['description']}")
             return f"Falha ao desativar a conta."
+        #Envia o e-mail de desativação
+        email_usuario = conn.entries[0]['otherMailbox'].value
+        envio_email = enviar_email_desativacao(email_usuario, login_usuario_ad)
+        if envio_email:
+            logging.info(f"[SUCESSO] E-mail de desativação enviado para {email_usuario}")
+        else:
+            logging.error(f"[ERRO] Falha ao enviar e-mail de desativação para {email_usuario}")
         registrar_log(
             usuario_sistema=usuarioLogado.get('email'),
             usuario_ad=login_usuario_ad,
@@ -340,7 +351,7 @@ if __name__ == "__main__":
     #     departamento="SESIN",
     #     chefia="Thiago Nogueira de Oliveira"
     # ))
-    print(consultar_usuario("02982448530"))
+    print(consultar_usuario("03869833130"))
     # print(os.environ.get("SENHA_AD"))
     # conn = conectar_ad()
     # dn_usuario = buscar_usuario_por_cpf(conn,"02982448530")
