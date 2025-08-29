@@ -48,7 +48,7 @@ def consultar_usuario(identificador, usuarioLogado):
         # email = "edilson.junio@cade.gov.br"
         # filtro = f"(mail={email})"
         #conn.search(BASE_DN, filtro, attributes=["distinguishedName"])
-        conn.search(BASE_DN, filtro, attributes=["mail", "distinguishedName","cn", "title", "department", "company", "extensionAttribute1", "employeeID", "manager", "employeeNumber", "otherMailbox"])
+        conn.search(BASE_DN, filtro, attributes=["mail", "distinguishedName","cn", "title", "department", "company", "extensionAttribute1", "employeeID", "manager", "employeeNumber", "otherMailbox", "telephoneNumber"])
 
         # return conn.entries[0]
         if conn.entries:
@@ -64,6 +64,7 @@ def consultar_usuario(identificador, usuarioLogado):
             chefia = conn.entries[0].manager.value.split(',')[0].replace('CN=', '')
             cpf = conn.entries[0].employeeNumber.value
             email_pessoal = conn.entries[0].otherMailbox.value
+            telefone_comercial = conn.entries[0].telephoneNumber.value
             login = email.split('@')[0]
             # print(f"Nome: {nome}, Email: {email}, Departamento: {departamento}, Cargo: {cargo}, Empresa: {empresa}, Data de Nascimento: {data_nascimento}, SIAPE: {siape}, Chefia: {chefia}, CPF: {cpf}")
             # retorna uma tupla com nome e email (o Flask deve estar em execução para funcionar)
@@ -84,7 +85,8 @@ def consultar_usuario(identificador, usuarioLogado):
                 "siape": siape, 
                 "chefia": chefia, 
                 "cpf": cpf,
-                "email_pessoal": email_pessoal
+                "email_pessoal": email_pessoal,
+                "telefone_comercial": telefone_comercial   
             }
         logging.warning(f"Usuário não encontrado.")
         return None
@@ -358,7 +360,7 @@ if __name__ == "__main__":
     #     departamento="SESIN",
     #     chefia="Thiago Nogueira de Oliveira"
     # ))
-    print(consultar_usuario("03869833130"))
+    print(consultar_usuario("03869833130", "edilson.junior@cade.gov.br"))
     # print(os.environ.get("SENHA_AD"))
     # conn = conectar_ad()
     # dn_usuario = buscar_usuario_por_cpf(conn,"02982448530")

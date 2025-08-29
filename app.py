@@ -225,7 +225,8 @@ def consulta_dados_usuario():
             "siape": "Não encontrado",
             "chefia": "Não encontrado", 
             "cpf": "Não encontrado",
-            "email_pessoal": "Não encontrado"
+            "email_pessoal": "Não encontrado",
+            "telefone_comercial": "Não encontrado"
             })
     else:
         return jsonify(saida)
