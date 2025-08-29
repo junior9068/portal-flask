@@ -205,6 +205,7 @@ def executa_cria_usuario():
 @app.route("/consulta_nome", methods=['POST'])
 def consulta_dados_usuario():
     #user = oidc.user_getinfo(['email', 'name'])
+    usuarioLogado = oidc.user_getinfo(['email'])
     #logging.info(f"Usuário autenticado: {user}")
     #Função utilizada nas páginas de consulta do usuário e desativação do usuário
     identificadorPesquisa = ""
@@ -212,7 +213,7 @@ def consulta_dados_usuario():
         identificadorPesquisa = request.form['identificador']
     else:
         identificadorPesquisa = request.form['cpf']
-    saida = consultar_usuario(identificadorPesquisa)
+    saida = consultar_usuario(identificadorPesquisa, usuarioLogado)
     if saida is None:
         return jsonify({
             "nome": "Não encontrado", 

@@ -34,7 +34,7 @@ def conectar_ad():
     return conn
 
 
-def consultar_usuario(identificador):
+def consultar_usuario(identificador, usuarioLogado):
     # Verifica se o identificador é um email ou CPF
     if "@" in identificador:
         email = identificador.strip()
@@ -64,9 +64,16 @@ def consultar_usuario(identificador):
             chefia = conn.entries[0].manager.value.split(',')[0].replace('CN=', '')
             cpf = conn.entries[0].employeeNumber.value
             email_pessoal = conn.entries[0].otherMailbox.value
+            login = email.split('@')[0]
             # print(f"Nome: {nome}, Email: {email}, Departamento: {departamento}, Cargo: {cargo}, Empresa: {empresa}, Data de Nascimento: {data_nascimento}, SIAPE: {siape}, Chefia: {chefia}, CPF: {cpf}")
             # retorna uma tupla com nome e email (o Flask deve estar em execução para funcionar)
             logging.info(f"Usuário encontrado: {nome}, Email: {email}")
+            registrar_log(
+                usuario_sistema=usuarioLogado.get('email'),
+                usuario_ad=login,
+                acao="consultar_usuario",
+                observacoes=f"Usuário consultado!"
+            )
             return {
                 "nome": nome, 
                 "email": email, 
