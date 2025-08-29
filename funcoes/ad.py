@@ -303,8 +303,6 @@ def modificaUsuario(cpfUsuario, usuarioLogado):
             login_usuario_ad = conn.entries[0]['sAMAccountName'].value
             uac = int(conn.entries[0]['userAccountControl'].value)
             if uac & 2:
-                email_usuario = conn.entries[0]['otherMailbox'].value
-                enviar_email_desativacao(email_usuario, login_usuario_ad)
                 return f"Usuário já está desativado."
         # return f"Usuário encontrado: {nome}"
         if not desativar_usuario(conn, dn_usuario):
@@ -314,8 +312,8 @@ def modificaUsuario(cpfUsuario, usuarioLogado):
             logging.error(f"Falha ao mover o usuário de OU: {conn.result['description']}")
             return f"Falha ao desativar a conta."
         # Envia o e-mail de desativação
-        # email_usuario = conn.entries[0]['otherMailbox'].value
-        # envio_email = enviar_email_desativacao(email_usuario, login_usuario_ad)
+        email_usuario = conn.entries[0]['otherMailbox'].value
+        enviar_email_desativacao(email_usuario, login_usuario_ad)
         # if envio_email:
         #     logging.info(f"[SUCESSO] E-mail de desativação enviado para {email_usuario}")
         # else:
