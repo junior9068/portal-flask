@@ -14,7 +14,7 @@
                     <!-- Formulário SEM action/method - será enviado via AJAX -->
                     <form id="cadastroForm" onsubmit="return enviarFormulario(event)">
                         <div class="mb-4">
-                            <label for="cpfUsuario" class="form-label">CPF</label>
+                            <label for="cpfUsuario" class="form-label">CPF *</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-card-text"></i></span>
                                 <input type="text" class="form-control" id="cpfUsuario" name="cpfUsuario" placeholder="000.000.000-00" required>
@@ -25,7 +25,7 @@
                             <div class="form-text">Informe o CPF sem pontos ou traços.</div>
                         </div>
                         <div class="mb-4">
-                            <label for="nomeUsuario" class="form-label">Nome do Usuário</label>
+                            <label for="nomeUsuario" class="form-label">Nome Completo *</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-person"></i></span>
                                 <input type="text" class="form-control" id="nomeUsuario" name="nomeUsuario" placeholder="Digite o nome completo" required>
@@ -36,7 +36,7 @@
                             <div class="form-text">Informe o nome completo do usuário.</div>
                         </div>
                         <div class="mb-4">
-                            <label for="dataNascimentoUsuario" class="form-label">Data de nascimento</label>
+                            <label for="dataNascimentoUsuario" class="form-label">Data de nascimento *</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-calendar-date"></i></span>
                                 <input type="date" class="form-control" id="dataNascimentoUsuario" name="dataNascimentoUsuario" required>
@@ -47,18 +47,18 @@
                             <div class="form-text">Informe a data de nascimento do usuário.</div>
                         </div>
                         <div class="mb-4">
-                            <label for="emailPessoal" class="form-label">Email Pessoal</label>
+                            <label for="emailPessoal" class="form-label">E-mail Pessoal *</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-envelope"></i></span>
                                 <input type="email" class="form-control" id="emailPessoal" name="emailPessoal" placeholder="exemplo@email.com" required>
                             </div>
                             <div class="invalid-feedback" id="emailInvalido">
-                                Por favor, informe um email pessoal válido.
+                                Por favor, informe um e-mail pessoal válido.
                             </div>
-                            <div class="form-text">Informe o email pessoal do usuário.</div>
+                            <div class="form-text">Informe o e-mail pessoal do usuário.</div>
                         </div>
                         <div class="mb-4">
-                            <label for="telefoneComercial" class="form-label">Telefone Comercial</label>
+                            <label for="telefoneComercial" class="form-label">Telefone Comercial *</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-telephone"></i></span>
                                 <input type="text" class="form-control" id="telefoneComercial" name="telefoneComercial" placeholder="(00) 0000-0000" required>
@@ -69,7 +69,7 @@
                             <div class="form-text">Informe o telefone comercial do usuário (ramal).</div>
                         </div>
                         <div class="mb-4">
-                            <label for="departamento" class="form-label">Departamento</label>
+                            <label for="departamento" class="form-label">Departamento *</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-buildings"></i></span>
                                 <select name="departamento" id="departamento" class="form-select" required>
@@ -177,7 +177,7 @@
                             <div class="form-text">Informe a matrícula SIAPE do usuário, caso se aplique.</div>
                         </div>
                         <div class="mb-4">
-                            <label for="empresa" class="form-label">Empresa / Orgão</label>
+                            <label for="empresa" class="form-label">Empresa / Orgão *</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-briefcase"></i></span>
                                 <input type="text" class="form-control" id="empresa" name="empresa" required>
@@ -189,7 +189,7 @@
                         </div>
                         <div class="row mb-4">
                             <div class="col-md-6">
-                                <label for="localizacao" class="form-label">Localização</label>
+                                <label for="localizacao" class="form-label">Localização *</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
                                     <select name="localizacao" id="localizacao" class="form-select" required>
@@ -205,7 +205,7 @@
                                 <div class="form-text">Informe a localização.</div>
                             </div>
                             <div class="col-md-6">
-                                <label for="cargo" class="form-label">Cargo</label>
+                                <label for="cargo" class="form-label">Cargo *</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-briefcase"></i></span>
                                     <select name="cargo" id="cargo" class="form-select" required>
