@@ -11,6 +11,10 @@ from werkzeug.middleware.proxy_fix import ProxyFix
 from flask_oidc import OpenIDConnect
 import requests
 from flask import Response, session
+from dotenv import load_dotenv
+
+# No ambiente de desenvolvimento, o load_dotenv() carrega automaticamente o arquivo .env. Em produção, pegará as variáveis de ambiente do sistema (quando estiver no kubernetes)
+load_dotenv()
 
 configurar_logs()
 
@@ -159,7 +163,10 @@ def executa_cria_usuario():
     nomeUsuarioCapitalizado = capitalizaNome(nomeUsuario)
     departamentoHtml = request.form['departamento']
     departamento, chefia = buscaDepartamento(departamentoHtml)
-    usuarioLogado = oidc.user_getinfo(['email'])
+    if os.getenv('FLASK_ENV') == 'desenvolvimento':
+        usuarioLogado = {"email": "teste-email@email.com"}
+    else:
+        usuarioLogado = oidc.user_getinfo(['email'])
     try:
         saida = cria_usuario_ad(
             nomeUsuarioCapitalizado,
@@ -177,7 +184,7 @@ def executa_cria_usuario():
         )
     except Exception as e:
         logging.error(f"Erro ao criar usuário: {e}")
-        saida = jsonify({"status": "Erro", "mensagem": str(e)})
+        saida = jsonify({"status": "Erro", "mensagem": "Erro ao criar usuário. Entre em contato com a CGTI."})
     return saida
 
     # dicionarioUsuario = {'nome': nomeUsuarioCapitalizado, 'cpf': cpfUsuario, 'dataNascimento': dataNascimentoUsuario, 'email': emailPessoal, 'empresa': empresa, 'localizacao': localizacao, 'cargo': cargo,
@@ -204,8 +211,11 @@ def executa_cria_usuario():
 
 @app.route("/consulta_nome", methods=['POST'])
 def consulta_dados_usuario():
-    #user = oidc.user_getinfo(['email', 'name'])
-    usuarioLogado = oidc.user_getinfo(['email'])
+    if os.getenv('FLASK_ENV') == 'desenvolvimento':
+        usuarioLogado = {"email":"teste@gmail.com"}
+    else:
+        #user = oidc.user_getinfo(['email', 'name'])
+        usuarioLogado = oidc.user_getinfo(['email'])
     #logging.info(f"Usuário autenticado: {user}")
     #Função utilizada nas páginas de consulta do usuário e desativação do usuário
     identificadorPesquisa = ""
