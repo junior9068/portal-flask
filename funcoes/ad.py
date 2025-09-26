@@ -12,8 +12,13 @@ from funcoes.banco import registrar_log
 SERVIDOR_AD = "ldaps://SRVPADDNS02.cade.gov.br"
 USUARIO_AD = os.environ.get("USUARIO_AD")
 SENHA_AD = os.environ.get("SENHA_AD")
-BASE_DN = 'DC=cade,DC=gov,DC=br'
-NOVA_OU = 'OU=Usuarios,OU=NoSync--M365,DC=cade,DC=gov,DC=br'
+if os.getenv("FLASK_ENV") == "desenvolvimento":
+    BASE_DN = "dc=ad,dc=local"
+    NOVA_OU = 'OU=Usuarios,OU=NoSync--M365,DC=ad,DC=local'
+else:
+    BASE_DN = 'DC=cade,DC=gov,DC=br'
+    NOVA_OU = 'OU=Usuarios,OU=NoSync--M365,DC=cade,DC=gov,DC=br'
+
 
 def testar_conexao_ad():
     try:
@@ -258,7 +263,7 @@ def cria_usuario_ad(nomeUsuarioCapitalizado,cpfUsuario,dataNascimentoUsuario,ema
                 observacoes=f"Usuário criado!"
             )
             # Retorna uma mensagem de sucesso
-            saida = f"Conta criada com sucesso. As informações de acesso foram enviadas para o email {emailPessoal}."
+            saida = f"A conta {login_final}@cade.gov.br foi criada com sucesso. As informações de acesso à rede do CADE foram enviadas para o email {emailPessoal}."
             return saida
         except Exception as e:
             logging.error(f"[EXCEÇÃO] Falha ao definir senha ou ativar conta: {e}")
@@ -346,7 +351,7 @@ def modificaUsuario(cpfUsuario, usuarioLogado):
 # --- Executar o script diretamente ---
 if __name__ == "__main__":
     # Se quiser só testar a conexão, descomente a linha abaixo:
-    # testar_conexao_ad()
+    testar_conexao_ad()
     #conn = conectar_ad()
     # print(cria_usuario_ad(nomeUsuarioCapitalizado="Pedro de Lara Cancum",
     #     cpfUsuario="704.466.230-75",
@@ -360,7 +365,7 @@ if __name__ == "__main__":
     #     departamento="SESIN",
     #     chefia="Thiago Nogueira de Oliveira"
     # ))
-    print(consultar_usuario("03869833130", "edilson.junior@cade.gov.br"))
+    #print(consultar_usuario("03869833130", "edilson.junior@cade.gov.br"))
     # print(os.environ.get("SENHA_AD"))
     # conn = conectar_ad()
     # dn_usuario = buscar_usuario_por_cpf(conn,"02982448530")
