@@ -1,6 +1,6 @@
 import re
 import ldap3
-from ldap3 import Server, Connection, ALL, MODIFY_REPLACE, ALL_ATTRIBUTES
+from ldap3 import Server, Connection, ALL, MODIFY_REPLACE, ALL_ATTRIBUTES, MODIFY_ADD
 import logging
 from flask import jsonify
 import string
@@ -182,7 +182,29 @@ def convete_data(data):
     except Exception as e:
         logging.error(f"Erro ao converter data: {e}")
         return None
-    
+
+
+def adicionar_usuario_a_grupo(dn_usuario, dn_grupo, conexao_ad):
+    saida = ''
+    try:
+        # Adicionar o usuário ao grupo
+        conexao_ad.modify(
+            dn_grupo,
+            {
+                'member': [(MODIFY_ADD, [dn_usuario])]
+            }
+        )
+        if conexao_ad.result['result'] == 0:
+            logging.info(f"Usuário adicionado ao grupo {dn_grupo}")
+            saida =  "Sucesso"
+        else:
+            logging.error("Erro:", conexao_ad.result)
+            saida =  "Erro"
+    except Exception as e:
+        logging.error("Erro ao adicionar usuário ao grupo:", e)
+        saida =  "Erro"
+    return saida
+
 
 def cria_usuario_ad(nomeUsuarioCapitalizado,cpfUsuario,dataNascimentoUsuario,emailPessoal,telefoneComercial,
         matriculaSiape,
@@ -196,11 +218,16 @@ def cria_usuario_ad(nomeUsuarioCapitalizado,cpfUsuario,dataNascimentoUsuario,ema
     conn_ad = conectar_ad()
     saida = ""
     dataConvertida = convete_data(dataNascimentoUsuario)
-    # Monta DN do novo usuário
+    # Cria a lista de grupos padrão
+    lista_grupos = [f"cn=FW_PADRAO,ou=Grupos,ou=CADE,{BASE_DN}"]
+    # Monta DN do novo usuário e completa a lista de grupos conforme o cargo
     if cargo == 'Servidor':
         ou_destino = "OU=Servidores,OU=Usuarios,OU=CADE"
+        lista_grupos.append(f"cn=GoFluent,ou=Grupos,ou=CADE,{BASE_DN}")
+        lista_grupos.append(f"cn=GS_LICENCA_M365_E3,ou=Grupos,ou=CADE,{BASE_DN}")
     else:
         ou_destino = "OU=Colaboradores,OU=Usuarios,OU=CADE"
+        lista_grupos.append(f"cn=GS_LICENCA_M365_E1,ou=Grupos,ou=CADE,{BASE_DN}")
 
     dn_usuario = f"CN={nomeUsuarioCapitalizado},{ou_destino},{BASE_DN}"
     login_final = buscar_login(nomeUsuarioCapitalizado)
@@ -251,6 +278,9 @@ def cria_usuario_ad(nomeUsuarioCapitalizado,cpfUsuario,dataNascimentoUsuario,ema
                 "userAccountControl": [(ldap3.MODIFY_REPLACE, [544])],
                 "pwdLastSet": [(ldap3.MODIFY_REPLACE, [0])]
             })
+            # Adiciona o usuário aos grupos
+            for grupo in lista_grupos:
+                adicionar_usuario_a_grupo(dn_usuario, grupo, conn_ad)
             envio_email = enviar_email_criacao(senha_gerada, emailPessoal, login_final)
             if envio_email:
                 logging.info(f"[SUCESSO] E-mail enviado para {emailPessoal}")
