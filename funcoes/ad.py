@@ -224,10 +224,10 @@ def cria_usuario_ad(nomeUsuarioCapitalizado,cpfUsuario,dataNascimentoUsuario,ema
     if cargo == 'Servidor':
         ou_destino = "OU=Servidores,OU=Usuarios,OU=CADE"
         lista_grupos.append(f"cn=GoFluent,ou=Grupos,ou=CADE,{BASE_DN}")
-        lista_grupos.append(f"cn=GS_LICENCA_M365_E3,ou=Grupos,ou=CADE,{BASE_DN}")
+        lista_grupos.append(f"cn=GS_LICENCA_M365_E3,ou=m365,ou=Grupos,ou=CADE,{BASE_DN}")
     else:
         ou_destino = "OU=Colaboradores,OU=Usuarios,OU=CADE"
-        lista_grupos.append(f"cn=GS_LICENCA_M365_E1,ou=Grupos,ou=CADE,{BASE_DN}")
+        lista_grupos.append(f"cn=GS_LICENCA_M365_E1,ou=m365,ou=Grupos,ou=CADE,{BASE_DN}")
 
     dn_usuario = f"CN={nomeUsuarioCapitalizado},{ou_destino},{BASE_DN}"
     login_final = buscar_login(nomeUsuarioCapitalizado)
