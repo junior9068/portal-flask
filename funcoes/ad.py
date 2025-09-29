@@ -9,13 +9,15 @@ from funcoes.funcoes import enviar_email_criacao, enviar_email_desativacao
 from funcoes.banco import registrar_log
 # --- CONFIGURAÇÕES DO AD ---
 # Senha e usuario do AD estão definidos como variável de ambiente
-SERVIDOR_AD = "ldaps://SRVPADDNS02.cade.gov.br"
+
 USUARIO_AD = os.environ.get("USUARIO_AD")
 SENHA_AD = os.environ.get("SENHA_AD")
 if os.getenv("FLASK_ENV") == "desenvolvimento":
     BASE_DN = "dc=ad,dc=local"
     NOVA_OU = 'OU=Usuarios,OU=NoSync--M365,DC=ad,DC=local'
+    SERVIDOR_AD = os.environ.get("SERVIDOR_AD")
 else:
+    SERVIDOR_AD = "ldaps://SRVPADDNS02.cade.gov.br"
     BASE_DN = 'DC=cade,DC=gov,DC=br'
     NOVA_OU = 'OU=Usuarios,OU=NoSync--M365,DC=cade,DC=gov,DC=br'
 
@@ -66,11 +68,12 @@ def consultar_usuario(identificador, usuarioLogado):
             empresa = conn.entries[0].company.value
             data_nascimento = conn.entries[0].extensionAttribute1.value
             siape = conn.entries[0].employeeID.value
-            chefia = conn.entries[0].manager.value.split(',')[0].replace('CN=', '')
+            chefia = conn.entries[0].manager.value.split(',')[0].replace('CN=', '') if conn.entries[0].manager.value else "-"
             cpf = conn.entries[0].employeeNumber.value
             email_pessoal = conn.entries[0].otherMailbox.value
             telefone_comercial = conn.entries[0].telephoneNumber.value
-            login = email.split('@')[0]
+            login = email.split('@')[0] if email else "-"
+            logging.info(f"Email: {email}")
             # print(f"Nome: {nome}, Email: {email}, Departamento: {departamento}, Cargo: {cargo}, Empresa: {empresa}, Data de Nascimento: {data_nascimento}, SIAPE: {siape}, Chefia: {chefia}, CPF: {cpf}")
             # retorna uma tupla com nome e email (o Flask deve estar em execução para funcionar)
             logging.info(f"Usuário encontrado: {nome}, Email: {email}")
