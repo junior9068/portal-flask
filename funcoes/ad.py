@@ -105,13 +105,16 @@ def consultar_usuario(identificador, usuarioLogado):
 
 
 def buscar_usuario_por_cpf(conn, cpf):
+    # Retorna True se encontrar o CPF, senão False
     filtro = f"(employeeNumber={cpf})"
     conn.search(BASE_DN, filtro, attributes=["distinguishedName"])
 
     if conn.entries:
-        return conn.entries[0].distinguishedName.value
-        print("Entrei no IF")
-    return None
+        busca = conn.entries[0].distinguishedName.value
+        logging.warning(f"CPF encontrado para o usuário: {busca}")
+        return True
+    else:
+        return False
 
 
 def nome_login(nome_completo):
@@ -128,19 +131,41 @@ def nome_login(nome_completo):
 def buscar_login(nome_completo):
     conn_ad = conectar_ad()
     # Gera login
-    login1, login2 = nome_login(nome_completo)
-    login_final = None
+    try:
+        login1, login2 = nome_login(nome_completo)
+        login_final = None
 
-    for login in [login1, login2]:
-        if not login:
-            continue
-        filtro_login = f"(sAMAccountName={login})"
-        conn_ad.search(BASE_DN, filtro_login, attributes=["distinguishedName"])
-        if not conn_ad.entries:
-            login_final = login
-            return login_final
-    logging.error(f"Todos os logins {login1} e {login2} já existem no AD.")
-    return "Todos os logins que tentamos criar já existem no AD."
+        for login in [login1, login2]:
+            if not login:
+                continue
+            filtro_login = f"(sAMAccountName={login})"
+            conn_ad.search(BASE_DN, filtro_login, attributes=["distinguishedName"])
+            if not conn_ad.entries:
+                login_final = login
+                return login_final
+        logging.error(f"Todos os logins já existem no AD: {login1}, {login2}")
+        return False
+    except Exception as e:
+        logging.error(f"Todos os logins {login1} e {login2} já existem no AD.")
+        return False
+
+
+# def buscar_login(nome_completo):
+#     conn_ad = conectar_ad()
+#     # Gera login
+#     login1, login2 = nome_login(nome_completo)
+#     login_final = None
+
+#     for login in [login1, login2]:
+#         if not login:
+#             continue
+#         filtro_login = f"(sAMAccountName={login})"
+#         conn_ad.search(BASE_DN, filtro_login, attributes=["distinguishedName"])
+#         if not conn_ad.entries:
+#             login_final = login
+#             return login_final
+#     logging.error(f"Todos os logins {login1} e {login2} já existem no AD.")
+#     return "Todos os logins que tentamos criar já existem no AD."
 
 
 def gerar_senha(segura=True):
@@ -217,6 +242,12 @@ def cria_usuario_ad(nomeUsuarioCapitalizado,cpfUsuario,dataNascimentoUsuario,ema
     ):
     conn_ad = conectar_ad()
     saida = ""
+    # Verifica se o CPF já existe no AD
+    if buscar_usuario_por_cpf(conn_ad, cpfUsuario):
+        logging.error(f"CPF {cpfUsuario} já existe no AD.")
+        saida = f"Erro: Já existe um usuário com o CPF informado."
+        return saida
+    # Converte a data de nascimento para o formato DD/MM/AAAA
     dataConvertida = convete_data(dataNascimentoUsuario)
     # Cria a lista de grupos padrão
     lista_grupos = [f"cn=FW_PADRAO,ou=Grupos,ou=CADE,{BASE_DN}"]
@@ -231,6 +262,10 @@ def cria_usuario_ad(nomeUsuarioCapitalizado,cpfUsuario,dataNascimentoUsuario,ema
 
     dn_usuario = f"CN={nomeUsuarioCapitalizado},{ou_destino},{BASE_DN}"
     login_final = buscar_login(nomeUsuarioCapitalizado)
+    if not login_final:
+        logging.error(f"Todos os logins possíveis para {nomeUsuarioCapitalizado} já existem no AD.")
+        saida = f"Erro: Todos os logins possíveis para {nomeUsuarioCapitalizado} já existem no AD."
+        return saida
     # Separa o nome e sobrenome
     nomes = nomeUsuarioCapitalizado.split()
     nomes.pop(0)
@@ -303,8 +338,8 @@ def cria_usuario_ad(nomeUsuarioCapitalizado,cpfUsuario,dataNascimentoUsuario,ema
             saida = f"Erro ao criar usuário. Entre em contato com a CGTI"
             return saida
     else:
-        logging.error("Caiu no Else")
-        saida = f"Erro: Falha ao criar {nome_login}: {conn_ad.result}"
+        logging.error(f"Erro: Falha ao criar {nome_login}: {conn_ad.result}")
+        saida = f"Erro ao criar usuário. Entre em contato com a CGTI"
         return saida
 
 
