@@ -104,18 +104,27 @@ def consultar_usuario(identificador, usuarioLogado):
         return None
 
 
+# def buscar_usuario_por_cpf(conn, cpf):
+#     # Retorna True se encontrar o CPF, senão False
+#     filtro = f"(employeeNumber={cpf})"
+#     conn.search(BASE_DN, filtro, attributes=["distinguishedName"])
+
+#     if conn.entries:
+#         busca = conn.entries[0].distinguishedName.value
+#         logging.warning(f"CPF encontrado para o usuário: {busca}")
+#         return True
+#     else:
+#         return False
+
+
 def buscar_usuario_por_cpf(conn, cpf):
     # Retorna True se encontrar o CPF, senão False
     filtro = f"(employeeNumber={cpf})"
     conn.search(BASE_DN, filtro, attributes=["distinguishedName"])
 
     if conn.entries:
-        busca = conn.entries[0].distinguishedName.value
-        logging.warning(f"CPF encontrado para o usuário: {busca}")
-        return True
-    else:
-        return False
-
+        return conn.entries[0].distinguishedName.value
+    return None
 
 def nome_login(nome_completo):
     partes = nome_completo.strip().split()
