@@ -41,11 +41,6 @@ app.config.update({
 
 oidc = OpenIDConnect(app)
 
-if os.getenv('FLASK_ENV') == 'desenvolvimento':
-    usuarioLogado = {"email": "teste-email@email.com"}
-else:
-    usuarioLogado = oidc.user_getinfo(['email'])
-
 # Resolve encaminhamento do pacote
 #app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1)
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1)
@@ -151,6 +146,10 @@ def consulta_usuario():
 @app.route("/executa_desativa_usuario", methods=['POST'])
 @oidc.require_login
 def executa_desativa_usuario():
+    if os.getenv('FLASK_ENV') == 'desenvolvimento':
+        usuarioLogado = {"email": "teste-email@email.com"}
+    else:
+        usuarioLogado = oidc.user_getinfo(['email'])
     cpf_usuario = request.form['cpfUsuario']
     logging.info(f"Chamou a rota executa_desativa_usuario")
     logging.info(f"CPF do usuário: {cpf_usuario}")
@@ -162,6 +161,10 @@ def executa_desativa_usuario():
 @app.route("/executa_cria_usuario", methods=['POST'])
 @oidc.require_login
 def executa_cria_usuario():
+    if os.getenv('FLASK_ENV') == 'desenvolvimento':
+        usuarioLogado = {"email": "teste-email@email.com"}
+    else:
+        usuarioLogado = oidc.user_getinfo(['email'])    
     saida = ""
     # Cria um dicionário para armazenar os dados do usuário
     nomeUsuario = request.form['nomeUsuario']
@@ -216,6 +219,10 @@ def executa_cria_usuario():
 
 @app.route("/consulta_nome", methods=['POST'])
 def consulta_dados_usuario():
+    if os.getenv('FLASK_ENV') == 'desenvolvimento':
+        usuarioLogado = {"email": "teste-email@email.com"}
+    else:
+        usuarioLogado = oidc.user_getinfo(['email'])
     # if os.getenv('FLASK_ENV') == 'desenvolvimento':
     #     usuarioLogado = {"email":"teste@gmail.com"}
     # else:
