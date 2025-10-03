@@ -5,6 +5,7 @@ import logging
 from flask import jsonify
 import string
 import random, os
+from unidecode import unidecode
 from funcoes.funcoes import enviar_email_criacao, enviar_email_desativacao
 from funcoes.banco import registrar_log
 # --- CONFIGURAÇÕES DO AD ---
@@ -127,6 +128,7 @@ def buscar_usuario_por_cpf(conn, cpf):
     return None
 
 def nome_login(nome_completo):
+    nome_completo = unidecode(nome_completo)  # Remove acentuação
     partes = nome_completo.strip().split()
     if len(partes) < 2:
         return None, None
