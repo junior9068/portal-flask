@@ -124,27 +124,27 @@ def manutencao2():
     return render_template("manutencao.html")
 
 @app.route("/cria_usuario")
-@oidc.require_login
+#@oidc.require_login
 def cria_usuario():
     logging.info(f"Chamou a rota cria_usuario")
     return render_template("cria_usuario.html")
     # return render_template("cria_usuario.html")
 
 @app.route("/desativa_usuario")
-@oidc.require_login
+#@oidc.require_login
 def desativa_usuario():
     logging.info(f"Chamou a rota desativa_usuario")
     return render_template("desativa_usuario.html")
 
 @app.route("/consulta_usuario")
-@oidc.require_login
+#@oidc.require_login
 def consulta_usuario():
     logging.info(f"Chamou a rota consulta_usuario")
     return render_template("consulta_usuario.html")
 
 
 @app.route("/executa_desativa_usuario", methods=['POST'])
-@oidc.require_login
+#@oidc.require_login
 def executa_desativa_usuario():
     if os.getenv('FLASK_ENV') == 'desenvolvimento':
         usuarioLogado = {"email": "teste-email@email.com"}
@@ -159,7 +159,7 @@ def executa_desativa_usuario():
     return saida
 
 @app.route("/executa_cria_usuario", methods=['POST'])
-@oidc.require_login
+#@oidc.require_login
 def executa_cria_usuario():
     if os.getenv('FLASK_ENV') == 'desenvolvimento':
         usuarioLogado = {"email": "teste-email@email.com"}
@@ -177,17 +177,17 @@ def executa_cria_usuario():
     #     usuarioLogado = oidc.user_getinfo(['email'])
     try:
         saida = cria_usuario_ad(
-            nomeUsuarioCapitalizado,
-            cpfUsuario = request.form['cpfUsuario'],
-            dataNascimentoUsuario = request.form['dataNascimentoUsuario'],
-            emailPessoal = request.form['emailPessoal'],
-            telefoneComercial = request.form['telefoneComercial'],
-            matriculaSiape = request.form['matriculaSiape'],
-            empresa = request.form['empresa'],
-            localizacao = request.form['localizacao'],
-            cargo = request.form['cargo'],
-            departamento = departamento,
-            chefia = chefia,
+            nomeUsuarioCapitalizado.strip(),
+            cpfUsuario = request.form['cpfUsuario'].strip(),
+            dataNascimentoUsuario = request.form['dataNascimentoUsuario'].strip(),
+            emailPessoal = request.form['emailPessoal'].strip(),
+            telefoneComercial = request.form['telefoneComercial'].strip(),
+            matriculaSiape = request.form['matriculaSiape'].strip(),
+            empresa = request.form['empresa'].strip(),
+            localizacao = request.form['localizacao'].strip(),
+            cargo = request.form['cargo'].strip(),
+            departamento = departamento.strip(),
+            chefia = chefia.strip(),
             usuarioLogado = usuarioLogado
         )
     except Exception as e:
