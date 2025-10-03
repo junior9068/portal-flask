@@ -2,6 +2,16 @@ import subprocess
 import logging
 import smtplib
 from email.message import EmailMessage
+import os
+
+if os.getenv('FLASK_ENV') == 'desenvolvimento':
+    usuarioEmail=os.getenv('USUARIO_EMAIL')
+    senhaEmail=os.getenv('SENHA_EMAIL')
+    servidor_smtp=os.getenv('SERVIDOR_SMTP')
+    porta=int(os.getenv('PORTA_SMTP'))
+else:
+    servidor_smtp='smtp.cade.gov.br'
+    porta=25
 
 
 def capitalizaNome(nome):
@@ -24,7 +34,7 @@ def buscaDepartamento(departamentoComChefia):
     return departamento, chefia
 
 
-def enviar_email_criacao(senha, destinatario, login, servidor_smtp='smtp.cade.gov.br', porta=25):
+def enviar_email_criacao(senha, destinatario, login, servidor_smtp=servidor_smtp, porta=porta):
     # Extrai nome do e-mail (antes do @) para exibição
     # login = destinatario.split('@')[0]
     nome = login.replace('.', ' ').title()  # ex: "edilson.junior" → "Edilson Junior"
@@ -73,8 +83,10 @@ def enviar_email_criacao(senha, destinatario, login, servidor_smtp='smtp.cade.go
 
         # Envio
         with smtplib.SMTP(servidor_smtp, porta) as smtp:
+            if os.getenv('FLASK_ENV') == 'desenvolvimento':
+                smtp.starttls()
+                smtp.login(usuarioEmail, senhaEmail)
             smtp.send_message(msg)
-            logging.info(f"E-mail enviado para {destinatario}")
             return True
 
     except Exception as e:
@@ -82,7 +94,7 @@ def enviar_email_criacao(senha, destinatario, login, servidor_smtp='smtp.cade.go
         return False
 
 
-def enviar_email_desativacao(destinatario, login, servidor_smtp='smtp.cade.gov.br', porta=25):
+def enviar_email_desativacao(destinatario, login, servidor_smtp=servidor_smtp, porta=porta):
     # Extrai nome do e-mail (antes do @) para exibição
     # login = destinatario.split('@')[0]
     nome = login.replace('.', ' ').title()  # ex: "edilson.junior" → "Edilson Junior"
@@ -114,8 +126,10 @@ def enviar_email_desativacao(destinatario, login, servidor_smtp='smtp.cade.gov.b
 
         # Envio
         with smtplib.SMTP(servidor_smtp, porta) as smtp:
+            if os.getenv('FLASK_ENV') == 'desenvolvimento':
+                smtp.starttls()
+                smtp.login(usuarioEmail, senhaEmail)
             smtp.send_message(msg)
-            logging.info(f"E-mail enviado para {destinatario}")
             return True
 
     except Exception as e:

@@ -41,6 +41,11 @@ app.config.update({
 
 oidc = OpenIDConnect(app)
 
+if os.getenv('FLASK_ENV') == 'desenvolvimento':
+    usuarioLogado = {"email": "teste-email@email.com"}
+else:
+    usuarioLogado = oidc.user_getinfo(['email'])
+
 # Resolve encaminhamento do pacote
 #app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1)
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1)
@@ -68,7 +73,7 @@ def home():
     nomes = nome.split(" ")
     nomeLista = [nomes[0], nomes[1]]
     nomeExibicao = " ".join(nomeLista)
-    logging.info(f"TESTE PARA PEGAR EMAIL DO USUÁRIO: {oidc.user_getinfo(['email']).get('email')}")
+    logging.info(f"USUÁRIO LOGADO: {oidc.user_getinfo(['email']).get('email')}")
     # return jsonify(user)
     return render_template("home.html", nome=nomeExibicao)
 
@@ -149,7 +154,7 @@ def executa_desativa_usuario():
     cpf_usuario = request.form['cpfUsuario']
     logging.info(f"Chamou a rota executa_desativa_usuario")
     logging.info(f"CPF do usuário: {cpf_usuario}")
-    usuarioLogado = oidc.user_getinfo(['email'])
+    # usuarioLogado = oidc.user_getinfo(['email'])
     saida = modificaUsuario(cpf_usuario, usuarioLogado)
     #return render_template("desativa_usuario.html", nome_usuario=saida)
     return saida
@@ -163,10 +168,10 @@ def executa_cria_usuario():
     nomeUsuarioCapitalizado = capitalizaNome(nomeUsuario)
     departamentoHtml = request.form['departamento']
     departamento, chefia = buscaDepartamento(departamentoHtml)
-    if os.getenv('FLASK_ENV') == 'desenvolvimento':
-        usuarioLogado = {"email": "teste-email@email.com"}
-    else:
-        usuarioLogado = oidc.user_getinfo(['email'])
+    # if os.getenv('FLASK_ENV') == 'desenvolvimento':
+    #     usuarioLogado = {"email": "teste-email@email.com"}
+    # else:
+    #     usuarioLogado = oidc.user_getinfo(['email'])
     try:
         saida = cria_usuario_ad(
             nomeUsuarioCapitalizado,
@@ -211,11 +216,11 @@ def executa_cria_usuario():
 
 @app.route("/consulta_nome", methods=['POST'])
 def consulta_dados_usuario():
-    if os.getenv('FLASK_ENV') == 'desenvolvimento':
-        usuarioLogado = {"email":"teste@gmail.com"}
-    else:
-        #user = oidc.user_getinfo(['email', 'name'])
-        usuarioLogado = oidc.user_getinfo(['email'])
+    # if os.getenv('FLASK_ENV') == 'desenvolvimento':
+    #     usuarioLogado = {"email":"teste@gmail.com"}
+    # else:
+    #     #user = oidc.user_getinfo(['email', 'name'])
+    #     usuarioLogado = oidc.user_getinfo(['email'])
     #logging.info(f"Usuário autenticado: {user}")
     #Função utilizada nas páginas de consulta do usuário e desativação do usuário
     identificadorPesquisa = ""

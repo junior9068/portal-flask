@@ -390,6 +390,11 @@ def modificaUsuario(cpfUsuario, usuarioLogado):
         
         #Verifica se a conta já está desativada
         conn.search(dn_usuario, '(objectClass=person)', attributes=['userAccountControl', 'sAMAccountName', 'otherMailbox'])
+        #Verifica se o atributo otherMailbox existe e obtém o e-mail do usuário
+        email_usuario = None
+        if conn.entries[0]['otherMailbox'].value:
+            email_usuario = conn.entries[0]['otherMailbox'].value
+
         if conn.entries:
             login_usuario_ad = conn.entries[0]['sAMAccountName'].value
             uac = int(conn.entries[0]['userAccountControl'].value)
@@ -402,19 +407,24 @@ def modificaUsuario(cpfUsuario, usuarioLogado):
         if not mover_usuario(conn, dn_usuario, NOVA_OU):
             logging.error(f"Falha ao mover o usuário de OU: {conn.result['description']}")
             return f"Falha ao desativar a conta."
-        # Envia o e-mail de desativação
-        # email_usuario = conn.entries[0]['otherMailbox'].value
-        # enviar_email_desativacao(email_usuario, login_usuario_ad)
-        # if envio_email:
-        #     logging.info(f"[SUCESSO] E-mail de desativação enviado para {email_usuario}")
-        # else:
-        #     logging.error(f"[ERRO] Falha ao enviar e-mail de desativação para {email_usuario}")
+        
+        # Registra o log no banco de dados
         registrar_log(
             usuario_sistema=usuarioLogado.get('email'),
             usuario_ad=login_usuario_ad,
             acao="desativar_usuario",
             observacoes=f"Usuário desativado!"
         )
+
+        # Envia o e-mail de desativação
+        if not email_usuario:
+            logging.error(f"Usuário {login_usuario_ad} não possui e-mail cadastrado.")
+            return f"Usuário desativado, mas não foi possível enviar e-mail de notificação por falta de e-mail cadastrado."
+        enviar_email_desativacao(email_usuario, login_usuario_ad)
+        if enviar_email_desativacao:
+            logging.info(f"E-mail de desativação enviado para {email_usuario}")
+        else:
+            logging.error(f"Falha ao enviar e-mail de desativação para {email_usuario}")
         return f"Usuário desativado com sucesso!"
     except Exception as e:
         logging.error(f"[EXCEÇÃO] {e}")
