@@ -124,27 +124,27 @@ def manutencao2():
     return render_template("manutencao.html")
 
 @app.route("/cria_usuario")
-#@oidc.require_login
+@oidc.require_login
 def cria_usuario():
     logging.info(f"Chamou a rota cria_usuario")
     return render_template("cria_usuario.html")
     # return render_template("cria_usuario.html")
 
 @app.route("/desativa_usuario")
-#@oidc.require_login
+@oidc.require_login
 def desativa_usuario():
     logging.info(f"Chamou a rota desativa_usuario")
     return render_template("desativa_usuario.html")
 
 @app.route("/consulta_usuario")
-#@oidc.require_login
+@oidc.require_login
 def consulta_usuario():
     logging.info(f"Chamou a rota consulta_usuario")
     return render_template("consulta_usuario.html")
 
 
 @app.route("/executa_desativa_usuario", methods=['POST'])
-#@oidc.require_login
+@oidc.require_login
 def executa_desativa_usuario():
     if os.getenv('FLASK_ENV') == 'desenvolvimento':
         usuarioLogado = {"email": "teste-email@email.com"}
@@ -159,7 +159,7 @@ def executa_desativa_usuario():
     return saida
 
 @app.route("/executa_cria_usuario", methods=['POST'])
-#@oidc.require_login
+@oidc.require_login
 def executa_cria_usuario():
     if os.getenv('FLASK_ENV') == 'desenvolvimento':
         usuarioLogado = {"email": "teste-email@email.com"}
@@ -248,7 +248,8 @@ def consulta_dados_usuario():
             "chefia": "Não encontrado", 
             "cpf": "Não encontrado",
             "email_pessoal": "Não encontrado",
-            "telefone_comercial": "Não encontrado"
+            "telefone_comercial": "Não encontrado",
+            "status_conta": "Não encontrado" 
             })
     else:
         return jsonify(saida)

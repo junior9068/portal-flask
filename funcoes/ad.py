@@ -56,7 +56,7 @@ def consultar_usuario(identificador, usuarioLogado):
         # email = "edilson.junio@cade.gov.br"
         # filtro = f"(mail={email})"
         #conn.search(BASE_DN, filtro, attributes=["distinguishedName"])
-        conn.search(BASE_DN, filtro, attributes=["mail", "distinguishedName","cn", "title", "department", "company", "extensionAttribute1", "employeeID", "manager", "employeeNumber", "otherMailbox", "telephoneNumber"])
+        conn.search(BASE_DN, filtro, attributes=["mail", "distinguishedName","cn", "title", "department", "company", "extensionAttribute1", "employeeID", "manager", "employeeNumber", "otherMailbox", "telephoneNumber", "userAccountControl"])
 
         # return conn.entries[0]
         if conn.entries:
@@ -74,7 +74,8 @@ def consultar_usuario(identificador, usuarioLogado):
             email_pessoal = conn.entries[0].otherMailbox.value
             telefone_comercial = conn.entries[0].telephoneNumber.value
             login = email.split('@')[0] if email else "-"
-            logging.info(f"Email: {email}")
+            status_conta = "Ativa" if not (int(conn.entries[0].userAccountControl.value) & 2) else "Desativada"
+            # logging.info(f"Email: {email}")
             # print(f"Nome: {nome}, Email: {email}, Departamento: {departamento}, Cargo: {cargo}, Empresa: {empresa}, Data de Nascimento: {data_nascimento}, SIAPE: {siape}, Chefia: {chefia}, CPF: {cpf}")
             # retorna uma tupla com nome e email (o Flask deve estar em execução para funcionar)
             logging.info(f"Usuário encontrado: {nome}, Email: {email}")
@@ -95,7 +96,8 @@ def consultar_usuario(identificador, usuarioLogado):
                 "chefia": chefia, 
                 "cpf": cpf,
                 "email_pessoal": email_pessoal,
-                "telefone_comercial": telefone_comercial   
+                "telefone_comercial": telefone_comercial,
+                "status_conta": status_conta  
             }
         logging.warning(f"Usuário não encontrado.")
         return None
