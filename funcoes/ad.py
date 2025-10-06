@@ -1,6 +1,6 @@
 import re
 import ldap3
-from ldap3 import Server, Connection, ALL, MODIFY_REPLACE, ALL_ATTRIBUTES, MODIFY_ADD
+from ldap3 import Server, Connection, ALL, MODIFY_REPLACE, ALL_ATTRIBUTES, MODIFY_ADD, MODIFY_DELETE
 import logging
 from flask import jsonify
 import string
@@ -244,6 +244,41 @@ def adicionar_usuario_a_grupo(dn_usuario, dn_grupo, conexao_ad):
     return saida
 
 
+def remover_todos_os_grupos(conn, dn_usuario):
+    """
+    Remove o usuário de todos os grupos que ele participa.
+    Mostra quais grupos falharam mas continua o processo.
+    """
+    try:
+        # Busca todos os grupos que contêm o usuário
+        conn.search(
+            BASE_DN,
+            f"(member={dn_usuario})",
+            attributes=["distinguishedName", "cn"]
+        )
+
+        if not conn.entries:
+            logging.warning("Usuário não pertence a nenhum grupo.")
+            return
+
+        logging.info(f"Encontrados {len(conn.entries)} grupos. Removendo o usuário...")
+
+        for entry in conn.entries:
+            grupo_dn = entry.entry_dn
+            grupo_nome = entry.cn.value
+
+            try:
+                conn.modify(grupo_dn, {"member": [(MODIFY_DELETE, [dn_usuario])]})
+                if conn.result["description"] == "success":
+                    logging.info(f"Removido do grupo: {grupo_nome}")
+                else:
+                    logging.warning(f"Falha ao remover do grupo {grupo_nome}: {conn.result['description']}")
+            except Exception as e:
+                logging.error(f"Erro ao remover {dn_usuario} de {grupo_dn}: {e}")
+
+    except Exception as e:
+        logging.error(f"Erro geral em função remover_todos_os_grupos: {e}")
+
 def cria_usuario_ad(nomeUsuarioCapitalizado,cpfUsuario,dataNascimentoUsuario,emailPessoal,telefoneComercial,
         matriculaSiape,
         empresa,
@@ -392,6 +427,9 @@ def modificaUsuario(cpfUsuario, usuarioLogado):
             logging.error(f"Usuário com CPF {cpf} não encontrado.")
             return f"Usuário com CPF {cpf} não encontrado."
         
+        # Remove o usuário de todos os grupos
+        remover_todos_os_grupos(conn, dn_usuario)
+        
         #Verifica se a conta já está desativada
         conn.search(dn_usuario, '(objectClass=person)', attributes=['userAccountControl', 'sAMAccountName', 'otherMailbox'])
         #Verifica se o atributo otherMailbox existe e obtém o e-mail do usuário
@@ -403,6 +441,7 @@ def modificaUsuario(cpfUsuario, usuarioLogado):
             login_usuario_ad = conn.entries[0]['sAMAccountName'].value
             uac = int(conn.entries[0]['userAccountControl'].value)
             if uac & 2:
+                logging.warning(f"Usuário {login_usuario_ad} já está desativado.")
                 return f"Usuário já está desativado."
         # return f"Usuário encontrado: {nome}"
         if not desativar_usuario(conn, dn_usuario):
