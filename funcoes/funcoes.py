@@ -119,13 +119,16 @@ def enviar_email_desativacao(destinatario, login, servidor_smtp=servidor_smtp, p
         msg['Subject'] = "CADE - Desativação de conta de acesso"
         msg['From'] = "naoresponda@cade.gov.br"
         msg['To'] = destinatario
-
+        # Cópia oculta (BCC) — direto na linha
+        msg['Bcc'] = "cgesp@cade.gov.br, arlene.patrocinio@cade.gov.br, luanna.silva@cade.gov.br"
         # Corpo alternativo (texto puro) + HTML
         msg.set_content(f"Prezado(a) {nome},\n\nSua conta foi desativada. Caso não visualize o conteúdo HTML, contate o suporte.")
         msg.add_alternative(html, subtype='html')
 
         # Envio
         with smtplib.SMTP(servidor_smtp, porta) as smtp:
+            # descomentar a linha abaixo para ver detalhes do envio e validar se o envio está ocorrendo corretamente para o BBC (cópia oculta)
+            # smtp.set_debuglevel(1)
             if os.getenv('FLASK_ENV') == 'desenvolvimento':
                 smtp.starttls()
                 smtp.login(usuarioEmail, senhaEmail)
