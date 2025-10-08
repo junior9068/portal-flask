@@ -115,6 +115,11 @@
                         <i class="bi bi-person-fill-add"></i> Criar usuário
                     </a>
                 </li>
+                <!-- <li class="nav-item">
+                    <a href="{{ url_for('ativa_usuario') }}" class="nav-link {% if request.endpoint == 'ativa_usuario' %}active{% endif %}">
+                        <i class="bi bi-check2-circle"></i> Ativar usuário
+                    </a>
+                </li>                 -->
                 <li class="nav-item">
                     <a href="{{ url_for('desativa_usuario') }}" class="nav-link {% if request.endpoint == 'desativa_usuario' %}active{% endif %}">
                         <i class="bi bi-x-circle"></i> Desativar usuário

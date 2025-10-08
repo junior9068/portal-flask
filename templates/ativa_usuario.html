@@ -1,0 +1,259 @@
+{% extends "base.html" %}
+
+{% block title %}Portal CADE{% endblock %}
+
+{% block page_title %}ativar usuário{% endblock %}
+
+{% block content %}
+<div id="loadingOverlay" style="display: none;">
+  <div class="loader"></div>
+  <p>Buscando nome, aguarde...</p>
+</div>
+<style>
+#loadingOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.8);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.loader {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #3498db;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 10px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
+<div class="row">
+    <div class="col-12">
+        <!-- <h1>Desativar usuário</h1> -->
+        <p class="lead">Preencha o CPF para realizar a ativação do usuário.</p>
+        
+        <div class="card mt-4">
+            <div class="card-body">
+                <div class="form-container">
+                    <!-- Formulário com action e validação JavaScript -->
+                    <form id="desativaForm">
+                        <div class="mb-4">
+                            <label for="cpfUsuario" class="form-label">CPF: *</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                <input type="text" class="form-control" id="cpfUsuario" name="cpfUsuario" placeholder="000.000.000-00" required>
+                            </div>
+                            <br>
+                            <label for="nomeUsuario" class="form-label">Nome:</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                <input type="text" class="form-control" id="nomeUsuario" name="nomeUsuario" placeholder="O nome aparecerá automaticamante após informar o CPF" readonly>
+                            </div>
+                            <br>
+                            <label for="emailUsuario" class="form-label">E-mail:</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                <input type="text" class="form-control" id="emailUsuario" name="emailUsuario" placeholder="O e-mail aparecerá automaticamante após informar o CPF" readonly>
+                            </div>
+                            <br>
+                            <label for="cargo" class="form-label">Cargo *</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
+                                <select name="cargo" id="cargo" class="form-select" required>
+                                    <option value="">Selecione uma opção</option>
+                                    <option value="Servidor">Servidor</option>
+                                    <option value="Terceiro">Terceiro</option>
+                                </select>
+                            </div>
+                        </div>                                        
+                        <div class="d-flex justify-content-center gap-2 mt-4">
+                            <button type="reset" class="btn btn-outline-secondary me-2">
+                                <i class="bi bi-x-circle me-1"></i>Limpar
+                            </button>
+                            <button type="submit" id="botaoSubmit" class="btn btn-primary" disabled>
+                                <i class="bi bi-check-circle me-1"></i>Enviar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Explicação sobre a validação -->
+        <div id="resultadoCard" class="card mt-4" style="display:none;">
+        <div class="card mt-4">
+            <div class="card-header bg-info text-white">
+                <i class="bi bi-info-circle me-2"></i>Resultado:
+            </div>
+            <div class="card-body" style="text-align: center;">
+                <p id="mensagemResultado">{{ resultado }}</p>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('desativaForm');
+        const cpfInput = document.getElementById('cpfUsuario');
+        const nomeInput = document.getElementById('nomeUsuario');
+        const emailInput = document.getElementById('emailUsuario');
+        const cargoInput = document.getElementById('cargo');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+
+        let cpfTimeout = null;
+        const botaoSubmit = document.getElementById('botaoSubmit');
+
+        function verificarCampos() {
+            if (cpfInput.value.trim() !== '' &&
+                nomeInput.value.trim() !== '' &&
+                cargoInput.value.trim() !== '' &&
+                emailInput.value.trim() !== '') {
+                botaoSubmit.disabled = false;
+            } else {
+                botaoSubmit.disabled = true;
+            }
+        }
+
+        cpfInput.addEventListener('input', verificarCampos);
+        nomeInput.addEventListener('input', verificarCampos);
+        emailInput.addEventListener('input', verificarCampos);
+        cargoInput.addEventListener('input', verificarCampos);
+
+        // CPF formatador
+        cpfInput.addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 11) value = value.slice(0, 11);
+
+            if (value.length > 9) value = value.replace(/^(\d{3})(\d{3})(\d{3})(\d{2}).*/, '$1.$2.$3-$4');
+            else if (value.length > 6) value = value.replace(/^(\d{3})(\d{3})(\d{0,3}).*/, '$1.$2.$3');
+            else if (value.length > 3) value = value.replace(/^(\d{3})(\d{0,3}).*/, '$1.$2');
+
+            e.target.value = value;
+        });
+// Auto preenchimento do nome e email
+    cpfInput.addEventListener('input', function () {
+        clearTimeout(cpfTimeout);
+        const cpfLimpo = cpfInput.value.replace(/\D/g, '');
+
+        if (cpfLimpo.length === 11) {
+            cpfTimeout = setTimeout(() => {
+                const formData = new FormData();
+                formData.append('cpf', cpfLimpo);
+
+                loadingOverlay.style.display = 'flex';
+
+                // fetch('/consulta_nome', {
+                fetch('/consulta_nome_teste', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(res => res.json())  // espera um JSON do backend
+                .then(data => {
+                    // Atualiza os campos com os valores retornados
+                    nomeInput.value = data.nome || '';
+                    emailInput.value = data.email || '';
+                    verificarCampos();
+
+                })
+                .catch(err => {
+                    console.error('Erro ao buscar nome/email:', err);
+                    nomeInput.value = '';
+                    emailInput.value = '';
+                })
+                .finally(() => {
+                    loadingOverlay.style.display = 'none';
+                });
+            }, 500);
+        }
+    });
+        // // Auto preenchimento do nome
+        // cpfInput.addEventListener('input', function () {
+        //     clearTimeout(cpfTimeout);
+        //     const cpfLimpo = cpfInput.value.replace(/\D/g, '');
+
+        //     if (cpfLimpo.length === 11) {
+        //         cpfTimeout = setTimeout(() => {
+        //             const formData = new FormData();
+        //             formData.append('cpf', cpfLimpo);
+
+        //             loadingOverlay.style.display = 'flex';
+
+        //             fetch('/consulta_nome', {
+        //                 method: 'POST',
+        //                 body: formData
+        //             })
+        //             .then(res => res.text())
+        //             .then(nome => {
+        //                 nomeInput.value = nome || '';
+        //             })
+        //             .catch(err => {
+        //                 console.error('Erro ao buscar nome:', err);
+        //                 nomeInput.value = '';
+        //             })
+        //             .finally(() => {
+        //                 loadingOverlay.style.display = 'none';
+        //             });
+        //         }, 500);
+        //     }
+        // });
+
+        // SUBMISSÃO DO FORMULÁRIO VIA FETCH
+        form.addEventListener('submit', function (event) {
+            event.preventDefault(); // Impede envio tradicional
+
+            const cpfLimpo = cpfInput.value.replace(/\D/g, '');
+
+            if (cpfLimpo.length !== 11) {
+                alert("CPF inválido. Insira os 11 dígitos.");
+                cpfInput.classList.add("is-invalid");
+                return;
+            }
+
+            cpfInput.classList.remove("is-invalid");
+            loadingOverlay.style.display = 'flex';
+
+            const formData = new FormData(form);
+
+            fetch('/executa_ativa_usuario', {
+                method: 'POST',
+                body: formData
+            })
+            .then(res => res.text())
+            .then(msg => {
+                document.getElementById('mensagemResultado').innerText = msg;
+                document.getElementById('resultadoCard').style.display = 'block'; // <-- mostra o resultado
+                form.reset();
+                nomeInput.value = '';
+                emailInput.value = '';
+                botaoSubmit.disabled = true;
+            })
+            .catch(err => {
+                alert("Erro ao desativar o usuário.");
+                console.error(err);
+            })
+            .finally(() => {
+                loadingOverlay.style.display = 'none';
+            });
+        });
+    });
+</script>
+
+{% endblock %}

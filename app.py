@@ -136,6 +136,12 @@ def desativa_usuario():
     logging.info(f"Chamou a rota desativa_usuario")
     return render_template("desativa_usuario.html")
 
+# @app.route("/ativa_usuario")
+# @oidc.require_login
+# def ativa_usuario():
+#     logging.info(f"Chamou a rota ativa_usuario")
+#     return render_template("ativa_usuario.html")
+
 @app.route("/consulta_usuario")
 @oidc.require_login
 def consulta_usuario():
@@ -158,8 +164,27 @@ def executa_desativa_usuario():
     #return render_template("desativa_usuario.html", nome_usuario=saida)
     return saida
 
+
+# @app.route("/executa_ativa_usuario", methods=['POST'])
+# @oidc.require_login
+# def executa_ativa_usuario():
+#     if os.getenv('FLASK_ENV') == 'desenvolvimento':
+#         usuarioLogado = {"email": "teste-email@email.com"}
+#     else:
+#         usuarioLogado = oidc.user_getinfo(['email'])
+#     cpf_usuario = request.form['cpfUsuario']
+#     cargo_usuario = request.form['cargo']
+#     logging.info(f"Chamou a rota executa_ativa_usuario")
+#     logging.info(f"CPF do usuário: {cpf_usuario}")
+#     logging.info(os.getenv('FLASK_ENV'))
+#     # usuarioLogado = oidc.user_getinfo(['email'])
+#     saida = cargo_usuario
+#     #return render_template("desativa_usuario.html", nome_usuario=saida)
+#     return saida
+
+
 @app.route("/executa_cria_usuario", methods=['POST'])
-@oidc.require_login
+#@oidc.require_login
 def executa_cria_usuario():
     if os.getenv('FLASK_ENV') == 'desenvolvimento':
         usuarioLogado = {"email": "teste-email@email.com"}
@@ -229,7 +254,7 @@ def consulta_dados_usuario():
     #     #user = oidc.user_getinfo(['email', 'name'])
     #     usuarioLogado = oidc.user_getinfo(['email'])
     #logging.info(f"Usuário autenticado: {user}")
-    #Função utilizada nas páginas de consulta do usuário e desativação do usuário
+    #Função utilizada nas páginas de consulta, desativação e ativação do usuário
     identificadorPesquisa = ""
     if 'identificador' in request.form:
         identificadorPesquisa = request.form['identificador']
@@ -256,6 +281,12 @@ def consulta_dados_usuario():
     #saida = modificaUsuario(cpfUsuario)
     # return saida
 
+# @app.route("/consulta_nome_teste", methods=['POST'])
+# def consulta_nome_teste():
+#     return jsonify({
+#             "nome": "Não encontrado", 
+#             "email": "Não encontrado"
+#     })
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=5000)
