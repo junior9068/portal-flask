@@ -119,15 +119,13 @@ def enviar_email_desativacao(destinatario, login, servidor_smtp=servidor_smtp, p
         msg['Subject'] = "CADE - Desativação de conta de acesso"
         msg['From'] = "naoresponda@cade.gov.br"
         msg['To'] = destinatario
-        # Cópia oculta (BCC) — direto na linha
-        msg['Bcc'] = "cgesp@cade.gov.br, arlene.patrocinio@cade.gov.br, luanna.silva@cade.gov.br"
         # Corpo alternativo (texto puro) + HTML
         msg.set_content(f"Prezado(a) {nome},\n\nSua conta foi desativada. Caso não visualize o conteúdo HTML, contate o suporte.")
         msg.add_alternative(html, subtype='html')
 
         # Envio
         with smtplib.SMTP(servidor_smtp, porta) as smtp:
-            # descomentar a linha abaixo para ver detalhes do envio e validar se o envio está ocorrendo corretamente para o BBC (cópia oculta)
+            # descomentar a linha abaixo para ver detalhes do envio e validar se está direcionando corretamente para o BBC (cópia oculta)
             # smtp.set_debuglevel(1)
             if os.getenv('FLASK_ENV') == 'desenvolvimento':
                 smtp.starttls()
@@ -139,6 +137,51 @@ def enviar_email_desativacao(destinatario, login, servidor_smtp=servidor_smtp, p
         logging.error(f"Erro ao enviar e-mail: {e}")
         return False
     
+
+def enviar_email_desativacao_gestao(destinatario, login, servidor_smtp=servidor_smtp, porta=porta):
+    # Extrai nome do e-mail (antes do @) para exibição
+    # login = destinatario.split('@')[0]
+    nome = login.replace('.', ' ').title()  # ex: "edilson.junior" → "Edilson Junior"
+
+    # Corpo HTML do e-mail
+    html = f"""
+    <html>
+    <body style="font-family: Arial, sans-serif; border: 1px solid #7AA230; padding: 20px;">
+        <p>Prezados(as),</p>
+        <p>Informamos que a conta <strong>{login}</strong> foi desativada.</p>
+        <p>Coordenação Geral de Tecnologia da Informação - CGTI</p>
+        <br>
+        <p style="font-size: 12px;">
+        CADE - Conselho Administrativo de Defesa Econômica<br>
+        </p>
+    </body>
+    </html>
+    """
+
+    try:
+        msg = EmailMessage()
+        msg['Subject'] = "CADE - Desativação de conta de acesso"
+        msg['From'] = "naoresponda@cade.gov.br"
+        msg['To'] = destinatario
+        # # Cópia oculta (BCC) — direto na linha
+        # msg['Bcc'] = "usuariosdesativados@cade.gov.br"
+        # Corpo alternativo (texto puro) + HTML
+        msg.set_content(f"Prezado(a) {nome},\n\nSua conta foi desativada. Caso não visualize o conteúdo HTML, contate o suporte.")
+        msg.add_alternative(html, subtype='html')
+
+        # Envio
+        with smtplib.SMTP(servidor_smtp, porta) as smtp:
+            # descomentar a linha abaixo para ver detalhes do envio e validar se está direcionando corretamente para o BBC (cópia oculta)
+            # smtp.set_debuglevel(1)
+            if os.getenv('FLASK_ENV') == 'desenvolvimento':
+                smtp.starttls()
+                smtp.login(usuarioEmail, senhaEmail)
+            smtp.send_message(msg)
+            return True
+
+    except Exception as e:
+        logging.error(f"Erro ao enviar e-mail: {e}")
+        return False
 
 def exemplo_chamada_bash():
     saida = ''

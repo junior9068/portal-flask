@@ -6,13 +6,14 @@ from flask import jsonify
 import string
 import random, os
 from unidecode import unidecode
-from funcoes.funcoes import enviar_email_criacao, enviar_email_desativacao
+from funcoes.funcoes import enviar_email_criacao, enviar_email_desativacao, enviar_email_desativacao_gestao
 from funcoes.banco import registrar_log
 # --- CONFIGURAÇÕES DO AD ---
 # Senha e usuario do AD estão definidos como variável de ambiente
 
 USUARIO_AD = os.environ.get("USUARIO_AD")
 SENHA_AD = os.environ.get("SENHA_AD")
+EMAIL_GESTAO = "usuariosdesativados@cade.gov.br"
 if os.getenv("FLASK_ENV") == "desenvolvimento":
     BASE_DN = "dc=ad,dc=local"
     NOVA_OU = 'OU=Usuarios,OU=NoSync--M365,DC=ad,DC=local'
@@ -460,15 +461,21 @@ def modificaUsuario(cpfUsuario, usuarioLogado):
         )
 
         # Envia o e-mail de desativação
-        if not email_usuario:
-            logging.error(f"Usuário {login_usuario_ad} não possui e-mail cadastrado.")
-            return f"Usuário desativado, mas não foi possível enviar e-mail de notificação por falta de e-mail cadastrado."
-        enviar_email_desativacao(email_usuario, login_usuario_ad)
-        if enviar_email_desativacao:
-            logging.info(f"E-mail de desativação enviado para {email_usuario}")
+        if email_usuario:
+            enviar_email_desativacao(email_usuario, login_usuario_ad)
+            enviar_email_desativacao_gestao(EMAIL_GESTAO, login_usuario_ad)
+            logging.info(f"E-mail de desativação enviado para {email_usuario} e {EMAIL_GESTAO}")
+            return f"Usuário desativado com sucesso!"
         else:
-            logging.error(f"Falha ao enviar e-mail de desativação para {email_usuario}")
-        return f"Usuário desativado com sucesso!"
+            logging.warning(f"Usuário {login_usuario_ad} não possui e-mail cadastrado.")
+            enviar_email_desativacao_gestao(EMAIL_GESTAO, login_usuario_ad)
+            logging.info(f"E-mail de desativação enviado apenas para {EMAIL_GESTAO}")
+            return f"Usuário desativado, mas não foi possível enviar e-mail de notificação por falta de e-mail cadastrado."
+        # if enviar_email_desativacao:
+        #     logging.info(f"E-mail de desativação enviado para {email_usuario}")
+        # else:
+        #     logging.error(f"Falha ao enviar e-mail de desativação para {email_usuario}")
+        # return f"Usuário desativado com sucesso!"
     except Exception as e:
         logging.error(f"[EXCEÇÃO] {e}")
         return f"Falha ao desativar a conta."
