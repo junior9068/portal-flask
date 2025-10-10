@@ -42,7 +42,7 @@
                                 <input type="date" class="form-control" id="dataNascimentoUsuario" name="dataNascimentoUsuario" required>
                             </div>
                             <div class="invalid-feedback" id="dataNascimentoInvalido">
-                                Por favor, informe uma data de nascimento válida. A idade deve estar entre 18 e 100 anos.
+                                Por favor, informe uma data de nascimento válida. A idade deve estar entre 14 e 100 anos.
                             </div>
                             <div class="form-text">Informe a data de nascimento do usuário.</div>
                         </div>
@@ -339,7 +339,7 @@
             }
             
             // Validar idade
-            if (idade < 18 || idade > 100) {
+            if (idade < 14 || idade > 100) {
                 this.classList.add('is-invalid');
                 document.getElementById('dataNascimentoInvalido').style.display = 'block';
             } else {
