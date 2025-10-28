@@ -299,15 +299,25 @@ def cria_usuario_ad(nomeUsuarioCapitalizado,cpfUsuario,dataNascimentoUsuario,ema
     # Converte a data de nascimento para o formato DD/MM/AAAA
     dataConvertida = convete_data(dataNascimentoUsuario)
     # Cria a lista de grupos padrão
-    lista_grupos = [f"cn=FW_PADRAO,ou=Grupos,ou=CADE,{BASE_DN}"]
+    lista_grupos = [f"cn=FW_PADRAO,ou=Grupos,ou=CADE,{BASE_DN}", f"cn=G_NUVEM_CADE,ou=Grupos,ou=CADE,{BASE_DN}"]
     # Monta DN do novo usuário e completa a lista de grupos conforme o cargo
     if cargo == 'Servidor':
         ou_destino = "OU=Servidores,OU=Usuarios,OU=CADE"
         lista_grupos.append(f"cn=GoFluent,ou=Grupos,ou=CADE,{BASE_DN}")
+        lista_grupos.append(f"cn=G_CADE_SERVIDOR,ou=Grupos,ou=CADE,{BASE_DN}")
         lista_grupos.append(f"cn=GS_LICENCA_M365_E3,ou=m365,ou=Grupos,ou=CADE,{BASE_DN}")
-    else:
+    elif cargo == 'Terceiro':
         ou_destino = "OU=Colaboradores,OU=Usuarios,OU=CADE"
+        lista_grupos.append(f"cn=G_CADE_TERCEIRIZADOS,ou=Grupos,ou=CADE,{BASE_DN}")
         lista_grupos.append(f"cn=GS_LICENCA_M365_E1,ou=m365,ou=Grupos,ou=CADE,{BASE_DN}")
+    elif cargo == 'Estagiario':
+        ou_destino = "OU=Colaboradores,OU=Usuarios,OU=CADE"
+        lista_grupos.append(f"cn=G_CADE_ESTAGIARIOS,ou=Grupos,ou=CADE,{BASE_DN}")
+        lista_grupos.append(f"cn=GS_LICENCA_M365_E1,ou=m365,ou=Grupos,ou=CADE,{BASE_DN}")
+    else:
+        logging.error(f"Cargo inválido: {cargo}")
+        saida = f"Erro: Cargo inválido."
+        return saida
 
     dn_usuario = f"CN={nomeUsuarioCapitalizado},{ou_destino},{BASE_DN}"
     login_final = buscar_login(nomeUsuarioCapitalizado)
