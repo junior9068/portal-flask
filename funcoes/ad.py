@@ -308,7 +308,7 @@ def cria_usuario_ad(nomeUsuarioCapitalizado,cpfUsuario,dataNascimentoUsuario,ema
         lista_grupos.append(f"cn=GS_LICENCA_M365_E3,ou=m365,ou=Grupos,ou=CADE,{BASE_DN}")
     elif cargo == 'Terceiro':
         ou_destino = "OU=Colaboradores,OU=Usuarios,OU=CADE"
-        lista_grupos.append(f"cn=G_CADE_TERCEIRIZADOS,ou=Grupos,ou=CADE,{BASE_DN}")
+        lista_grupos.append(f"cn=G_CADE_TERCERIZADOS,ou=Grupos,ou=CADE,{BASE_DN}")
         lista_grupos.append(f"cn=GS_LICENCA_M365_E1,ou=m365,ou=Grupos,ou=CADE,{BASE_DN}")
     elif cargo == 'Estagiario':
         ou_destino = "OU=Colaboradores,OU=Usuarios,OU=CADE"
