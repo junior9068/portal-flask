@@ -121,6 +121,11 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ url_for('ativa_usuario') }}"  class="nav-link {% if request.endpoint == 'ativa_usuario' %}active{% endif %}">
+                        <i class="bi bi-person-fill-check"></i> Ativar usuário
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ url_for('consulta_usuario') }}"  class="nav-link {% if request.endpoint == 'consulta_usuario' %}active{% endif %}">
                         <i class="bi bi-search"></i> Consultar usuário
                     </a>

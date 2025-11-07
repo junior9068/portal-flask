@@ -412,11 +412,132 @@ def desativar_usuario(conn, dn):
         "userAccountControl": [(MODIFY_REPLACE, [514])]
     })
 
+def ativar_usuario(conn, dn):
+    return conn.modify(dn, {
+        "userAccountControl": [(MODIFY_REPLACE, [512])],
+        "pwdLastSet": [(MODIFY_REPLACE, [0])]
+    })
+
 def mover_usuario(conn, dn, nova_ou):
     cn = extrair_cn(dn)
     if not cn:
         raise ValueError(f"Não foi possível extrair CN de: {dn}")
     return conn.modify_dn(dn, f"CN={cn}", new_superior=nova_ou)
+
+def adiciona_grupos_padrao(conn, dn_usuario, cargo):
+    try:
+        grupos_padrao = [
+            f"cn=FW_PADRAO,ou=Grupos,ou=CADE,{BASE_DN}",
+            f"cn=G_NUVEM_CADE,ou=Grupos,ou=CADE,{BASE_DN}"
+        ]
+        if cargo == 'Servidor':
+            grupos_padrao.extend([
+                f"cn=GoFluent,ou=Grupos,ou=CADE,{BASE_DN}",
+                f"cn=G_CADE_SERVIDOR,ou=Grupos,ou=CADE,{BASE_DN}",
+                f"cn=GS_LICENCA_M365_E3,ou=m365,ou=Grupos,ou=CADE,{BASE_DN}"
+            ])
+        elif cargo in ['Terceiro', 'Estagiario']:
+            grupos_padrao.extend([
+                f"cn=G_CADE_TERCERIZADOS,ou=Grupos,ou=CADE,{BASE_DN}" if cargo == 'Terceiro' else f"cn=G_CADE_ESTAGIARIOS,ou=Grupos,ou=CADE,{BASE_DN}",
+                f"cn=GS_LICENCA_M365_E1,ou=m365,ou=Grupos,ou=CADE,{BASE_DN}"
+            ])
+        for grupo in grupos_padrao:
+            adicionar_usuario_a_grupo(dn_usuario, grupo, conn)
+    except Exception as e:
+        logging.error(f"Erro ao adicionar grupos padrão: {e}")
+
+
+def mover_usuario_para_ou_original(conn, dn_usuario, cargo):
+    if cargo == 'Servidor':
+        ou_original = f"OU=Servidores,OU=Usuarios,OU=CADE,{BASE_DN}"
+    elif cargo in ['Terceiro', 'Estagiario']:
+        ou_original = f"OU=Colaboradores,OU=Usuarios,OU=CADE,{BASE_DN}"
+    else:
+        logging.error(f"Cargo inválido para mover usuário: {cargo}")
+        return False
+    try:
+        return mover_usuario(conn, dn_usuario, ou_original)
+    except Exception as e:
+        logging.error(f"Erro ao mover usuário para OU original: {e}")
+        return False
+
+
+def ativaUsuario(cpfUsuario, usuarioLogado, cargoUsuario):
+    cpf_input = cpfUsuario.strip()
+    cpf = re.sub(r'\D', '', cpf_input)
+
+    if not re.fullmatch(r'\d{11}', cpf):
+        print(f"[ERRO] CPF inválido: {cpf_input}")
+        return
+
+    try:
+        conn = conectar_ad()
+        dn_usuario = buscar_usuario_por_cpf(conn, cpf)
+
+        if not dn_usuario:
+            logging.error(f"Usuário com CPF {cpf} não encontrado.")
+            return f"Usuário com CPF {cpf} não encontrado."
+        
+        # Busca atributos principais
+        conn.search(dn_usuario, '(objectClass=person)', attributes=['userAccountControl', 'sAMAccountName', 'otherMailbox'])
+        if not conn.entries:
+            logging.error(f"Não foi possível obter informações do usuário com DN {dn_usuario}.")
+            return f"Não foi possível obter informações do usuário."
+
+        login_usuario_ad = conn.entries[0]['sAMAccountName'].value
+        uac = int(conn.entries[0]['userAccountControl'].value)
+        email_usuario = conn.entries[0]['otherMailbox'].value if 'otherMailbox' in conn.entries[0] else None
+
+        # Verifica se já está ativo
+        if not (uac & 2):
+            logging.warning(f"Usuário {login_usuario_ad} já está ativo.")
+            return f"Usuário já está ativo."
+
+        # Define e seta a senha
+        senha_gerada = gerar_senha()
+        conn.extend.microsoft.modify_password(dn_usuario, senha_gerada)
+        logging.info(f"Senha {senha_gerada} redefinida para o usuário {login_usuario_ad}")
+        
+        # Ativa o usuário
+        if not ativar_usuario(conn, dn_usuario):
+            logging.error(f"Falha ao ativar a conta: {conn.result['description']}")
+            return f"Falha ao ativar a conta."
+        
+
+        # Move o usuário de volta para a OU original
+        if not mover_usuario_para_ou_original(conn, dn_usuario, cargoUsuario):
+            logging.warning(f"Não foi possível mover o usuário de volta para a OU original.")
+
+        # Faz uma nova busca para garantir que o DN está atualizado
+        dn_usuario = buscar_usuario_por_cpf(conn, cpf)
+
+        # Adiciona os grupos padrão conforme o cargo
+        adiciona_grupos_padrao(conn, dn_usuario, cargoUsuario)
+        
+        # Registra log da ação
+        registrar_log(
+            usuario_sistema=usuarioLogado.get('email'),
+            usuario_ad=login_usuario_ad,
+            acao="ativar_usuario",
+            observacoes="Usuário reativado!"
+        )
+
+        # Envia o e-mail de reativação
+        if email_usuario:
+            enviar_email_criacao(senha_gerada, email_usuario, login_usuario_ad)
+            logging.info(f"E-mail de reativação enviado para {email_usuario}")
+            return f"Usuário ativado com sucesso!"
+        else:
+            logging.warning(f"Usuário {login_usuario_ad} não possui e-mail cadastrado.")
+            return f"Usuário ativado, mas sem e-mail cadastrado para notificação."
+        # return f"Usuário ativado com sucesso!"
+    except Exception as e:
+        logging.error(f"[EXCEÇÃO] {e}")
+        return f"Falha ao ativar a conta: {e}"
+    finally:
+        if 'conn' in locals() and conn.bound:
+            conn.unbind()
+            logging.info("Conexão AD encerrada.")
 
 
 def modificaUsuario(cpfUsuario, usuarioLogado):

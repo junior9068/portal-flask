@@ -5,7 +5,7 @@ from funcoes.log import configurar_logs
 import logging, os
 from funcoes.banco import inserir_usuario, deletar_usuario, lerResultado
 from funcoes.funcoes import capitalizaNome, buscaDepartamento, exemplo_chamada_bash
-from funcoes.ad import modificaUsuario, consultar_usuario, cria_usuario_ad, buscar_login, gerar_senha
+from funcoes.ad import modificaUsuario, consultar_usuario, cria_usuario_ad, buscar_login, gerar_senha, ativaUsuario
 import json, time
 from werkzeug.middleware.proxy_fix import ProxyFix
 from flask_oidc import OpenIDConnect
@@ -136,11 +136,11 @@ def desativa_usuario():
     logging.info(f"Chamou a rota desativa_usuario")
     return render_template("desativa_usuario.html")
 
-# @app.route("/ativa_usuario")
-# @oidc.require_login
-# def ativa_usuario():
-#     logging.info(f"Chamou a rota ativa_usuario")
-#     return render_template("ativa_usuario.html")
+@app.route("/ativa_usuario")
+@oidc.require_login
+def ativa_usuario():
+    logging.info(f"Chamou a rota ativa_usuario")
+    return render_template("ativa_usuario.html")
 
 @app.route("/consulta_usuario")
 @oidc.require_login
@@ -165,26 +165,26 @@ def executa_desativa_usuario():
     return saida
 
 
-# @app.route("/executa_ativa_usuario", methods=['POST'])
-# @oidc.require_login
-# def executa_ativa_usuario():
-#     if os.getenv('FLASK_ENV') == 'desenvolvimento':
-#         usuarioLogado = {"email": "teste-email@email.com"}
-#     else:
-#         usuarioLogado = oidc.user_getinfo(['email'])
-#     cpf_usuario = request.form['cpfUsuario']
-#     cargo_usuario = request.form['cargo']
-#     logging.info(f"Chamou a rota executa_ativa_usuario")
-#     logging.info(f"CPF do usuário: {cpf_usuario}")
-#     logging.info(os.getenv('FLASK_ENV'))
-#     # usuarioLogado = oidc.user_getinfo(['email'])
-#     saida = cargo_usuario
-#     #return render_template("desativa_usuario.html", nome_usuario=saida)
-#     return saida
+@app.route("/executa_ativa_usuario", methods=['POST'])
+@oidc.require_login
+def executa_ativa_usuario():
+    if os.getenv('FLASK_ENV') == 'desenvolvimento':
+        usuarioLogado = {"email": "teste-email@email.com"}
+    else:
+        usuarioLogado = oidc.user_getinfo(['email'])
+    cpf_usuario = request.form['cpfUsuario']
+    cargo_usuario = request.form['cargo']
+    logging.info(f"Chamou a rota executa_ativa_usuario")
+    logging.info(f"CPF do usuário: {cpf_usuario}")
+    logging.info(os.getenv('FLASK_ENV'))
+    # usuarioLogado = oidc.user_getinfo(['email'])
+    saida = ativaUsuario(cpf_usuario, usuarioLogado, cargo_usuario)
+    #return render_template("desativa_usuario.html", nome_usuario=saida)
+    return saida
 
 
 @app.route("/executa_cria_usuario", methods=['POST'])
-#@oidc.require_login
+@oidc.require_login
 def executa_cria_usuario():
     if os.getenv('FLASK_ENV') == 'desenvolvimento':
         usuarioLogado = {"email": "teste-email@email.com"}
