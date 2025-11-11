@@ -6,7 +6,7 @@ from flask import jsonify
 import string
 import random, os
 from unidecode import unidecode
-from funcoes.funcoes import enviar_email_criacao, enviar_email_desativacao, enviar_email_desativacao_gestao
+from funcoes.funcoes import enviar_email_criacao, enviar_email_desativacao, enviar_email_desativacao_gestao, enviar_mensagem_teams
 from funcoes.banco import registrar_log
 # --- CONFIGURAÇÕES DO AD ---
 # Senha e usuario do AD estão definidos como variável de ambiente
@@ -389,6 +389,9 @@ def cria_usuario_ad(nomeUsuarioCapitalizado,cpfUsuario,dataNascimentoUsuario,ema
                 acao="criar_usuario",
                 observacoes=f"Usuário criado!"
             )
+            # Envia mensagem para o Teams apenas em ambiente de produção
+            if os.getenv("FLASK_ENV") != "desenvolvimento": 
+                enviar_mensagem_teams(f"O login {usuarioLogado.get('email')} criou o usuário **{login_final}**")
             # Retorna uma mensagem de sucesso
             saida = f"A conta {login_final}@cade.gov.br foi criada com sucesso. As informações de acesso à rede do CADE foram enviadas para o email {emailPessoal}."
             return saida
@@ -521,7 +524,9 @@ def ativaUsuario(cpfUsuario, usuarioLogado, cargoUsuario):
             acao="ativar_usuario",
             observacoes="Usuário reativado!"
         )
-
+        # Envia mensagem para o Teams apenas em ambiente de produção
+        if os.getenv("FLASK_ENV") != "desenvolvimento": 
+            enviar_mensagem_teams(f"O login {usuarioLogado.get('email')} ativou o usuário **{login_usuario_ad}**")
         # Envia o e-mail de reativação
         if email_usuario:
             enviar_email_criacao(senha_gerada, email_usuario, login_usuario_ad)
@@ -590,7 +595,9 @@ def modificaUsuario(cpfUsuario, usuarioLogado):
             acao="desativar_usuario",
             observacoes=f"Usuário desativado!"
         )
-
+        # Envia mensagem para o Teams apenas em ambiente de produção
+        if os.getenv("FLASK_ENV") != "desenvolvimento": 
+            enviar_mensagem_teams(f"O login {usuarioLogado.get('email')} desativou o usuário **{login_usuario_ad}**")
         # Envia o e-mail de desativação
         if email_usuario:
             enviar_email_desativacao(email_usuario, login_usuario_ad)

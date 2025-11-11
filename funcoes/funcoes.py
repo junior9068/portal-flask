@@ -2,7 +2,7 @@ import subprocess
 import logging
 import smtplib
 from email.message import EmailMessage
-import os
+import os, requests, json
 
 if os.getenv('FLASK_ENV') == 'desenvolvimento':
     usuarioEmail=os.getenv('USUARIO_EMAIL')
@@ -198,6 +198,20 @@ def exemplo_chamada_bash():
         saida = f"{txt_erro}"  # a variavel "e" irá para o log
         logging.error(e)
     return saida
+
+def enviar_mensagem_teams(mensagem):
+    webhook_url = "https://oncade.webhook.office.com/webhookb2/26f03ec9-ba58-48d0-bf15-714ea93cfafd@0f45bbf5-e0b2-4611-869d-02cbccbc164c/IncomingWebhook/c8612753ebb64840abbaee36d133d873/ef2ef433-cef6-480d-b4e4-f97cb7dcb37b/V2ve1ILeaGngHECO_BYlk3NYIu8byR5RPQHyP16BezbPc1"
+    message_content = mensagem
+
+    headers = {"Content-Type": "application/json"}
+    payload = {"text": message_content}
+
+    try:
+        response = requests.post(webhook_url, headers=headers, data=json.dumps(payload))
+        response.raise_for_status()  # Raise an exception for bad status codes
+        logging.info("Mensagem enviada com sucesso para o Teams.")
+    except requests.exceptions.RequestException as e:
+            logging.error("Erro ao enviar mensagem para o Teams: {e}")
 
 if __name__ == "__main__":
     # print(enviar_email("Senha@123456", "thiago.nogueiira@gmail.com"))
