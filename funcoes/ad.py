@@ -182,21 +182,29 @@ def buscar_login(nome_completo):
 #     return "Todos os logins que tentamos criar já existem no AD."
 
 
-def gerar_senha(segura=True):
-    if not segura:
-        return "Senha@123"  # Fallback (evite usar em produção)
+# def gerar_senha(segura=True):
+#     if not segura:
+#         return "Senha@123"  # Fallback (evite usar em produção)
 
-    while True:
-        senha = ''.join(random.choices(
-            string.ascii_letters + string.digits + "!@#$%&*?",
-            k=10
-        ))
-        # Garante pelo menos uma minúscula, uma maiúscula, um dígito e um especial
-        if (any(c.islower() for c in senha) and
-            any(c.isupper() for c in senha) and
-            any(c.isdigit() for c in senha) and
-            any(c in "!@#$%&*?" for c in senha)):
-            return senha
+#     while True:
+#         senha = ''.join(random.choices(
+#             string.ascii_letters + string.digits + "!@#$%&*?",
+#             k=10
+#         ))
+#         # Garante pelo menos uma minúscula, uma maiúscula, um dígito e um especial
+#         if (any(c.islower() for c in senha) and
+#             any(c.isupper() for c in senha) and
+#             any(c.isdigit() for c in senha) and
+#             any(c in "!@#$%&*?" for c in senha)):
+#             return senha
+
+# Gera senha conforme regras: Cinco primeiras letras do nome + 3 primeiros digitos do CPF + #
+def gerar_senha(nome, cpf):
+    nome = unidecode(nome).lower().replace(" ", "")
+    primeiros_cinco = nome[:5].title()
+    primeiros_tres_cpf = re.sub(r'\D', '', cpf)[:3]
+    senha = f"{primeiros_cinco}{primeiros_tres_cpf}#"
+    return senha
 
 def busca_manager(chefia):
     conn_ad = conectar_ad()
@@ -351,7 +359,7 @@ def cria_usuario_ad(nomeUsuarioCapitalizado,cpfUsuario,dataNascimentoUsuario,ema
     # Adiciona o atributo de matricula SIAPE
     if matriculaSiape != "":
         atributos["employeeID"] = matriculaSiape
-    senha_gerada = gerar_senha()
+    senha_gerada = gerar_senha(nomeUsuarioCapitalizado, cpfUsuario)
     logging.info(f"Gerou a senha: {senha_gerada}")       
     # Verifica se a chefia existe. Caso não exista ou seja inválida, não adiciona o atributo manager
     manager_dn = busca_manager(chefia)
@@ -497,7 +505,7 @@ def ativaUsuario(cpfUsuario, usuarioLogado, cargoUsuario):
             return f"Usuário já está ativo."
 
         # Define e seta a senha
-        senha_gerada = gerar_senha()
+        senha_gerada = gerar_senha(login_usuario_ad, cpf)
         conn.extend.microsoft.modify_password(dn_usuario, senha_gerada)
         logging.info(f"Senha {senha_gerada} redefinida para o usuário {login_usuario_ad}")
         
