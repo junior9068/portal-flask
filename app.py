@@ -217,7 +217,8 @@ def executa_cria_usuario():
         )
     except Exception as e:
         logging.error(f"Erro ao criar usuário: {e}")
-        saida = jsonify({"status": "Erro", "mensagem": "Erro ao criar usuário. Entre em contato com a CGTI."})
+        # saida = jsonify({"status": "Erro", "mensagem": "Erro ao criar usuário. Entre em contato com a CGTI."})
+        saida = "Erro ao criar usuário. Entre em contato com a CGTI."
     return saida
 
     # dicionarioUsuario = {'nome': nomeUsuarioCapitalizado, 'cpf': cpfUsuario, 'dataNascimento': dataNascimentoUsuario, 'email': emailPessoal, 'empresa': empresa, 'localizacao': localizacao, 'cargo': cargo,
