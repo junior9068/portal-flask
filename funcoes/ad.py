@@ -458,9 +458,6 @@ def cria_usuario_ad(nomeUsuarioCapitalizado,cpfUsuario,dataNascimentoUsuario,ema
                 acao="criar_usuario",
                 observacoes=f"Usuário criado!"
             )
-            # Envia mensagem para o Teams apenas em ambiente de produção
-            if os.getenv("FLASK_ENV") != "desenvolvimento": 
-                enviar_mensagem_teams(f"O login {usuarioLogado.get('email')} criou o usuário **{login_final}**")
             # Retorna uma mensagem de sucesso
             saida = f"A conta {login_final}@cade.gov.br foi criada com sucesso. As informações de acesso à rede do CADE foram enviadas para o email {emailPessoal}."
             return saida
