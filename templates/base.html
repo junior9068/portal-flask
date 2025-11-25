@@ -130,6 +130,11 @@
                         <i class="bi bi-search"></i> Consultar usuário
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ url_for('grafico') }}"  class="nav-link {% if request.endpoint == 'grafico' %}active{% endif %}">
+                        <i class="bi bi-bar-chart"></i> Reports
+                    </a>
+                </li>
                 <!-- <li class="nav-item">
                     <a href="{{ url_for('manutencao1') }}"  class="nav-link {% if request.endpoint == 'manutencao1' %}active{% endif %}">
                         <i class="bi bi-person"></i> Perfil
