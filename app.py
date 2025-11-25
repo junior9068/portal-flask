@@ -4,7 +4,7 @@ from flask import render_template
 from funcoes.log import configurar_logs
 import logging, os
 from funcoes.banco import inserir_usuario, deletar_usuario, lerResultado
-from funcoes.funcoes import capitalizaNome, buscaDepartamento, exemplo_chamada_bash
+from funcoes.funcoes import capitalizaNome, buscaDepartamento, mostra_grafico
 from funcoes.ad import modificaUsuario, consultar_usuario, cria_usuario_ad, buscar_login, gerar_senha, ativaUsuario
 import json, time
 from werkzeug.middleware.proxy_fix import ProxyFix
@@ -242,6 +242,24 @@ def executa_cria_usuario():
 
     # time.sleep(3)
     # return str(saida)
+
+@app.route("/grafico", methods=['GET'])
+def grafico():
+    return render_template("grafico.html")
+
+
+@app.route("/gerar_grafico", methods=['GET'])
+def gerar_grafico():
+    acao = request.args.get("acao")
+    if acao == 'criar_usuario':
+        return mostra_grafico(acao='criar_usuario')
+    elif acao == 'ativar_usuario':
+        return mostra_grafico(acao='ativar_usuario')
+    elif acao == 'desativar_usuario':
+        return mostra_grafico(acao='desativar_usuario')
+    else:
+        return "Ação inválida para gerar gráfico."
+
 
 @app.route("/consulta_nome", methods=['POST'])
 def consulta_dados_usuario():

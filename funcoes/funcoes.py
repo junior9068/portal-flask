@@ -3,6 +3,12 @@ import logging
 import smtplib
 from email.message import EmailMessage
 import os, requests, json
+from io import BytesIO
+import matplotlib.pyplot as plt
+from flask import Response
+from funcoes.banco import consulta_geral
+from dateutil.relativedelta import relativedelta
+from datetime import date
 
 if os.getenv('FLASK_ENV') == 'desenvolvimento':
     usuarioEmail=os.getenv('USUARIO_EMAIL')
@@ -213,6 +219,121 @@ def enviar_mensagem_teams(mensagem):
     except requests.exceptions.RequestException as e:
             logging.error("Erro ao enviar mensagem para o Teams: {e}")
 
+
+# Estrutura simples com chave e valor em JSON
+def chefes_departamento_1(json_data):
+    try:
+        lista_chefes = []
+        #Chave é o departamento e valor é o chefe do departamento
+        for chave, valor in json_data.items():
+            lista_chefes.append(f"{chave} - {valor}")
+        return lista_chefes
+    except Exception as e:
+        logging.error(f"Erro ao extrair chefes de departamento: {e}")
+        return "Erro ao buscar chefes de departamento."
+
+
+#Estrutura de uma lista de dicionários em JSON
+def chefes_departamento_2(json_data):
+    try:
+        lista_chefes = []
+        for item in json_data:
+            lista_chefes.append(f"{item.get('departamento')} - {item.get('chefe_departamento')}")
+        return lista_chefes
+    except Exception as e:
+        logging.error(f"Erro ao extrair chefes de departamento: {e}")
+        return "Erro ao buscar chefes de departamento."
+
+# Função para gerar os últimos 12 meses no formato "MM/AA"
+def ultimos_12_meses():
+    try:
+        meses = []
+        data = date.today()
+
+        for i in range(12):
+            mes_formatado = data.strftime("%m/%y")  # Ex: "11/25"
+            meses.append(mes_formatado)
+            data -= relativedelta(months=1)
+
+        return list(reversed(meses))  # do mais antigo para o mais novo
+    except Exception as e:
+        logging.error(f"Erro ao gerar últimos 12 meses: {e}")
+        return []
+
+
+def mostra_grafico(acao):
+    try:
+        meses=ultimos_12_meses() # Gera os últimos 12 meses no formato "MM/AA". Ex: ['01/25', '02/25', '03/25', ... , '1225']
+
+        # categorias = ['01/25', '02/25', '03/25', '04/25', '05/25', '06/25', '07/25', '08/25', '09/25', '10/25', '11/25']
+        # valores = [9, 14, 10, 7, 6, 5, 4, 15, consulta_geral(9, 2025, acao), consulta_geral(10, 2025, acao), consulta_geral(11, 2025, acao)]
+        categorias = meses
+        valores = [] # o loop abaixo irá preencher essa lista. EX: [consulta_geral(01, 2025, acao), ... , consulta_geral(12, 2025, acao)]
+        for mes_ano in categorias:
+            mes, ano = mes_ano.split('/')   # separa "11/25"
+            ano = int("20" + ano)           # transforma "25" em 2025
+            mes = int(mes)
+            valores.append(consulta_geral(mes, ano, acao))
+        logging.info(f"Valores para o gráfico de {acao}: {valores}")
+        # 3. Gera o gráfico
+        # fig, ax = plt.subplots()
+        fig, ax = plt.subplots(figsize=(16, 7))
+        barras = ax.bar(categorias, valores, color=["#0A7DC9"])
+
+        # Adiciona os valores no topo de cada barra
+        for barra in barras:
+            altura = barra.get_height()
+            ax.text(
+                barra.get_x() + barra.get_width() / 2,
+                altura,
+                str(altura),
+                ha='center',
+                va='bottom',
+                fontsize=10
+            )
+        # Altera o título do gráfico conforme a ação
+        if acao == 'criar_usuario':
+            frase = 'Criação de usuários nos últimos 12 meses'
+        elif acao == 'desativar_usuario':
+            frase = 'Desativação de usuários nos últimos 12 meses'
+        elif acao == 'ativar_usuario':
+            frase = 'Ativação de usuários nos últimos 12 meses'
+        plt.xlabel('Mês/Ano')
+        plt.ylabel('Quantidade de usuários')
+        plt.title(frase)
+
+        # 4. Cria um "arquivo" na memória
+        img = BytesIO()
+
+        # 5. Salva o gráfico DENTRO desse "arquivo"
+        fig.savefig(img, format='png', bbox_inches='tight')
+
+        # 6. Fecha o gráfico no Matplotlib para não vazar memória
+        plt.close(fig)
+
+        # 7. Volta ponteiro para o início
+        img.seek(0)
+
+        # 8. Retorna os bytes como imagem PNG
+        return Response(img.getvalue() , mimetype='image/png')
+    except Exception as e:
+        logging.error(f"Erro ao gerar gráfico: {e}")
+        return None
+
+
 if __name__ == "__main__":
     # print(enviar_email("Senha@123456", "thiago.nogueiira@gmail.com"))
-    enviar_email_desativacao("edilsonjuniorti@gmail.com", "edilson.junior")
+    # json_data = [
+    #     {"departamento": "Recursos Humanos", "chefe_departamento": "Ana Silva"},
+    #     {"departamento": "Tecnologia da Informação", "chefe_departamento": "Bruno Souza"},
+    #     {"departamento": "Financeiro", "chefe_departamento": "Carlos Lima"},
+    #     {"departamento": "Marketing", "chefe_departamento": "Ana Silva"},
+    # ]
+    # json_data = {
+    #     "Recursos Humanos": "Ana Silva",
+    #     "Tecnologia da Informação": "Bruno Souza",
+    #     "Financeiro": "Carlos Lima",
+    #     "Marketing": "Ana Silva"
+    # }
+    # print(chefes_departamento_1(json_data))
+    mostra_grafico('criar_usuario')

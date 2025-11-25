@@ -169,11 +169,32 @@ def deletar_usuario(cpf):
             conexao.close()
         return saida
 
+def consulta_geral(mes, ano, acao):
+    cursor = ''
+    saida = ''
+    try:
+        conexao=conexao_banco()
+        cursor = conexao.cursor(buffered=True)
+        sql = """select COUNT(*) from log_ad where MONTH(data_acao) = %s and YEAR(data_acao) = %s and acao= %s;"""
+        cursor.execute(sql, (mes, ano, acao))
+        resultado = cursor.fetchall()
+        quantidade = resultado[0][0]
+        saida = quantidade
+    except Exception as erro:
+        saida = 0
+        logging.error(f"Erro ao realizar a consulta no banco: {erro}")
+    finally:
+        if cursor:
+            cursor.close()
+        if conexao:
+            conexao.close()
+        return saida
 
 if __name__ == "__main__":
-    print(registrar_log(
-                usuario_sistema="edilson.junior@cade.gov.br",
-                usuario_ad="teste.fulano",
-                acao="criar_usuario",
-                observacoes=f"Usuário teste.fulano criado com sucesso."
-            ))
+    print(consulta_geral(11, 2025, 'consultar_usuario'))
+    # print(registrar_log(
+    #             usuario_sistema="edilson.junior@cade.gov.br",
+    #             usuario_ad="teste.fulano",
+    #             acao="criar_usuario",
+    #             observacoes=f"Usuário teste.fulano criado com sucesso."
+    #         ))

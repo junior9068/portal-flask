@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+
+{% block title %}Portal CADE{% endblock %}
+
+{% block page_title %}Reports{% endblock %}
+
+{% block content %}
+<div id="loadingOverlay" style="display: none;">
+    <div class="loader"></div>
+    <p>Gerando gráfico, aguarde...</p>
+</div>
+
+<style>
+#loadingOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.8);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.loader {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #3498db;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 10px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
+
+<div class="row">
+    <div class="col-12">
+
+        <p class="lead">Selecione o tipo de ação para gerar o gráfico.</p>
+
+        <div class="card mt-4">
+            <div class="card-body">
+                <form id="relatorioForm">
+
+                    <div class="mb-4">
+                        <label class="form-label">Tipo de ação *</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-bar-chart"></i></span>
+                            <select name="acao" id="acao" class="form-select" required>
+                                <option value="">Selecione uma opção</option>
+                                <option value="criar_usuario">Criação de usuário</option>
+                                <option value="ativar_usuario">Ativação de usuário</option>
+                                <option value="desativar_usuario">Desativação de usuário</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center gap-2 mt-4">
+                        <button type="reset" class="btn btn-outline-secondary me-2">
+                            <i class="bi bi-x-circle me-1"></i>Limpar
+                        </button>
+                        <button type="submit" id="botaoSubmit" class="btn btn-primary">
+                            <i class="bi bi-check-circle me-1"></i>Enviar
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <!-- card do resultado -->
+        <div id="resultadoCard" class="card mt-4" style="display:none;">
+            <div class="card-header bg-info text-white">
+                <i class="bi bi-bar-chart-fill me-2"></i>Gráfico Gerado:
+            </div>
+            <div class="card-body" style="text-align:center;">
+                <div id="resultadoRelatorio"></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("relatorioForm");
+    const overlay = document.getElementById("loadingOverlay");
+    const resultadoDiv = document.getElementById("resultadoRelatorio");
+    const resultadoCard = document.getElementById("resultadoCard");
+    const botaoSubmit = document.getElementById("botaoSubmit");
+
+    form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const acao = document.getElementById("acao").value;
+        if (!acao) {
+            alert("Selecione uma ação.");
+            return;
+        }
+
+        overlay.style.display = "flex";
+        botaoSubmit.disabled = true;
+        botaoSubmit.innerHTML = "Gerando...";
+
+        try {
+            // URL do gráfico (backend deve retornar imagem direto)
+            const resp = await fetch(`/gerar_grafico?acao=${acao}`);
+
+            if (!resp.ok) {
+                overlay.style.display = "none";
+                alert("Erro ao gerar gráfico.");
+                return;
+            }
+
+            // Converte para blob
+            const blob = await resp.blob();
+
+            // Gera URL temporária da imagem
+            const imgURL = URL.createObjectURL(blob);
+
+            // Exibe o card
+            resultadoCard.style.display = "block";
+            // resultadoDiv.innerHTML = `<img src="${imgURL}" width="600" style="border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">`;
+            resultadoDiv.innerHTML = `<img src="${imgURL}" style="width:70%; height:auto;">`;
+
+        } catch (err) {
+            console.error(err);
+            alert("Erro de comunicação com o servidor.");
+        }
+
+        overlay.style.display = "none";
+        botaoSubmit.disabled = false;
+        botaoSubmit.innerHTML = `<i class="bi bi-check-circle me-1"></i>Enviar`;
+    });
+});
+</script>
+{% endblock %}
