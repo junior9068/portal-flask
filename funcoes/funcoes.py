@@ -31,13 +31,13 @@ def capitalizaNome(nome):
     nome_capitalizado = ' '.join(part.capitalize() for part in partes)
     return nome_capitalizado
 
-
-def buscaDepartamento(departamentoComChefia):
-    #Separa o departamento da chefia vindos do formulário.
-    departamentoComChefia = departamentoComChefia.split("-")
-    departamento = departamentoComChefia[0].strip()
-    chefia = departamentoComChefia[1].strip()
-    return departamento, chefia
+# Função descontinuada, agora o front-end envia um dicionário com setor e nome do chefe.
+# def buscaDepartamento(departamentoComChefia):
+#     #Separa o departamento da chefia vindos do formulário.
+#     departamentoComChefia = departamentoComChefia.split("-")
+#     departamento = departamentoComChefia[0].strip()
+#     chefia = departamentoComChefia[1].strip()
+#     return departamento, chefia
 
 
 def enviar_email_criacao(senha, destinatario, login, servidor_smtp=servidor_smtp, porta=porta):

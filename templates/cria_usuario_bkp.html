@@ -74,13 +74,90 @@
                                 <span class="input-group-text"><i class="bi bi-buildings"></i></span>
                                 <select name="departamento" id="departamento" class="form-select" required>
                                         <option value="">Selecione uma opção</option>
-                                        <!-- 
-                                            A lista de chefes de departamento é carregada dinamicamente do backend a partir de um arquivo JSON.
-                                            No envio do formulário é realizado um submit de um dicionário com nome do chefe e setor.
-                                        -->
-                                        {% for chefe_departamento in chefes_departamentos %}
-                                            <option value='{{ chefe_departamento | tojson | safe }}'>{{ chefe_departamento['setor'] }} - {{ chefe_departamento['nome'].title() }}</option>
-                                        {% endfor %}
+                                        <option value="ASCOM-Ana Paula Lopes Guedes Teixeira">ASCOM - Ana Paula Lopes Guedes Teixeira</option>
+                                        <option value="ASINT-Bruna Pamplona de Queiroz">ASINT - Bruna Pamplona de Queiroz</option>
+                                        <option value="ASTEC-Ricardo Medeiros de Castro">ASTEC - Ricardo Medeiros de Castro</option>
+                                        <option value="AUDIT-Márcia da Rosa Pereira">AUDIT - Márcia da Rosa Pereira</option>
+                                        <option value="CCJ-Bruna Maria Palhano Medeiros">CCJ - Bruna Maria Palhano Medeiros</option>
+                                        <option value="CEACO-Tomas de Siervi Barcellos">CEACO - Tomas de Siervi Barcellos</option>
+                                        <option value="CECAN-Fernando Daniel Franke">CECAN - Fernando Daniel Franke</option>
+                                        <option value="CEMAC-Gerson Carvalho Bênia">CEMAC - Gerson Carvalho Bênia</option>
+                                        <option value="CEP-Antônio Marcos Guerreiro Salmeirão">CEP - Antônio Marcos Guerreiro Salmeirão</option>
+                                        <option value="CGAA 1-Alden Caribé de Sousa">CGAA 1 - Alden Caribé de Sousa</option>
+                                        <option value="CGAA 10-Emmanuel Ali Novaes Faria">CGAA 10 - Emmanuel Ali Novaes Faria</option>
+                                        <option value="CGAA 11-Yedda Beatriz Gomes de Almeida Dysman da Cruz Seixas">CGAA 11 - Yedda Beatriz Gomes de Almeida Dysman da Cruz Seixas</option>
+                                        <option value="CGAA 2-Letícia Ribeiro Versiani">CGAA 2 - Letícia Ribeiro Versiani</option>
+                                        <option value="CGAA 3-Juliana  Marcelino da Silva">CGAA 3 - Juliana  Marcelino da Silva</option>
+                                        <option value="CGAA 4-Igor Carvalho Rocha">CGAA 4 - Igor Carvalho Rocha</option>
+                                        <option value="CGAA 5-Rodrigo Monteiro Ferreira">CGAA 5 - Rodrigo Monteiro Ferreira</option>
+                                        <option value="CGAA 6-Leonardo Sodre de Aragão Vasconcelos Peixoto">CGAA 6 - Leonardo Sodre de Aragão Vasconcelos Peixoto</option>
+                                        <option value="CGAA 7-Andrea Lucia Freire do Nascimento">CGAA 7 - Andrea Lucia Freire do Nascimento</option>
+                                        <option value="CGAA 8-Carolina Saito da Costa">CGAA 8 - Carolina Saito da Costa</option>
+                                        <option value="CGAA 9-Rubem Accioly Pires">CGAA 9 - Rubem Accioly Pires</option>
+                                        <option value="CGESP-Karine Lustosa Panerai">CGESP - Karine Lustosa Panerai</option>
+                                        <option value="CGOFL-Sarah Gamaliel Alves Silva">CGOFL - Sarah Gamaliel Alves Silva</option>
+                                        <option value="CGP-Victor Kaled Sousa do Espirito Santo">CGP - Victor Kaled Sousa do Espirito Santo</option>
+                                        <option value="CGTI-Vinicius Eloy dos Reis">CGTI - Vinicius Eloy dos Reis</option>
+                                        <option value="COL-Antônio Clóvis Melhor Galvão dos Santos">COL - Antônio Clóvis Melhor Galvão dos Santos</option>
+                                        <option value="COA 1-Danielle Kineipp de Souza">COA 1 - Danielle Kineipp de Souza</option>
+                                        <option value="COA 10-Joice Arantes Luciano">COA 10 - Joice Arantes Luciano</option>
+                                        <option value="COA 11-Marcus Vinicius Silveira de Sá">COA 11 - Marcus Vinicius Silveira de Sá</option>
+                                        <option value="COA 2-Marcelo Pacheco Bastos">COA 2 - Marcelo Pacheco Bastos</option>
+                                        <option value="COA 3-Beatriz Pierri">COA 3 - Beatriz Pierri</option>
+                                        <option value="COA 4-Márcio Magalhães Teixeira">COA 4 - Márcio Magalhães Teixeira</option>
+                                        <option value="COA 5-Amanda Bispo Menezes">COA 5 - Amanda Bispo Menezes</option>
+                                        <option value="COA 6-Leandro dos Reis Lucheses">COA 6 - Leandro dos Reis Lucheses</option>
+                                        <option value="COA 7-Victor Lubambo Peixoto Accioly">COA 7 - Victor Lubambo Peixoto Accioly</option>
+                                        <option value="COA 8-Leila Cristina Ferraresi Girardi">COA 8 - Leila Cristina Ferraresi Girardi</option>
+                                        <option value="COA 9I-Luís Cláudio Lima Pinheiro">COA 9-I - Luís Cláudio Lima Pinheiro</option>
+                                        <option value="COA 9II-Guilherme D'Alessandro Silva">COA 9-II - Guilherme D'Alessandro Silva</option>
+                                        <option value="CORREG-Roxeli Lalla Rosa">CORREG - Roxeli Lalla Rosa</option>
+                                        <option value="DAP-Bruna Cardoso dos Santos">DAP - Bruna Cardoso dos Santos</option>
+                                        <option value="DEE-Lílian Santos Marques Severino">DEE - Lílian Santos Marques Severino</option>
+                                        <option value="DIAP-Jeruza Huckembeck Pardo">DIAP - Jeruza Huckembeck Pardo</option>
+                                        <option value="DICOR-Beatriz Leal dos Reis">DICOR - Beatriz Leal dos Reis</option>
+                                        <option value="DIPLAN-André Botelho Vilaron">DIPLAN - André Botelho Vilaron</option>
+                                        <option value="GAB 1-Bruno Polonio Renzetti">GAB 1 - Bruno Polonio Renzetti</option>
+                                        <option value="GAB 2-Diogo Thomson de Andrade">GAB 2 - Diogo Thomson de Andrade</option>
+                                        <option value="GAB 2-Paulo Henrique de Oliveira">GAB 2 - Paulo Henrique de Oliveira</option>
+                                        <option value="GAB 3-Gustavo Augusto Freitas de Lima">GAB 3 - Gustavo Augusto Freitas de Lima</option>
+                                        <option value="GAB 3-Bertrand Wanderer">GAB 3 - Bertrand Wanderer</option>
+                                        <option value="GAB 4-Victor Oliveira Fernandes">GAB 4 - Victor Oliveira Fernandes</option>
+                                        <option value="GAB 4-Fabiana Pereira Veloso">GAB 4 - Fabiana Pereira Veloso</option>
+                                        <option value="GAB 5-Camila Cabral Pires Alves">GAB 5 - Camila Cabral Pires Alves</option>
+                                        <option value="GAB 5-Vitor Jardim Machado Barbosa">GAB 5 - Vitor Jardim Machado Barbosa</option>
+                                        <option value="GAB 6-José Levi Mello do Amaral Júnior">GAB 6 - José Levi Mello do Amaral Júnior</option>
+                                        <option value="GAB 6-Ludmila dos Santos Boldo Maluf">GAB 6 - Ludmila dos Santos Boldo Maluf</option>
+                                        <option value="GABPRES-Maria Luiza Bittar Khouri">GAB-PRES - Maria Luiza Bittar Khouri</option>
+                                        <option value="GABSG-Rebeca de Queiroga Falcao">GAB-SG - Rebeca de Queiroga Falcao</option>
+                                        <option value="GAB 1-Carlos Jacques Vieira Gomes">GAB 1 - Carlos Jacques Vieira Gomes</option>
+                                        <option value="PFE-André Luís Macagnan Freire">PFE - André Luís Macagnan Freire</option>
+                                        <option value="PRESIDÊNCIA-Alexandre Cordeiro Macedo">PRESIDÊNCIA - Alexandre Cordeiro Macedo</option>
+                                        <option value="PROT-Juliana Oliveira Marques Moraes">PROT - Juliana Oliveira Marques Moraes</option>
+                                        <option value="SAGEP-Gabrielle Drago Thorpe">SAGEP - Gabrielle Drago Thorpe</option>
+                                        <option value="SAGPRO-Marilucy Silva Lima">SAGPRO - Marilucy Silva Lima</option>
+                                        <option value="SEACA-Ana Luiza Maria Guimarães Coelho">SEACA - Ana Luiza Maria Guimarães Coelho</option>
+                                        <option value="SEAAP-Thayane da Conceição Oliveira Silva">SEAAP - Thayane da Conceição Oliveira Silva</option>
+                                        <option value="SEAPE-Taynara Alessandra Dantas da Silva">SEAPE - Taynara Alessandra Dantas da Silva</option>
+                                        <option value="SEAPRO-Tauana Almeida Siqueira">SEAPRO - Tauana Almeida Siqueira</option>
+                                        <option value="SEAUD-Bruna Casarotto Lima Sucha">SEAUD - Bruna Casarotto Lima Sucha</option>
+                                        <option value="SECOM-Carmen Lia Remedi Fros">SECOM - Carmen Lia Remedi Fros</option>
+                                        <option value="SECOP-Otávio Augusto de Oliveira Cruz Filho">SECOP - Otávio Augusto de Oliveira Cruz Filho</option>
+                                        <option value="SEDADOS-Ana Paula Pessoa Mello">SEDADOS - Ana Paula Pessoa Mello</option>
+                                        <option value="SEEAC-Nicole Chama dos Santos">SEEAC - Nicole Chama dos Santos</option>
+                                        <option value="SEGOV-Alessandro Lustosa Seixas Pinheiro">SEGOV - Alessandro Lustosa Seixas Pinheiro</option>
+                                        <option value="SEMAP-Liliane Pereira Castro">SEMAP - Liliane Pereira Castro</option>
+                                        <option value="SERCJ-Humberto Cunha dos Santos">SERCJ - Humberto Cunha dos Santos</option>
+                                        <option value="SEREP-Fabio Henrique Sgueri">SEREP - Fabio Henrique Sgueri</option>
+                                        <option value="SESIC-Thiago Lazaro de Souza Nogueira">SESIC - Thiago Lazaro de Souza Nogueira</option>
+                                        <option value="SESIN-Thiago Nogueira de Oliveira">SESIN - Thiago Nogueira de Oliveira</option>
+                                        <option value="SESIS-Felipe Alberto Moreira Dias">SESIS - Felipe Alberto Moreira Dias</option>
+                                        <option value="SETED-Silvia Regina Borges">SETED - Silvia Regina Borges</option>
+                                        <option value="SG-Gabriel Mamede de Carvalho">SG - Gabriel Mamede de Carvalho</option>
+                                        <option value="SGA 1-Felipe Neiva Mundim">SGA 1 - Felipe Neiva Mundim</option>
+                                        <option value="SGA 2-Felipe Leitão Valadares Roquete">SGA 2 - Felipe Leitão Valadares Roquete</option>
+                                        <option value="SIDOC-Camila Dias dos Santos">SIDOC - Camila Dias dos Santos</option>
+                                        <option value="VIGILANTE-Marcos Alexandre Ribeiro Azevedo de Souza">VIGILANTE - Marcos Alexandre Ribeiro Azevedo de Souza</option>
                                 </select>
                             </div>
                             <div class="invalid-feedback" id="departamentoInvalido">
@@ -452,8 +529,8 @@
         // Validar departamento
         const departamentoInput = document.getElementById('departamento');
         const departamentoInvalido = document.getElementById('departamentoInvalido');
-
-        if (departamentoInput.value === "") {
+        
+        if (departamentoInput.value.trim() === '' || departamentoInput.value.trim().length < 2) {
             departamentoInput.classList.add('is-invalid');
             departamentoInvalido.style.display = 'block';
             formValido = false;
@@ -461,7 +538,7 @@
             departamentoInput.classList.remove('is-invalid');
             departamentoInvalido.style.display = 'none';
         }
-                
+        
         // Validar matrícula SIAPE (opcional, mas se preenchida deve ter apenas números)
         const matriculaInput = document.getElementById('matriculaSiape');
         const matriculaInvalido = document.getElementById('matriculaInvalido');

@@ -4,7 +4,7 @@ from flask import render_template
 from funcoes.log import configurar_logs
 import logging, os
 from funcoes.banco import inserir_usuario, deletar_usuario, lerResultado
-from funcoes.funcoes import capitalizaNome, buscaDepartamento, mostra_grafico
+from funcoes.funcoes import capitalizaNome, mostra_grafico
 from funcoes.ad import modificaUsuario, consultar_usuario, cria_usuario_ad, buscar_login, gerar_senha, ativaUsuario
 import json, time
 from werkzeug.middleware.proxy_fix import ProxyFix
@@ -12,6 +12,7 @@ from flask_oidc import OpenIDConnect
 import requests
 from flask import Response, session
 from dotenv import load_dotenv
+from flask import current_app
 
 # No ambiente de desenvolvimento, o load_dotenv() carrega automaticamente o arquivo .env. Em produção, pegará as variáveis de ambiente do sistema (quando estiver no kubernetes)
 load_dotenv()
@@ -127,7 +128,10 @@ def manutencao2():
 @oidc.require_login
 def cria_usuario():
     logging.info(f"Chamou a rota cria_usuario")
-    return render_template("cria_usuario.html")
+    arquivo = os.path.join(current_app.root_path, "data", "chefes_simples.json")
+    with open(arquivo, 'r', encoding='utf-8') as f:
+        dados = json.load(f)
+    return render_template("cria_usuario.html", chefes_departamentos=dados)
     # return render_template("cria_usuario.html")
 
 @app.route("/desativa_usuario")
@@ -194,8 +198,11 @@ def executa_cria_usuario():
     # Cria um dicionário para armazenar os dados do usuário
     nomeUsuario = request.form['nomeUsuario']
     nomeUsuarioCapitalizado = capitalizaNome(nomeUsuario)
-    departamentoHtml = request.form['departamento']
-    departamento, chefia = buscaDepartamento(departamentoHtml)
+    departamentoChefia = request.form['departamento'] # Dicionário com 'setor' e 'nome'
+    departamentoChefia = json.loads(departamentoChefia)
+    departamento = departamentoChefia['setor']
+    chefia = departamentoChefia['nome']
+    # departamento, chefia = buscaDepartamento(departamentoHtml)
     # if os.getenv('FLASK_ENV') == 'desenvolvimento':
     #     usuarioLogado = {"email": "teste-email@email.com"}
     # else:
