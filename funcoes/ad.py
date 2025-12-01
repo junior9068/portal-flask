@@ -435,12 +435,22 @@ def cria_usuario_ad(nomeUsuarioCapitalizado,cpfUsuario,dataNascimentoUsuario,ema
         try:
             # Define a senha
             conn_ad.extend.microsoft.modify_password(dn_usuario, senha_gerada)
-
-            # Ativa o usuário e força troca de senha
+            
+            # 2. Habilita o usuário
             conn_ad.modify(dn_usuario, {
-                "userAccountControl": [(ldap3.MODIFY_REPLACE, [544])],
+                "userAccountControl": [(ldap3.MODIFY_REPLACE, [512])]
+            })
+
+            # 3. Força troca de senha no próximo logon
+            conn_ad.modify(dn_usuario, {
                 "pwdLastSet": [(ldap3.MODIFY_REPLACE, [0])]
             })
+
+            # # Ativa o usuário e força troca de senha
+            # conn_ad.modify(dn_usuario, {
+            #     "userAccountControl": [(ldap3.MODIFY_REPLACE, [512])],
+            #     "pwdLastSet": [(ldap3.MODIFY_REPLACE, [0])]
+            # })
             # Adiciona o usuário aos grupos
             for grupo in lista_grupos:
                 adicionar_usuario_a_grupo(dn_usuario, grupo, conn_ad)
