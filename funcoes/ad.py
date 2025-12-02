@@ -433,18 +433,24 @@ def cria_usuario_ad(nomeUsuarioCapitalizado,cpfUsuario,dataNascimentoUsuario,ema
         # Gera a senha segura
         #print(f"  - Senha gerada {senha_gerada}")
         try:
-            # Define a senha
-            conn_ad.extend.microsoft.modify_password(dn_usuario, senha_gerada)
+            # 1. Define a senha
+            logging.info(f"Definindo a senha para {login_final}")
+            define_senha = conn_ad.extend.microsoft.modify_password(dn_usuario, senha_gerada)
+            logging.info(f"[SUCESSO] Senha definida para {login_final}: {define_senha}")
             
+            logging.info(f"Ativando a conta para {login_final}")
             # 2. Habilita o usuário
-            conn_ad.modify(dn_usuario, {
+            ativa_conta = conn_ad.modify(dn_usuario, {
                 "userAccountControl": [(ldap3.MODIFY_REPLACE, [512])]
             })
+            logging.info(f"[SUCESSO] Conta ativada para {login_final}: {ativa_conta}")
 
+            logging.info(f"Forçando troca de senha no próximo logon para {login_final}")
             # 3. Força troca de senha no próximo logon
-            conn_ad.modify(dn_usuario, {
+            focar_senha = conn_ad.modify(dn_usuario, {
                 "pwdLastSet": [(ldap3.MODIFY_REPLACE, [0])]
             })
+            logging.info(f"[SUCESSO] Força troca de senha definida para {login_final}: {focar_senha}")
 
             # # Ativa o usuário e força troca de senha
             # conn_ad.modify(dn_usuario, {
