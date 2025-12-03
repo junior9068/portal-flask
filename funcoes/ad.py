@@ -4,7 +4,7 @@ from ldap3 import Server, Connection, ALL, MODIFY_REPLACE, ALL_ATTRIBUTES, MODIF
 import logging
 from flask import jsonify
 import string
-import random, os
+import random, os, time
 from unidecode import unidecode
 from funcoes.funcoes import enviar_email_criacao, enviar_email_desativacao, enviar_email_desativacao_gestao, enviar_mensagem_teams
 from funcoes.banco import registrar_log
@@ -433,6 +433,8 @@ def cria_usuario_ad(nomeUsuarioCapitalizado,cpfUsuario,dataNascimentoUsuario,ema
         # Gera a senha segura
         #print(f"  - Senha gerada {senha_gerada}")
         try:
+            # Aguarda 1 segundo para evitar problemas de replicação
+            time.sleep(1)
             # 1. Define a senha
             logging.info(f"Definindo a senha para {login_final}")
             define_senha = conn_ad.extend.microsoft.modify_password(dn_usuario, senha_gerada)
