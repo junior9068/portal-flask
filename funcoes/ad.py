@@ -427,14 +427,12 @@ def cria_usuario_ad(nomeUsuarioCapitalizado,cpfUsuario,dataNascimentoUsuario,ema
 
     if conn_ad.add(dn_usuario, attributes=atributos):
         logging.info(f"[SUCESSO] Conta criada: {login_final}")
-        # Envia mensagem para o Teams apenas em ambiente de produção
-        if os.getenv("FLASK_ENV") != "desenvolvimento": 
-            enviar_mensagem_teams(f"O login {usuarioLogado.get('email')} criou o usuário **{login_final}**")
         # Gera a senha segura
         #print(f"  - Senha gerada {senha_gerada}")
         try:
             # Aguarda 1 segundo para evitar problemas de replicação
-            time.sleep(1)
+            logging.info(f"Aguardando 2 segundos para replicação...")
+            time.sleep(2)
             # 1. Define a senha
             logging.info(f"Definindo a senha para {login_final}")
             define_senha = conn_ad.extend.microsoft.modify_password(dn_usuario, senha_gerada)
@@ -476,6 +474,9 @@ def cria_usuario_ad(nomeUsuarioCapitalizado,cpfUsuario,dataNascimentoUsuario,ema
                 acao="criar_usuario",
                 observacoes=f"Usuário criado!"
             )
+            # Envia mensagem para o Teams apenas em ambiente de produção
+            if os.getenv("FLASK_ENV") != "desenvolvimento": 
+                enviar_mensagem_teams(f"O login {usuarioLogado.get('email')} criou o usuário **{login_final}**")
             # Retorna uma mensagem de sucesso
             saida = f"A conta {login_final}@cade.gov.br foi criada com sucesso. As informações de acesso à rede do CADE foram enviadas para o email {emailPessoal}."
             return saida
