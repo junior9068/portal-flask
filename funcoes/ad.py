@@ -256,13 +256,34 @@ def buscar_login(nome_completo):
 #             any(c in "!@#$%&*?" for c in senha)):
 #             return senha
 
-# Gera senha conforme regras: Cinco primeiras letras do nome + 3 primeiros digitos do CPF + #
+# Gera senha conforme regras: Iniciais do nome e sobrenomes + 6 primeiros digitos do CPF + #@
 def gerar_senha(nome, cpf):
-    nome = unidecode(nome).lower().replace(" ", "")
-    primeiros_cinco = nome[:5].title()
-    primeiros_tres_cpf = re.sub(r'\D', '', cpf)[:3]
-    senha = f"{primeiros_cinco}{primeiros_tres_cpf}#@"
+    nome = nome.lower()
+    # Quebra o nome em partes e remove strings vazias
+    partes = unidecode(nome).split(" ")
+    nomes = []
+    # só adiciona se não for string vazia
+    for p in partes:
+        if p:              
+            nomes.append(p)
+    # Monta as iniciais
+    primeiraParteSenha = ""
+    for parte in nomes:
+        primeiraParteSenha += parte[0]
+    # Primeira letra maiúscula (ex.: joaosilva → Joaosilva)
+    primeiraParteSenha = primeiraParteSenha.title()
+    # Pega 6 primeiros dígitos do CPF
+    primeiros_seis_cpf = re.sub(r'\D', '', cpf)[:6]
+    senha = f"{primeiraParteSenha}{primeiros_seis_cpf}#@"
     return senha
+
+
+# def gerar_senha(nome, cpf):
+#     nome = unidecode(nome).lower().replace(" ", "")
+#     primeiros_cinco = nome[:5].title()
+#     primeiros_tres_cpf = re.sub(r'\D', '', cpf)[:3]
+#     senha = f"{primeiros_cinco}{primeiros_tres_cpf}#@"
+#     return senha
 
 def busca_manager(chefia):
     conn_ad = conectar_ad()
