@@ -19,7 +19,7 @@ if os.getenv("FLASK_ENV") == "desenvolvimento":
     NOVA_OU = 'OU=Usuarios,OU=NoSync--M365,DC=ad,DC=local'
     SERVIDOR_AD = os.environ.get("SERVIDOR_AD")
 else:
-    SERVIDOR_AD = "ldaps://SRVPADDNS02.cade.gov.br"
+    SERVIDOR_AD = "ldaps://SRVPADDNS01.cade.gov.br"
     BASE_DN = 'DC=cade,DC=gov,DC=br'
     NOVA_OU = 'OU=Usuarios,OU=NoSync--M365,DC=cade,DC=gov,DC=br'
 
