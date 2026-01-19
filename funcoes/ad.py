@@ -588,12 +588,13 @@ def ativaUsuario(cpfUsuario, usuarioLogado, cargoUsuario):
             return f"Usuário com CPF {cpf} não encontrado."
         
         # Busca atributos principais
-        conn.search(dn_usuario, '(objectClass=person)', attributes=['userAccountControl', 'sAMAccountName', 'otherMailbox'])
+        conn.search(dn_usuario, '(objectClass=person)', attributes=['userAccountControl', 'sAMAccountName', 'otherMailbox', 'cn'])
         if not conn.entries:
             logging.error(f"Não foi possível obter informações do usuário com DN {dn_usuario}.")
             return f"Não foi possível obter informações do usuário."
 
         login_usuario_ad = conn.entries[0]['sAMAccountName'].value
+        nome_usuario = conn.entries[0]['cn'].value
         uac = int(conn.entries[0]['userAccountControl'].value)
         email_usuario = conn.entries[0]['otherMailbox'].value if 'otherMailbox' in conn.entries[0] else None
 
@@ -603,9 +604,9 @@ def ativaUsuario(cpfUsuario, usuarioLogado, cargoUsuario):
             return f"Usuário já está ativo."
 
         # Define e seta a senha
-        senha_gerada = gerar_senha(login_usuario_ad, cpf)
-        conn.extend.microsoft.modify_password(dn_usuario, senha_gerada)
+        senha_gerada = gerar_senha(nome_usuario, cpf)
         logging.info(f"Senha {senha_gerada} redefinida para o usuário {login_usuario_ad}")
+        conn.extend.microsoft.modify_password(dn_usuario, senha_gerada)
         
         # Ativa o usuário
         if not ativar_usuario(conn, dn_usuario):
