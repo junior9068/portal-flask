@@ -43,6 +43,22 @@ def conectar_ad():
     return conn
 
 
+def consultar_departamento(email):
+    try:
+        conn = conectar_ad()
+        filtro = f"(mail={email})"
+        conn.search(BASE_DN, filtro, attributes=["department"])
+        if conn.entries:
+            departamento = conn.entries[0].department.value
+            logging.info(f"Departamento do {email}: {departamento}")
+            return departamento
+        logging.warning(f"Usuário com email {email} não encontrado.")
+        return None
+    except Exception as e:
+        logging.error(f"Erro ao consultar departamento: {e}")
+        return None
+
+
 def consultar_usuario(identificador, usuarioLogado):
     # Verifica se o identificador é um email ou CPF
     if "@" in identificador:
@@ -488,7 +504,21 @@ def cria_usuario_ad(nomeUsuarioCapitalizado,cpfUsuario,dataNascimentoUsuario,ema
                 saida = f"Usuário {nomeUsuarioCapitalizado} criado, mas tivemos uma falha ao enviar e-mail para {emailPessoal}."
                 logging.error(f"[ERRO] Falha ao enviar e-mail para {emailPessoal}")
 
-            logging.info(f"[SUCESSO] Senha definida e conta ativada)")
+            proxies = [
+                f"SMTP:{login_final}@cade.gov.br",
+                f"smtp:{login_final}@oncade.mail.onmicrosoft.com"
+                ]
+
+            conn_ad.modify(dn_usuario, {
+                "proxyAddresses": [(ldap3.MODIFY_REPLACE, proxies)]
+            })
+
+            if conn_ad.result["result"] == 0:
+                logging.info("proxyAddresses definidos com sucesso")
+            else:
+                logging.error(f"Erro ao definir proxyAddresses: {conn_ad.result}")
+
+            logging.info(f"[SUCESSO] Senha definida e conta ativada")
             registrar_log(
                 usuario_sistema=usuarioLogado.get('email'),
                 usuario_ad=login_final,
