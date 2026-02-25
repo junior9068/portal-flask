@@ -504,19 +504,20 @@ def cria_usuario_ad(nomeUsuarioCapitalizado,cpfUsuario,dataNascimentoUsuario,ema
                 saida = f"Usuário {nomeUsuarioCapitalizado} criado, mas tivemos uma falha ao enviar e-mail para {emailPessoal}."
                 logging.error(f"[ERRO] Falha ao enviar e-mail para {emailPessoal}")
 
-            proxies = [
-                f"SMTP:{login_final}@cade.gov.br",
-                f"smtp:{login_final}@oncade.mail.onmicrosoft.com"
-                ]
+            # Adiciona proxyAddresses e targetAddress para o usuário
+            try:
+                proxies = [
+                    f"SMTP:{login_final}@cade.gov.br",
+                    f"smtp:{login_final}@oncade.mail.onmicrosoft.com"
+                    ]
+                target_address = f"SMTP:{login_final}@oncade.mail.onmicrosoft.com"
 
-            conn_ad.modify(dn_usuario, {
-                "proxyAddresses": [(ldap3.MODIFY_REPLACE, proxies)]
-            })
-
-            if conn_ad.result["result"] == 0:
-                logging.info("proxyAddresses definidos com sucesso")
-            else:
-                logging.error(f"Erro ao definir proxyAddresses: {conn_ad.result}")
+                a = conn_ad.modify(dn_usuario, {
+                    "proxyAddresses": [(ldap3.MODIFY_REPLACE, proxies)],
+                    "targetAddress": [(ldap3.MODIFY_REPLACE, [target_address])]
+                })
+            except Exception as e:
+                logging.error(f"Exceção ao definir proxyAddresses e/ou targetAddress: {e}")
 
             logging.info(f"[SUCESSO] Senha definida e conta ativada")
             registrar_log(
