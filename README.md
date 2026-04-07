@@ -2,13 +2,20 @@
 
 ## Arquivo .env (para rodar localmente)
 
-FLASK_ENV=development
-MYSQL_DATABASE=portal
-MYSQL_ROOT_PASSWORD=[senha do root do banco]
-MYSQL_USER=[usuario do banco]
-MYSQL_PASSWORD=[senha do usuario de banco]
+(Utiliza dotenv para carregar as variáves de ambiente )
 
-Na primeira criação do ambiente, deve criar a seguiinte tabela no banco:
+
+
+FLASK_ENV=desenvolvimento
+SERVIDOR_AD=[url do servidor ldap]
+USUARIO_AD=[usuário ldap]
+SENHA_AD=[senha ldap]
+USUARIO_EMAIL=[usuário e-mail]
+SENHA_EMAIL=[senha e-mail]
+USUARIO_BANCO=[usuário banco]
+SENHA_BANCO=[senha banco]
+
+Na primeira criação do ambiente, deve criar a seguinte tabela no banco:
 
 ```
 CREATE TABLE log_ad (
