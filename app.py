@@ -57,21 +57,43 @@ def raiz():
 # def index():
 #     return render_template("index.html")
 
+ROLE = os.getenv('ROLE', 'usuario')  # Pega a role do ambiente ou usa 'usuario' como padrão
+
+def definir_base_template():
+    if ROLE == 'admin':
+        return "base_admins.html"
+    elif ROLE == 'criadores':
+        return "base_criadores_usuarios.html"
+    else:
+        return "base.html"
+    
+
 @app.route("/home")
-@oidc.require_login
-def home():
-    #após implementar o OIDC
-    user = oidc.user_getinfo(['email', 'name'])
-    # Salva o access_token na sessão manualmente
-    token = oidc.get_access_token()
-    session['access_token'] = token
-    nome = user.get('name')
-    nomes = nome.split(" ")
-    nomeLista = [nomes[0], nomes[1]]
-    nomeExibicao = " ".join(nomeLista)
-    logging.info(f"USUÁRIO LOGADO: {oidc.user_getinfo(['email']).get('email')}")
-    # return jsonify(user)
-    return render_template("home.html", nome=nomeExibicao)
+#@oidc.require_login
+def home():   
+    if os.getenv('FLASK_ENV') == 'desenvolvimento':
+        user = {"email": "teste-email@email.com", "name": "Edilson Cardoso de Souza Junior"}
+        nome = user.get('name')
+        nomes = nome.split(" ")
+        nomeLista = [nomes[0], nomes[1]]
+        nomeExibicao = " ".join(nomeLista)
+        logging.info(f"USUÁRIO LOGADO: {user.get('email')}")
+        # return jsonify(user)
+
+        return render_template("home.html", nome=nomeExibicao, base_template=definir_base_template())
+    else:
+        #após implementar o OIDC
+        user = oidc.user_getinfo(['email', 'name'])
+        # Salva o access_token na sessão manualmente
+        token = oidc.get_access_token()
+        session['access_token'] = token
+        nome = user.get('name')
+        nomes = nome.split(" ")
+        nomeLista = [nomes[0], nomes[1]]
+        nomeExibicao = " ".join(nomeLista)
+        logging.info(f"USUÁRIO LOGADO: {oidc.user_getinfo(['email']).get('email')}")
+        # return jsonify(user)
+        return render_template("home.html", nome=nomeExibicao, base_template=base_template)
 
 # NÃO FUNCIONOU. TEMOS QUE CORRIGIR
 @app.route('/logout')
@@ -94,6 +116,10 @@ def logout():
 
 @app.route('/user/photo')
 def user_photo():
+    if os.getenv('FLASK_ENV') == 'desenvolvimento':
+        default_image_path = os.path.join(app.root_path, 'static', 'images', 'default_user.png')
+        return send_file(default_image_path, mimetype='image/png')
+    
     token = session.get('access_token')  # seu token armazenado na sessão
     if not token:
         return "Unauthorized", 401
@@ -125,36 +151,36 @@ def manutencao2():
     return render_template("manutencao.html")
 
 @app.route("/cria_usuario")
-@oidc.require_login
+#@oidc.require_login
 def cria_usuario():
     logging.info(f"Chamou a rota cria_usuario")
     arquivo = os.path.join(current_app.root_path, "data", "chefes_simples.json")
     with open(arquivo, 'r', encoding='utf-8') as f:
         dados = json.load(f)
-    return render_template("cria_usuario.html", chefes_departamentos=dados)
+    return render_template("cria_usuario.html", chefes_departamentos=dados, base_template=definir_base_template())
     # return render_template("cria_usuario.html")
 
 @app.route("/desativa_usuario")
-@oidc.require_login
+#@oidc.require_login
 def desativa_usuario():
     logging.info(f"Chamou a rota desativa_usuario")
-    return render_template("desativa_usuario.html")
+    return render_template("desativa_usuario.html", base_template=definir_base_template())
 
 @app.route("/ativa_usuario")
-@oidc.require_login
+#@oidc.require_login
 def ativa_usuario():
     logging.info(f"Chamou a rota ativa_usuario")
-    return render_template("ativa_usuario.html")
+    return render_template("ativa_usuario.html", base_template=definir_base_template())
 
 @app.route("/consulta_usuario")
-@oidc.require_login
+#@oidc.require_login
 def consulta_usuario():
     logging.info(f"Chamou a rota consulta_usuario")
-    return render_template("consulta_usuario.html")
+    return render_template("consulta_usuario.html", base_template=definir_base_template())
 
 
 @app.route("/executa_desativa_usuario", methods=['POST'])
-@oidc.require_login
+#@oidc.require_login
 def executa_desativa_usuario():
     if os.getenv('FLASK_ENV') == 'desenvolvimento':
         usuarioLogado = {"email": "teste-email@email.com"}
@@ -170,7 +196,7 @@ def executa_desativa_usuario():
 
 
 @app.route("/executa_ativa_usuario", methods=['POST'])
-@oidc.require_login
+#@oidc.require_login
 def executa_ativa_usuario():
     if os.getenv('FLASK_ENV') == 'desenvolvimento':
         usuarioLogado = {"email": "teste-email@email.com"}
@@ -188,7 +214,7 @@ def executa_ativa_usuario():
 
 
 @app.route("/executa_cria_usuario", methods=['POST'])
-@oidc.require_login
+#@oidc.require_login
 def executa_cria_usuario():
     if os.getenv('FLASK_ENV') == 'desenvolvimento':
         usuarioLogado = {"email": "teste-email@email.com"}
@@ -252,7 +278,7 @@ def executa_cria_usuario():
 
 @app.route("/grafico", methods=['GET'])
 def grafico():
-    return render_template("grafico.html")
+    return render_template("grafico.html", base_template=definir_base_template())
 
 
 @app.route("/gerar_grafico", methods=['GET'])
