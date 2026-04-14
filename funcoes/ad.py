@@ -124,6 +124,52 @@ def consultar_usuario(identificador, usuarioLogado):
         return None
 
 
+def consulta_caixa_por_usuario(identificador, usuarioLogado):
+    # Verifica se o identificador é um email ou CPF
+    if "@" in identificador:
+        email = identificador.strip()
+        filtro = f"(mail={email})"
+    else:
+        cpf = identificador.strip()
+        filtro = f"(employeeNumber={cpf})"
+    try:
+        conn = conectar_ad()
+        conn.search(BASE_DN, filtro, attributes=["distinguishedName", "cn", "description", "mail"])
+
+        # return conn.entries[0]
+        if conn.entries:
+            usuario = conn.entries[0]
+            dn_usuario = usuario.distinguishedName.value
+            nome = conn.entries[0].cn.value
+            email = conn.entries[0].mail.value
+            login = email.split('@')[0] if email else "-"
+            caixas = []
+            conn.search(BASE_DN,f"(member={dn_usuario})",attributes=["cn", "description"])
+            #Varre os grupos do usuário. Caso encontre um grupo que termine com "-ex", significa que é um grupo de uma caixa de e-mail e adiciona a descrição (que contém o nome da caixa) à lista de caixas.
+            for entry in conn.entries:
+                grupo_nome = entry.cn.value
+                logging.info(f"Verificando grupo: {grupo_nome}")
+                if grupo_nome.endswith("-ex"):
+                    description = entry.description.value
+                    caixas.append(description)
+            logging.info(f"Usuário tem permissão em {len(caixas)} caixa(s) de e-mail: {caixas}")
+            registrar_log(
+                usuario_sistema=usuarioLogado.get('email'),
+                usuario_ad=login,
+                acao="consultar_usuario",
+                observacoes=f"Usuário consultado!"
+            )
+            return {
+                "nome": nome, 
+                "caixas": caixas
+            }
+        logging.warning(f"Usuário não encontrado.")
+        return None
+        # return jsonify({"nome": "Não encontrado", "email": "Não encontrado"})
+    except Exception as e:
+        logging.error(f"Erro ao consultar usuário: {e}")
+        return None
+
 # def buscar_usuario_por_cpf(conn, cpf):
 #     # Retorna True se encontrar o CPF, senão False
 #     filtro = f"(employeeNumber={cpf})"

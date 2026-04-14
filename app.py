@@ -5,7 +5,7 @@ from funcoes.log import configurar_logs
 import logging, os
 from funcoes.banco import inserir_usuario, deletar_usuario, lerResultado
 from funcoes.funcoes import capitalizaNome, mostra_grafico
-from funcoes.ad import modificaUsuario, consultar_usuario, cria_usuario_ad, buscar_login, gerar_senha, ativaUsuario
+from funcoes.ad import modificaUsuario, consultar_usuario, cria_usuario_ad, buscar_login, gerar_senha, ativaUsuario, consulta_caixa_por_usuario
 import json, time
 from werkzeug.middleware.proxy_fix import ProxyFix
 from flask_oidc import OpenIDConnect
@@ -153,6 +153,13 @@ def consulta_usuario():
     return render_template("consulta_usuario.html")
 
 
+@app.route("/consulta_caixa_email")
+@oidc.require_login
+def consulta_caixa_email():
+    logging.info(f"Chamou a rota consulta_caixa_email")
+    return render_template("consulta_caixa_email.html")
+
+
 @app.route("/executa_desativa_usuario", methods=['POST'])
 @oidc.require_login
 def executa_desativa_usuario():
@@ -290,17 +297,31 @@ def consulta_dados_usuario():
     if saida is None:
         return jsonify({
             "nome": "Não encontrado", 
-            "email": "Não encontrado",
-            "departamento": "Não encontrado",
-            "cargo": "Não encontrado", 
-            "empresa": "Não encontrado", 
-            "data_de_nascimento": "Não encontrado",
-            "siape": "Não encontrado",
-            "chefia": "Não encontrado", 
-            "cpf": "Não encontrado",
-            "email_pessoal": "Não encontrado",
-            "telefone_comercial": "Não encontrado",
-            "status_conta": "Não encontrado" 
+            "caixas_email": "Não encontrado",
+            })
+    else:
+        return jsonify(saida)
+    #saida = modificaUsuario(cpfUsuario)
+    # return saida
+
+
+@app.route("/executa_consulta_caixa_email", methods=['POST'])
+@oidc.require_login
+def executa_consulta_caixa_email():
+    if os.getenv('FLASK_ENV') == 'desenvolvimento':
+        usuarioLogado = {"email": "teste-email@email.com"}
+    else:
+        usuarioLogado = oidc.user_getinfo(['email'])
+    identificadorPesquisa = ""
+    if 'identificador' in request.form:
+        identificadorPesquisa = request.form['identificador']
+    else:
+        identificadorPesquisa = request.form['cpf']
+    saida = consulta_caixa_por_usuario(identificadorPesquisa, usuarioLogado)
+    if saida is None:
+        return jsonify({
+            "nome": "Não encontrado", 
+            "caixas": "Não encontrado"
             })
     else:
         return jsonify(saida)
