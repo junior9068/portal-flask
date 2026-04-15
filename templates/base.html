@@ -6,7 +6,6 @@
     <title>{% block title %}Portal CADE{% endblock %}</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
-    <script src="{{ url_for('static', filename='bootstrap.bundle.min.js') }}"></script>
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-icons.css') }}">
     <!-- CSS Personalizado -->
@@ -92,7 +91,15 @@
             bottom: 0;
             width: 100%;
         }
-        
+        .nav-link[aria-expanded="true"] .bi-chevron-down {
+            transform: rotate(180deg);
+            transition: 0.3s;
+        }
+        #submenuEmail {
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
         {% block extra_css %}{% endblock %}
     </style>
 </head>
@@ -130,10 +137,43 @@
                         <i class="bi bi-search"></i> Consultar usuário
                     </a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a href="{{ url_for('consulta_caixa_email') }}"  class="nav-link {% if request.endpoint == 'consulta_caixa_email' %}active{% endif %}">
-                        <i class="bi bi-search"></i> Consultar caixas
+                        <i class="bi bi-search"></i> Caixa de e-mail
                     </a>
+                </li> -->
+                <li class="nav-item">
+
+                    <a class="nav-link d-flex justify-content-between align-items-center"
+                    data-bs-toggle="collapse"
+                    href="#submenuEmail"
+                    role="button"
+                    aria-expanded="false"
+                    aria-controls="submenuEmail">
+                        <span><i class="bi bi-envelope"></i> Caixa de e-mail</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </a>
+
+                    <ul class="collapse list-unstyled ps-3 {% if request.endpoint in ['consulta_caixa_email', 'remove_acesso_caixa', 'concede_acesso_caixa'] %}show{% endif %}" id="submenuEmail">
+                        <li>
+                            <a href="{{ url_for('consulta_caixa_email') }}" 
+                            class="nav-link {% if request.endpoint == 'consulta_caixa_email' %}active{% endif %}">
+                                <i class="bi bi-search"></i>Consulta Caixas
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('remove_acesso_caixa') }}" 
+                            class="nav-link {% if request.endpoint == 'remove_acesso_caixa' %}active{% endif %}">
+                                <i class="bi bi-x-circle"></i>Remove acesso
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('concede_acesso_caixa') }}" 
+                            class="nav-link {% if request.endpoint == 'concede_acesso_caixa' %}active{% endif %}">
+                                <i class="bi bi-check-circle"></i>Concede acesso Caixa
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item">
                     <a href="{{ url_for('grafico') }}"  class="nav-link {% if request.endpoint == 'grafico' %}active{% endif %}">
@@ -221,7 +261,8 @@
             });
             
             // Fechar menu lateral em telas pequenas quando um link é clicado
-            const navLinks = document.querySelectorAll('.sidebar .nav-link');
+            const navLinks = document.querySelectorAll('.sidebar .nav-link:not([data-bs-toggle="collapse"])');
+
             navLinks.forEach(function(link) {
                 link.addEventListener('click', function() {
                     if (window.innerWidth <= 768) {

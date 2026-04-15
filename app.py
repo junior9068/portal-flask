@@ -159,6 +159,19 @@ def consulta_caixa_email():
     logging.info(f"Chamou a rota consulta_caixa_email")
     return render_template("consulta_caixa_email.html")
 
+@app.route('/remove-acesso-caixa')
+#@oidc.require_login
+def remove_acesso_caixa():
+    logging.info(f"Chamou a rota remove_acesso_caixa")
+    return render_template("remove_acesso_caixa.html")
+
+
+@app.route('/concede-acesso-caixa')
+#@oidc.require_login
+def concede_acesso_caixa():
+    logging.info(f"Chamou a rota concede-acesso-caixa")
+    return render_template("concede-acesso-caixa.html")
+
 
 @app.route("/executa_desativa_usuario", methods=['POST'])
 @oidc.require_login
