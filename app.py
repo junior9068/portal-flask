@@ -125,7 +125,7 @@ def manutencao2():
     return render_template("manutencao.html")
 
 @app.route("/cria_usuario")
-@oidc.require_login
+#@oidc.require_login
 def cria_usuario():
     logging.info(f"Chamou a rota cria_usuario")
     arquivo = os.path.join(current_app.root_path, "data", "chefes_simples.json")
@@ -135,26 +135,26 @@ def cria_usuario():
     # return render_template("cria_usuario.html")
 
 @app.route("/desativa_usuario")
-@oidc.require_login
+#@oidc.require_login
 def desativa_usuario():
     logging.info(f"Chamou a rota desativa_usuario")
     return render_template("desativa_usuario.html")
 
 @app.route("/ativa_usuario")
-@oidc.require_login
+#@oidc.require_login
 def ativa_usuario():
     logging.info(f"Chamou a rota ativa_usuario")
     return render_template("ativa_usuario.html")
 
 @app.route("/consulta_usuario")
-@oidc.require_login
+#@oidc.require_login
 def consulta_usuario():
     logging.info(f"Chamou a rota consulta_usuario")
     return render_template("consulta_usuario.html")
 
 
 @app.route("/consulta_caixa_email")
-@oidc.require_login
+#@oidc.require_login
 def consulta_caixa_email():
     logging.info(f"Chamou a rota consulta_caixa_email")
     return render_template("consulta_caixa_email.html")
@@ -174,7 +174,7 @@ def concede_acesso_caixa():
 
 
 @app.route("/executa_desativa_usuario", methods=['POST'])
-@oidc.require_login
+#@oidc.require_login
 def executa_desativa_usuario():
     if os.getenv('FLASK_ENV') == 'desenvolvimento':
         usuarioLogado = {"email": "teste-email@email.com"}
@@ -190,7 +190,7 @@ def executa_desativa_usuario():
 
 
 @app.route("/executa_ativa_usuario", methods=['POST'])
-@oidc.require_login
+#@oidc.require_login
 def executa_ativa_usuario():
     if os.getenv('FLASK_ENV') == 'desenvolvimento':
         usuarioLogado = {"email": "teste-email@email.com"}
@@ -208,7 +208,7 @@ def executa_ativa_usuario():
 
 
 @app.route("/executa_cria_usuario", methods=['POST'])
-@oidc.require_login
+#@oidc.require_login
 def executa_cria_usuario():
     if os.getenv('FLASK_ENV') == 'desenvolvimento':
         usuarioLogado = {"email": "teste-email@email.com"}
@@ -319,7 +319,7 @@ def consulta_dados_usuario():
 
 
 @app.route("/executa_consulta_caixa_email", methods=['POST'])
-@oidc.require_login
+#@oidc.require_login
 def executa_consulta_caixa_email():
     if os.getenv('FLASK_ENV') == 'desenvolvimento':
         usuarioLogado = {"email": "teste-email@email.com"}
