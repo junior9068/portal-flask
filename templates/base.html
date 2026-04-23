@@ -137,11 +137,6 @@
                         <i class="bi bi-search"></i> Consultar usuário
                     </a>
                 </li>
-                <!-- <li class="nav-item">
-                    <a href="{{ url_for('consulta_caixa_email') }}"  class="nav-link {% if request.endpoint == 'consulta_caixa_email' %}active{% endif %}">
-                        <i class="bi bi-search"></i> Caixa de e-mail
-                    </a>
-                </li> -->
                 <li class="nav-item">
 
                     <a class="nav-link d-flex justify-content-between align-items-center"
@@ -150,15 +145,15 @@
                     role="button"
                     aria-expanded="false"
                     aria-controls="submenuEmail">
-                        <span><i class="bi bi-envelope"></i> Caixa de e-mail</span>
+                        <span><i class="bi bi-envelope"></i>Permissões</span>
                         <i class="bi bi-chevron-down"></i>
                     </a>
 
-                    <ul class="collapse list-unstyled ps-3 {% if request.endpoint in ['consulta_caixa_email', 'remove_acesso_caixa', 'concede_acesso_caixa'] %}show{% endif %}" id="submenuEmail">
+                    <ul class="collapse list-unstyled ps-3 {% if request.endpoint in ['consulta_permissoes', 'remove_acesso_caixa', 'concede_acesso_caixa'] %}show{% endif %}" id="submenuEmail">
                         <li>
-                            <a href="{{ url_for('consulta_caixa_email') }}" 
-                            class="nav-link {% if request.endpoint == 'consulta_caixa_email' %}active{% endif %}">
-                                <i class="bi bi-search"></i>Consultar Caixas
+                            <a href="{{ url_for('consulta_permissoes') }}" 
+                            class="nav-link {% if request.endpoint == 'consulta_permissoes' %}active{% endif %}">
+                                <i class="bi bi-search"></i>Consultar permissões
                             </a>
                         </li>
                         <li>

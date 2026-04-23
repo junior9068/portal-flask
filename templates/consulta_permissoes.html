@@ -44,7 +44,7 @@
 <div class="row">
     <div class="col-12">
         <!-- <h1>Desativar usuário</h1> -->
-        <p class="lead">Preencha o CPF ou e-mail para realizar a consulta.</p>
+        <p class="lead">Preencha o e-mail para realizar a consulta.</p>
         
         <div class="card mt-4">
             <div class="card-body">
@@ -52,10 +52,10 @@
                     <!-- Formulário com action e validação JavaScript -->
                     <form id="desativaForm">
                         <div class="mb-4">
-                            <label for="identificador" class="form-label">CPF ou e-mail: *</label>
+                            <label for="email" class="form-label">E-mail: *</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-person"></i></span>
-                                <input type="text" class="form-control" id="identificador" name="identificador" placeholder="CPF ou e-mail" required>
+                                <input type="text" class="form-control" id="email" name="email" placeholder="E-mail" required>
                             </div>
                             <br>
                         </div>                                        
@@ -93,24 +93,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("desativaForm");
     const overlay = document.getElementById("loadingOverlay");
     const resultadoDiv = document.getElementById("mensagemResultado");
-    const inputIdentificador = document.getElementById("identificador");
+    const inputEmail = document.getElementById("email");
     const botaoSubmit = document.getElementById("botaoSubmit");
-
-    // Validação simples de CPF
-    function validarCPF(cpf) {
-        cpf = cpf.replace(/[^\d]+/g, '');
-        if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
-        let soma = 0, resto;
-        for (let i = 1; i <= 9; i++) soma += parseInt(cpf.substring(i - 1, i)) * (11 - i);
-        resto = (soma * 10) % 11;
-        if (resto === 10 || resto === 11) resto = 0;
-        if (resto !== parseInt(cpf.substring(9, 10))) return false;
-        soma = 0;
-        for (let i = 1; i <= 10; i++) soma += parseInt(cpf.substring(i - 1, i)) * (12 - i);
-        resto = (soma * 10) % 11;
-        if (resto === 10 || resto === 11) resto = 0;
-        return resto === parseInt(cpf.substring(10, 11));
-    }
 
     // Validação simples de e-mail
     function validarEmail(email) {
@@ -121,14 +105,14 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault();
 
         // const identificador = inputIdentificador.value.trim();
-        let identificador = inputIdentificador.value.trim();
+        let identificador = inputEmail.value.trim();
         // Remove máscara se for CPF
         let identificadorLimpo = identificador.replace(/\D/g, "");
 
         // Validação antes de enviar
-        if (!validarCPF(identificadorLimpo) && !validarEmail(identificador)) {
+        if (!validarEmail(identificador)) {
             document.getElementById('resultadoCard').style.display = 'block'; // <-- mostra o resultado
-            resultadoDiv.innerHTML = "<span class='text-danger'>Digite um CPF ou e-mail válido.</span>";
+            resultadoDiv.innerHTML = "<span class='text-danger'>Digite um e-mail válido.</span>";
             return;
         }
 
@@ -138,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // formData.append("identificador", identificador);
         formData.append("identificador", validarEmail(identificador) ? identificador : identificadorLimpo);
 
-        fetch("/executa_consulta_caixa_email", {
+        fetch("/executa_consulta_permissoes", {
             method: "POST",
             body: formData
         })

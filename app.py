@@ -13,6 +13,7 @@ import requests
 from flask import Response, session
 from dotenv import load_dotenv
 from flask import current_app
+from funcoes.api_sei import buscar_unidades
 
 # No ambiente de desenvolvimento, o load_dotenv() carrega automaticamente o arquivo .env. Em produção, pegará as variáveis de ambiente do sistema (quando estiver no kubernetes)
 load_dotenv()
@@ -153,11 +154,11 @@ def consulta_usuario():
     return render_template("consulta_usuario.html")
 
 
-@app.route("/consulta_caixa_email")
+@app.route("/consulta_permissoes")
 #@oidc.require_login
-def consulta_caixa_email():
-    logging.info(f"Chamou a rota consulta_caixa_email")
-    return render_template("consulta_caixa_email.html")
+def consulta_permissoes():
+    logging.info(f"Chamou a rota consulta_permissoes")
+    return render_template("consulta_permissoes.html")
 
 @app.route('/remove-acesso-caixa')
 #@oidc.require_login
@@ -317,29 +318,46 @@ def consulta_dados_usuario():
     #saida = modificaUsuario(cpfUsuario)
     # return saida
 
-
-@app.route("/executa_consulta_caixa_email", methods=['POST'])
-#@oidc.require_login
-def executa_consulta_caixa_email():
+@app.route("/executa_consulta_permissoes", methods=['POST'])
+def executa_consulta_permissoes():
     if os.getenv('FLASK_ENV') == 'desenvolvimento':
         usuarioLogado = {"email": "teste-email@email.com"}
     else:
         usuarioLogado = oidc.user_getinfo(['email'])
-    identificadorPesquisa = ""
-    if 'identificador' in request.form:
-        identificadorPesquisa = request.form['identificador']
-    else:
-        identificadorPesquisa = request.form['cpf']
-    saida = consulta_caixa_por_usuario(identificadorPesquisa, usuarioLogado)
-    if saida is None:
-        return jsonify({
-            "nome": "Não encontrado", 
-            "caixas": "Não encontrado"
-            })
-    else:
-        return jsonify(saida)
-    #saida = modificaUsuario(cpfUsuario)
-    # return saida
+    email = request.form['identificador']
+    email = email.split("@")[0]  # Extrai a parte antes do @
+    chamada_api = buscar_unidades(email)
+    if chamada_api is None:
+        return jsonify({"nome": email, "caixas": "Não encontrado"})     
+    return jsonify({"nome": chamada_api})
+
+
+
+
+
+
+# @app.route("/executa_consulta_caixa_email", methods=['POST'])
+# #@oidc.require_login
+# def executa_consulta_caixa_email():
+#     if os.getenv('FLASK_ENV') == 'desenvolvimento':
+#         usuarioLogado = {"email": "teste-email@email.com"}
+#     else:
+#         usuarioLogado = oidc.user_getinfo(['email'])
+#     identificadorPesquisa = ""
+#     if 'identificador' in request.form:
+#         identificadorPesquisa = request.form['identificador']
+#     else:
+#         identificadorPesquisa = request.form['cpf']
+#     saida = consulta_caixa_por_usuario(identificadorPesquisa, usuarioLogado)
+#     if saida is None:
+#         return jsonify({
+#             "nome": "Não encontrado", 
+#             "caixas": "Não encontrado"
+#             })
+#     else:
+#         return jsonify(saida)
+#     #saida = modificaUsuario(cpfUsuario)
+#     # return saida
 
 # @app.route("/consulta_nome_teste", methods=['POST'])
 # def consulta_nome_teste():
