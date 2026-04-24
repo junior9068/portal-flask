@@ -74,7 +74,7 @@
         
         <!-- Explicação sobre a validação -->
         <div id="resultadoCard" class="card mt-4" style="display:none;">
-            <div class="card-body" style="text-align: center;">
+            <div class="card-body">
                 <p id="mensagemResultado">{{ resultado }}</p>
             </div>
         </div>
@@ -135,11 +135,18 @@ document.addEventListener("DOMContentLoaded", function () {
             if (Array.isArray(data.unidades) && data.unidades.length > 0) {
                 tabelaUnidades = `
                     <table class="tabela-unidades">
+                        <colgroup>
+                            <col style="width: 30px;">
+                            <col style="width: 120px;">
+                            <col style="width: 60%;">
+                            <col style="width: 120px;">
+                        </colgroup>
                         <thead>
                             <tr>
                                 <th style="width: 30px;"></th>
                                 <th>Sigla</th>
                                 <th>Descrição</th>
+                                <th>Perfil</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -148,6 +155,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                     <td></td>
                                     <td>${u.sigla}</td>
                                     <td>${u.descricao}</td>
+                                    <td>${u.perfil}</td>
                                 </tr>
                             `).join('')}
                         </tbody>
@@ -193,10 +201,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     .tabela-unidades {
                         width: 100%;
                         border-collapse: collapse;
-                        font-size: 14px;
-                        margin-top: 10px;
+                        table-layout: fixed;
                     }
-
                     .tabela-unidades thead {
                         background-color: #1f5f8b;
                         color: white;
@@ -206,7 +212,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     .tabela-unidades td {
                         padding: 8px 10px;
                         border-bottom: 1px solid #e9ecef;
-                        text-align: left;
+                        text-align: center;
                     }
 
                     .tabela-unidades tbody tr:hover {
@@ -216,6 +222,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     .tabela-unidades input[type="radio"] {
                         cursor: pointer;
+                    }
+                    /* coluna vazia */
+                    .tabela-unidades th:nth-child(1),
+                    .tabela-unidades td:nth-child(1) {
+                        width: 30px;
+                    }
+
+                    /* sigla */
+                    .tabela-unidades th:nth-child(2),
+                    .tabela-unidades td:nth-child(2) {
+                        width: 100px;
+                    }
+
+                    /* descrição (ocupa o resto) */
+                    .tabela-unidades th:nth-child(3),
+                    .tabela-unidades td:nth-child(3) {
+                        width: auto;
+                    }
+
+                    /* perfil */
+                    .tabela-unidades th:nth-child(4),
+                    .tabela-unidades td:nth-child(4) {
+                        width: 100px;
+                        text-align: center;
+                        white-space: nowrap;
                     }
                 </style>
                 <h5 class="text-center">Unidade(s) SEI!</h5>

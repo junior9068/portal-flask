@@ -61,6 +61,7 @@ def buscar_unidades(usuario):
         # print("Resposta RAW:", response_api.text)
         
         # Lista de unidades retornada pela API
+        # print("Resposta JSON:", response_api.json())  # Debug: Exibe a resposta JSON completa
         unidades = response_api.json().get("Unidades", [])
         #Varre a lista de unidades e extrai apenas as siglas para retornar
         lista_unidades = []
@@ -69,7 +70,8 @@ def buscar_unidades(usuario):
             lista_unidades.append(unidade.get("SiglaUnidade"))
             dicionario_unidades["unidades"].append({
                 "sigla": unidade.get("SiglaUnidade"),
-                "descricao": unidade.get("DescricaoUnidade")
+                "descricao": unidade.get("DescricaoUnidade"),
+                "perfil": unidade.get('Perfis')[0].get('NomePerfil')
             })
         return dicionario_unidades  # Retorna apenas as unidades
         # print("Status:", response_api.status_code)
