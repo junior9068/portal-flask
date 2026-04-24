@@ -324,12 +324,14 @@ def executa_consulta_permissoes():
         usuarioLogado = {"email": "teste-email@email.com"}
     else:
         usuarioLogado = oidc.user_getinfo(['email'])
+
+    # return jsonify({"unidades": [{"sigla": "CGAA6", "descricao": "Coordenação-Geral de Análise Antitruste 6"}, {"sigla": "CGAA7", "descricao": "Coordenação-Geral de Análise Antitruste 7"}]})
     email = request.form['identificador']
     email = email.split("@")[0]  # Extrai a parte antes do @
     chamada_api = buscar_unidades(email)
-    if chamada_api is None:
-        return jsonify({"nome": email, "caixas": "Não encontrado"})     
-    return jsonify({"nome": chamada_api})
+    # if chamada_api is None:
+    #     return jsonify({"nome": email, "caixas": "Não encontrado"})     
+    return jsonify(chamada_api)
 
 
 

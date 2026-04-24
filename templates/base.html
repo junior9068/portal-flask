@@ -145,7 +145,7 @@
                     role="button"
                     aria-expanded="false"
                     aria-controls="submenuEmail">
-                        <span><i class="bi bi-envelope"></i>Permissões</span>
+                        <span><i class="bi bi-file-lock"></i>Acessos</span>
                         <i class="bi bi-chevron-down"></i>
                     </a>
 
@@ -153,18 +153,18 @@
                         <li>
                             <a href="{{ url_for('consulta_permissoes') }}" 
                             class="nav-link {% if request.endpoint == 'consulta_permissoes' %}active{% endif %}">
-                                <i class="bi bi-search"></i>Consultar permissões
+                                <i class="bi bi-search"></i>Consultar
                             </a>
                         </li>
                         <li>
-                            <a href="{{ url_for('remove_acesso_caixa') }}" 
-                            class="nav-link {% if request.endpoint == 'remove_acesso_caixa' %}active{% endif %}">
+                            <a href="{{ url_for('manutencao1') }}" 
+                            class="nav-link {% if request.endpoint == 'manutencao1' %}active{% endif %}">
                                 <i class="bi bi-x-circle"></i>Remover acesso
                             </a>
                         </li>
                         <li>
-                            <a href="{{ url_for('concede_acesso_caixa') }}" 
-                            class="nav-link {% if request.endpoint == 'concede_acesso_caixa' %}active{% endif %}">
+                            <a href="{{ url_for('manutencao2') }}" 
+                            class="nav-link {% if request.endpoint == 'manutencao2' %}active{% endif %}">
                                 <i class="bi bi-check-circle"></i>Conceder acesso
                             </a>
                         </li>

@@ -75,9 +75,6 @@
         <!-- Explicação sobre a validação -->
         <div id="resultadoCard" class="card mt-4" style="display:none;">
             <div class="card mt-4">
-                <div class="card-header bg-info text-white">
-                    <i class="bi bi-info-circle me-2"></i>Resultado:
-                </div>
                 <div class="card-body" style="text-align: center;">
                     <p id="mensagemResultado">{{ resultado }}</p>
                 </div>
@@ -135,17 +132,29 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
             document.getElementById('resultadoCard').style.display = 'block'; // <-- mostra o resultado
-            let caixasFormatadas = '-';
+            let tabelaUnidades = '-';
 
-            if (Array.isArray(data.caixas) && data.caixas.length > 0) {
-                caixasFormatadas = `
-                    <ul style="margin: 0; padding-left: 18px;">
-                        ${data.caixas.map(c => `<li>${c}</li>`).join('')}
-                    </ul>
+            if (Array.isArray(data.unidades) && data.unidades.length > 0) {
+                tabelaUnidades = `
+                    <table class="tabela-unidades">
+                        <thead>
+                            <tr>
+                                <th style="width: 30px;"></th>
+                                <th>Sigla</th>
+                                <th>Descrição</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${data.unidades.map(u => `
+                                <tr>
+                                    <td></td>
+                                    <td>${u.sigla}</td>
+                                    <td>${u.descricao}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
                 `;
-            }
-            else{
-                caixasFormatadas = "-";
             }
             resultadoDiv.innerHTML = `
                 <style>
@@ -183,11 +192,36 @@ document.addEventListener("DOMContentLoaded", function () {
                     .resultado-tabela tr:hover td {
                         background-color: #f1f3f5;
                     }
+                    .tabela-unidades {
+                        width: 100%;
+                        border-collapse: collapse;
+                        font-size: 14px;
+                        margin-top: 10px;
+                    }
+
+                    .tabela-unidades thead {
+                        background-color: #1f5f8b;
+                        color: white;
+                    }
+
+                    .tabela-unidades th,
+                    .tabela-unidades td {
+                        padding: 8px 10px;
+                        border-bottom: 1px solid #e9ecef;
+                        text-align: left;
+                    }
+
+                    .tabela-unidades tbody tr:hover {
+                        background-color: #e6f2f8;
+                        cursor: pointer;
+                    }
+
+                    .tabela-unidades input[type="radio"] {
+                        cursor: pointer;
+                    }
                 </style>
-                <table class="resultado-tabela">
-                    <tr><td><strong>Nome</strong></td><td>${data.nome || '-'}</td></tr>
-                    <tr><td><strong>Caixas de E-mail</strong></td><td>${caixasFormatadas}</td></tr>
-                </table>
+                <h5 class="text-center">Unidade(s) SEI!</h5>
+                ${tabelaUnidades}
             `;
         })
         .catch(err => {

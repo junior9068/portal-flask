@@ -64,12 +64,19 @@ def buscar_unidades(usuario):
         unidades = response_api.json().get("Unidades", [])
         #Varre a lista de unidades e extrai apenas as siglas para retornar
         lista_unidades = []
+        dicionario_unidades = {"unidades": []}
         for unidade in unidades:
             lista_unidades.append(unidade.get("SiglaUnidade"))
-        return lista_unidades  # Retorna apenas as unidades
+            dicionario_unidades["unidades"].append({
+                "sigla": unidade.get("SiglaUnidade"),
+                "descricao": unidade.get("DescricaoUnidade")
+            })
+        return dicionario_unidades  # Retorna apenas as unidades
         # print("Status:", response_api.status_code)
         # print("Resposta:", response_api.text)
     except Exception as erro:
         logging.error(f"Erro na requisição: {erro}")
+        return None
 
-print(buscar_unidades("thiago.oliveira"))
+if __name__ == "__main__":
+    print(buscar_unidades("thiago.oliveira"))
