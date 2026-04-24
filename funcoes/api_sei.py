@@ -3,6 +3,7 @@ import requests, os, logging
 URL_TOKEN = os.getenv("URL_TOKEN")
 CONSUMER_KEY = os.getenv("CONSUMER_KEY")
 CONSUMER_SECRET = os.getenv("CONSUMER_SECRET")
+URL_API = os.getenv("URL_API")
 
 #OBTER TOKEN
 
@@ -38,7 +39,6 @@ def buscar_unidades(usuario):
         logging.error("Token de acesso não disponível.")
         return None
     try:
-        URL_API = os.getenv("URL_API")
         headers = {
             "Authorization": f"Bearer {token}",
             "Content-Type": "application/json",
