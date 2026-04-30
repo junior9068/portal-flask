@@ -6,7 +6,7 @@ from flask import jsonify
 import string
 import random, os, time
 from unidecode import unidecode
-from funcoes.funcoes import enviar_email_criacao, enviar_email_desativacao, enviar_email_desativacao_gestao, enviar_mensagem_teams
+from funcoes.geral import enviar_email_criacao, enviar_email_desativacao, enviar_email_desativacao_gestao, enviar_mensagem_teams
 from funcoes.banco import registrar_log
 # --- CONFIGURAÇÕES DO AD ---
 # Senha e usuario do AD estão definidos como variável de ambiente

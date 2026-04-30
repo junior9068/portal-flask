@@ -320,8 +320,27 @@ def mostra_grafico(acao):
         logging.error(f"Erro ao gerar gráfico: {e}")
         return None
 
+# Busca caixas de e-mail associadas a um usuário consultando o arquivo JSON por_usuario_grupo.json
+def busca_caixa_email(usuario):
+    try:
+        with open('../por_usuario_grupo.json', 'r', encoding='utf-8') as arquivo:
+            dados = json.load(arquivo)
+        dicionario = {}
+        if usuario in dados.keys():
+            dicionario["caixas"] = dados.get(usuario).get('mailboxes')
+            return dicionario
+            # return f"Usuário {usuario} tem permissão na(s) seguinte(s) caixa(s) de e-mail: {(dados.get(usuario).get('mailboxes'))}"
+        else:
+            return "Usuário não encontrado."
+    except Exception as erro:
+        logging.error(f"Erro ao buscar caixa de e-mail: {erro}")
+        return "Erro ao buscar caixa de e-mail."
+    
 
 if __name__ == "__main__":
+    print(busca_caixa_email("vinicius.reis@cade.gov.br"))
+
+
     # print(enviar_email("Senha@123456", "thiago.nogueiira@gmail.com"))
     # json_data = [
     #     {"departamento": "Recursos Humanos", "chefe_departamento": "Ana Silva"},
@@ -336,4 +355,4 @@ if __name__ == "__main__":
     #     "Marketing": "Ana Silva"
     # }
     # print(chefes_departamento_1(json_data))
-    mostra_grafico('criar_usuario')
+    # mostra_grafico('criar_usuario')

@@ -4,7 +4,7 @@ from flask import render_template
 from funcoes.log import configurar_logs
 import logging, os
 from funcoes.banco import inserir_usuario, deletar_usuario, lerResultado
-from funcoes.funcoes import capitalizaNome, mostra_grafico
+from funcoes.geral import capitalizaNome, mostra_grafico
 from funcoes.ad import modificaUsuario, consultar_usuario, cria_usuario_ad, buscar_login, gerar_senha, ativaUsuario, consulta_caixa_por_usuario
 import json, time
 from werkzeug.middleware.proxy_fix import ProxyFix
