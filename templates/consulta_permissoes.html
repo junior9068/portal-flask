@@ -35,6 +35,18 @@
   animation: spin 1s linear infinite;
   margin-bottom: 10px;
 }
+.card-opcao {
+    background-color: #0d6efd;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 10px;
+}
+
+.card-opcao:hover {
+    background-color: #0b5ed7;
+    transform: scale(1.05);
+}
 
 @keyframes spin {
   0% { transform: rotate(0deg); }
@@ -71,7 +83,31 @@
                 </div>
             </div>
         </div>
-        
+        <div class="row mt-5 text-center">
+            <div class="col-md-4">
+                <div class="card card-opcao" onclick="carregar('sei')">
+                    <div class="card-body">
+                        <h5>Permissões SEI</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card card-opcao" onclick="carregar('caixas')">
+                    <div class="card-body">
+                        <h5>Caixas de E-mail</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card card-opcao" onclick="carregar('compartilhamentos')">
+                    <div class="card-body">
+                        <h5>Compartilhamentos</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Explicação sobre a validação -->
         <div id="resultadoCard" class="card mt-4" style="display:none;">
             <div class="card-body">
@@ -84,6 +120,195 @@
 
 {% block extra_js %}
 <script>
+function carregar(tipo) {
+    const email = document.getElementById("email").value.trim();
+    const resultadoDiv = document.getElementById("mensagemResultado");
+    const overlay = document.getElementById("loadingOverlay");
+
+    if (!email) {
+        alert("Digite o e-mail primeiro.");
+        return;
+    }
+
+    overlay.style.display = "flex";
+
+    fetch(`/executa_consulta_${tipo}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email: email })
+    })
+    .then(res => res.json())
+    .then(data => {
+        overlay.style.display = "none";
+
+        document.getElementById('resultadoCard').style.display = 'block';
+
+        if (data.erro) {
+            resultadoDiv.innerHTML = `<span class="text-danger">${data.erro}</span>`;
+            return;
+        }
+
+        if (tipo === "sei") {
+            renderizarSEI(data);
+        } else if (tipo === "caixas") {
+            renderizarCaixas(data);
+        } else if (tipo === "compartilhamentos") {
+            renderizarCompartilhamentos(data);
+        }
+    })
+    .catch(err => {
+        overlay.style.display = "none";
+        console.error(err);
+        resultadoDiv.innerHTML = "Erro na consulta.";
+    });
+}
+function renderizarSEI(data) {
+    let tabelaUnidades = '-';
+
+    if (Array.isArray(data.unidades) && data.unidades.length > 0) {
+        tabelaUnidades = `
+            <table class="tabela-unidades">
+                <colgroup>
+                    <col style="width: 30px;">
+                    <col style="width: 120px;">
+                    <col style="width: 60%;">
+                    <col style="width: 120px;">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Sigla</th>
+                        <th>Descrição</th>
+                        <th>Perfil</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${data.unidades.map(u => `
+                        <tr>
+                            <td></td>
+                            <td>${u.sigla}</td>
+                            <td>${u.descricao}</td>
+                            <td>${u.perfil}</td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+        `;
+    }
+
+    document.getElementById("mensagemResultado").innerHTML = `
+        <style>
+            .resultado-tabela {
+                border-collapse: collapse;
+                width: 100%;
+                font-family: Arial, sans-serif;
+                font-size: 14px;
+                margin-top: 10px;
+                border-radius: 6px;
+                overflow: hidden;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+                text-align: left;
+            }
+            .resultado-tabela tr {
+                border-bottom: 1px solid #e9ecef;
+            }
+            .resultado-tabela tr:last-child {
+                border-bottom: none;
+            }
+            .resultado-tabela td {
+                padding: 10px 12px;
+                vertical-align: top;
+            }
+            .resultado-tabela td:first-child {
+                background-color: #f8f9fa;
+                font-weight: bold;
+                width: 220px;
+                color: #495057;
+            }
+            .resultado-tabela td:last-child {
+                background-color: #fff;
+                color: #212529;
+            }
+            .resultado-tabela tr:hover td {
+                background-color: #f1f3f5;
+            }
+            .tabela-unidades {
+                width: 100%;
+                border-collapse: collapse;
+                table-layout: fixed;
+            }
+            .tabela-unidades thead {
+                background-color: #1f5f8b;
+                color: white;
+            }
+            .tabela-unidades th,
+            .tabela-unidades td {
+                padding: 8px 10px;
+                border-bottom: 1px solid #e9ecef;
+                text-align: center;
+            }
+            .tabela-unidades tbody tr:hover {
+                background-color: #e6f2f8;
+                cursor: pointer;
+            }
+            .tabela-unidades th:nth-child(1),
+            .tabela-unidades td:nth-child(1) {
+                width: 30px;
+            }
+            .tabela-unidades th:nth-child(2),
+            .tabela-unidades td:nth-child(2) {
+                width: 100px;
+            }
+            .tabela-unidades th:nth-child(3),
+            .tabela-unidades td:nth-child(3) {
+                width: auto;
+            }
+            .tabela-unidades th:nth-child(4),
+            .tabela-unidades td:nth-child(4) {
+                width: 100px;
+                text-align: center;
+                white-space: nowrap;
+            }
+        </style>
+
+        <h5 class="text-center">Unidade(s) SEI!</h5>
+        ${tabelaUnidades}
+    `;
+}
+function renderizarCaixas(data) {
+    let conteudo = '-';
+
+    if (Array.isArray(data.caixas) && data.caixas.length > 0) {
+        conteudo = `
+            <ul>
+                ${data.caixas.map(c => `<li>${c}</li>`).join('')}
+            </ul>
+        `;
+    }
+
+    document.getElementById("mensagemResultado").innerHTML = `
+        <h5 class="text-center">Caixas de E-mail</h5>
+        ${conteudo}
+    `;
+}
+function renderizarCompartilhamentos(data) {
+    let conteudo = '-';
+
+    if (Array.isArray(data.compartilhamentos) && data.compartilhamentos.length > 0) {
+        conteudo = `
+            <ul>
+                ${data.compartilhamentos.map(c => `<li>${c}</li>`).join('')}
+            </ul>
+        `;
+    }
+
+    document.getElementById("mensagemResultado").innerHTML = `
+        <h5 class="text-center">Compartilhamentos</h5>
+        ${conteudo}
+    `;
+}
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("desativaForm");
     const overlay = document.getElementById("loadingOverlay");
@@ -162,96 +387,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     </table>
                 `;
             }
-            resultadoDiv.innerHTML = `
-                <style>
-                    .resultado-tabela {
-                        border-collapse: collapse;
-                        width: 100%;
-                        font-family: Arial, sans-serif;
-                        font-size: 14px;
-                        margin-top: 10px;
-                        border-radius: 6px;
-                        overflow: hidden;
-                        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-                        text-align: left; /* tudo alinhado à esquerda */
-                    }
-                    .resultado-tabela tr {
-                        border-bottom: 1px solid #e9ecef;
-                    }
-                    .resultado-tabela tr:last-child {
-                        border-bottom: none;
-                    }
-                    .resultado-tabela td {
-                        padding: 10px 12px;
-                        vertical-align: top;
-                    }
-                    .resultado-tabela td:first-child {
-                        background-color: #f8f9fa;
-                        font-weight: bold;
-                        width: 220px;
-                        color: #495057;
-                    }
-                    .resultado-tabela td:last-child {
-                        background-color: #fff;
-                        color: #212529;
-                    }
-                    .resultado-tabela tr:hover td {
-                        background-color: #f1f3f5;
-                    }
-                    .tabela-unidades {
-                        width: 100%;
-                        border-collapse: collapse;
-                        table-layout: fixed;
-                    }
-                    .tabela-unidades thead {
-                        background-color: #1f5f8b;
-                        color: white;
-                    }
-
-                    .tabela-unidades th,
-                    .tabela-unidades td {
-                        padding: 8px 10px;
-                        border-bottom: 1px solid #e9ecef;
-                        text-align: center;
-                    }
-
-                    .tabela-unidades tbody tr:hover {
-                        background-color: #e6f2f8;
-                        cursor: pointer;
-                    }
-
-                    .tabela-unidades input[type="radio"] {
-                        cursor: pointer;
-                    }
-                    /* coluna vazia */
-                    .tabela-unidades th:nth-child(1),
-                    .tabela-unidades td:nth-child(1) {
-                        width: 30px;
-                    }
-
-                    /* sigla */
-                    .tabela-unidades th:nth-child(2),
-                    .tabela-unidades td:nth-child(2) {
-                        width: 100px;
-                    }
-
-                    /* descrição (ocupa o resto) */
-                    .tabela-unidades th:nth-child(3),
-                    .tabela-unidades td:nth-child(3) {
-                        width: auto;
-                    }
-
-                    /* perfil */
-                    .tabela-unidades th:nth-child(4),
-                    .tabela-unidades td:nth-child(4) {
-                        width: 100px;
-                        text-align: center;
-                        white-space: nowrap;
-                    }
-                </style>
-                <h5 class="text-center">Unidade(s) SEI!</h5>
-                ${tabelaUnidades}
-            `;
+            renderizarSEI(data);
         })
         .catch(err => {
             overlay.style.display = "none";

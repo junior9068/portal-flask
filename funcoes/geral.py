@@ -9,6 +9,7 @@ from flask import Response
 from funcoes.banco import consulta_geral
 from dateutil.relativedelta import relativedelta
 from datetime import date
+from pathlib import Path
 
 if os.getenv('FLASK_ENV') == 'desenvolvimento':
     usuarioEmail=os.getenv('USUARIO_EMAIL')
@@ -18,6 +19,9 @@ if os.getenv('FLASK_ENV') == 'desenvolvimento':
 else:
     servidor_smtp='smtp.cade.gov.br'
     porta=25
+
+#Diretório do arquivo JSON para consulta de caixas de email
+BASE_DIR_CAIXAS = Path(__file__).resolve().parent.parent  # volta para a raiz do projeto
 
 
 def capitalizaNome(nome):
@@ -323,12 +327,13 @@ def mostra_grafico(acao):
 # Busca caixas de e-mail associadas a um usuário consultando o arquivo JSON por_usuario_grupo.json
 def busca_caixa_email(usuario):
     try:
-        with open('../por_usuario_grupo.json', 'r', encoding='utf-8') as arquivo:
+        caminho_arquivo = BASE_DIR_CAIXAS / "data" / "caixas.json"
+        with open(caminho_arquivo, 'r', encoding='utf-8') as arquivo:
             dados = json.load(arquivo)
         dicionario = {}
         if usuario in dados.keys():
             dicionario["caixas"] = dados.get(usuario).get('mailboxes')
-            return dicionario
+            return json.dumps(dicionario)
             # return f"Usuário {usuario} tem permissão na(s) seguinte(s) caixa(s) de e-mail: {(dados.get(usuario).get('mailboxes'))}"
         else:
             return "Usuário não encontrado."
@@ -338,7 +343,7 @@ def busca_caixa_email(usuario):
     
 
 if __name__ == "__main__":
-    print(busca_caixa_email("vinicius.reis@cade.gov.br"))
+    print(busca_caixa_email("thiago.nogueira@cade.gov.br"))
 
 
     # print(enviar_email("Senha@123456", "thiago.nogueiira@gmail.com"))

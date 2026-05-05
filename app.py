@@ -4,7 +4,7 @@ from flask import render_template
 from funcoes.log import configurar_logs
 import logging, os
 from funcoes.banco import inserir_usuario, deletar_usuario, lerResultado
-from funcoes.geral import capitalizaNome, mostra_grafico
+from funcoes.geral import capitalizaNome, mostra_grafico, busca_caixa_email
 from funcoes.ad import modificaUsuario, consultar_usuario, cria_usuario_ad, buscar_login, gerar_senha, ativaUsuario, consulta_caixa_por_usuario
 import json, time
 from werkzeug.middleware.proxy_fix import ProxyFix
@@ -59,7 +59,7 @@ def raiz():
 #     return render_template("index.html")
 
 @app.route("/home")
-@oidc.require_login
+#@oidc.require_login
 def home():
     #após implementar o OIDC
     user = oidc.user_getinfo(['email', 'name'])
@@ -126,7 +126,7 @@ def manutencao2():
     return render_template("manutencao.html")
 
 @app.route("/cria_usuario")
-@oidc.require_login
+#@oidc.require_login
 def cria_usuario():
     logging.info(f"Chamou a rota cria_usuario")
     arquivo = os.path.join(current_app.root_path, "data", "chefes_simples.json")
@@ -136,46 +136,46 @@ def cria_usuario():
     # return render_template("cria_usuario.html")
 
 @app.route("/desativa_usuario")
-@oidc.require_login
+#@oidc.require_login
 def desativa_usuario():
     logging.info(f"Chamou a rota desativa_usuario")
     return render_template("desativa_usuario.html")
 
 @app.route("/ativa_usuario")
-@oidc.require_login
+#@oidc.require_login
 def ativa_usuario():
     logging.info(f"Chamou a rota ativa_usuario")
     return render_template("ativa_usuario.html")
 
 @app.route("/consulta_usuario")
-@oidc.require_login
+#@oidc.require_login
 def consulta_usuario():
     logging.info(f"Chamou a rota consulta_usuario")
     return render_template("consulta_usuario.html")
 
 
 @app.route("/consulta_permissoes")
-@oidc.require_login
+#@oidc.require_login
 def consulta_permissoes():
     logging.info(f"Chamou a rota consulta_permissoes")
     return render_template("consulta_permissoes.html")
 
 @app.route('/remove-acesso-caixa')
-@oidc.require_login
+#@oidc.require_login
 def remove_acesso_caixa():
     logging.info(f"Chamou a rota remove_acesso_caixa")
     return render_template("remove_acesso_caixa.html")
 
 
 @app.route('/concede-acesso-caixa')
-@oidc.require_login
+#@oidc.require_login
 def concede_acesso_caixa():
     logging.info(f"Chamou a rota concede-acesso-caixa")
     return render_template("concede-acesso-caixa.html")
 
 
 @app.route("/executa_desativa_usuario", methods=['POST'])
-@oidc.require_login
+#@oidc.require_login
 def executa_desativa_usuario():
     if os.getenv('FLASK_ENV') == 'desenvolvimento':
         usuarioLogado = {"email": "teste-email@email.com"}
@@ -191,7 +191,7 @@ def executa_desativa_usuario():
 
 
 @app.route("/executa_ativa_usuario", methods=['POST'])
-@oidc.require_login
+#@oidc.require_login
 def executa_ativa_usuario():
     if os.getenv('FLASK_ENV') == 'desenvolvimento':
         usuarioLogado = {"email": "teste-email@email.com"}
@@ -209,7 +209,7 @@ def executa_ativa_usuario():
 
 
 @app.route("/executa_cria_usuario", methods=['POST'])
-@oidc.require_login
+#@oidc.require_login
 def executa_cria_usuario():
     if os.getenv('FLASK_ENV') == 'desenvolvimento':
         usuarioLogado = {"email": "teste-email@email.com"}
@@ -319,7 +319,7 @@ def consulta_dados_usuario():
     # return saida
 
 @app.route("/executa_consulta_permissoes", methods=['POST'])
-@oidc.require_login
+#@oidc.require_login
 def executa_consulta_permissoes():
     if os.getenv('FLASK_ENV') == 'desenvolvimento':
         usuarioLogado = {"email": "teste-email@email.com"}
@@ -332,6 +332,13 @@ def executa_consulta_permissoes():
     #     return jsonify({"nome": email, "caixas": "Não encontrado"})     
     return jsonify(chamada_api)
 
+
+#CONTINUAR E MELHORAR ESSA PARTE DE CONSULTA DE CAIXAS DE EMAIL. A IDEIA É USAR O JSON LOCAL PARA VER SE O USUÁRIO EXISTE E QUAIS CAIXAS ELE TEM ACESSO
+@app.route("/executa_consulta_caixas", methods=["POST"])
+def consulta_caixas():
+    email = request.json.get("email")
+    caixas = busca_caixa_email(email)
+    return caixas
 
 
 
