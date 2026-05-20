@@ -83,7 +83,7 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-5 text-center">
+        <div id="cardsResultado" class="row mt-5 text-center" style="display:none;">
             <div class="col-md-4">
                 <div class="card card-opcao" onclick="carregar('sei')">
                     <div class="card-body">
@@ -131,13 +131,12 @@ function carregar(tipo) {
     }
 
     overlay.style.display = "flex";
-
+    const formData = new FormData();
+    formData.append("identificador", email);
+    
     fetch(`/executa_consulta_${tipo}`, {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ email: email })
+        body: formData
     })
     .then(res => res.json())
     .then(data => {
@@ -342,7 +341,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // formData.append("identificador", identificador);
         formData.append("identificador", validarEmail(identificador) ? identificador : identificadorLimpo);
 
-        fetch("/executa_consulta_permissoes", {
+        fetch("/executa_consulta_sei", {
             method: "POST",
             body: formData
         })
@@ -387,6 +386,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     </table>
                 `;
             }
+            document.getElementById("cardsResultado").style.display = "flex";
             renderizarSEI(data);
         })
         .catch(err => {

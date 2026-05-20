@@ -318,9 +318,9 @@ def consulta_dados_usuario():
     #saida = modificaUsuario(cpfUsuario)
     # return saida
 
-@app.route("/executa_consulta_permissoes", methods=['POST'])
+@app.route("/executa_consulta_sei", methods=['POST'])
 #@oidc.require_login
-def executa_consulta_permissoes():
+def executa_consulta_sei():
     if os.getenv('FLASK_ENV') == 'desenvolvimento':
         usuarioLogado = {"email": "teste-email@email.com"}
     else:
@@ -331,12 +331,14 @@ def executa_consulta_permissoes():
     # if chamada_api is None:
     #     return jsonify({"nome": email, "caixas": "Não encontrado"})     
     return jsonify(chamada_api)
+    # teste = {"unidades": [{"sigla": "CAINF", "descricao": "Infrraestrutura de TI", "perfil": "Básico"}, {"sigla": "SEVIR", "descricao": "Virtualização", "perfil": "Básico"}, {"sigla": "sdados", "descricao": "BAnsoi de TI", "perfil": "Básico"}]}
+    # return jsonify(teste)
 
 
 #CONTINUAR E MELHORAR ESSA PARTE DE CONSULTA DE CAIXAS DE EMAIL. A IDEIA É USAR O JSON LOCAL PARA VER SE O USUÁRIO EXISTE E QUAIS CAIXAS ELE TEM ACESSO
 @app.route("/executa_consulta_caixas", methods=["POST"])
 def consulta_caixas():
-    email = request.json.get("email")
+    email = request.form['identificador']
     caixas = busca_caixa_email(email)
     return caixas
 

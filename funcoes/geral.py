@@ -10,6 +10,9 @@ from funcoes.banco import consulta_geral
 from dateutil.relativedelta import relativedelta
 from datetime import date
 from pathlib import Path
+import csv
+import json
+
 
 if os.getenv('FLASK_ENV') == 'desenvolvimento':
     usuarioEmail=os.getenv('USUARIO_EMAIL')
@@ -336,12 +339,74 @@ def busca_caixa_email(usuario):
             return json.dumps(dicionario)
             # return f"Usuário {usuario} tem permissão na(s) seguinte(s) caixa(s) de e-mail: {(dados.get(usuario).get('mailboxes'))}"
         else:
-            return "Usuário não encontrado."
+            #deve retornar um JSON para o front-end (onde o valor da chave deve ser uma lista), mesmo que o usuário não seja encontrado, para evitar erros de parsing no JavaScript
+            return json.dumps({"caixas": ["Usuário não encontrado ou caixas de e-mail não atribuídas."]})
+            #return "Usuário não encontrado."
     except Exception as erro:
         logging.error(f"Erro ao buscar caixa de e-mail: {erro}")
         return "Erro ao buscar caixa de e-mail."
     
 
+#CONTINUAR: DEVEMOS CRIAR UMA FUNÇÃO PARA GERAR O ARQUIVO JSON A PARTIR DO CSV, POIS O ARQUIVO CSV FORNECIDO PELA CGTI ESTÁ COM ASPAS DUPLICADAS E QUEBRADO, O QUE CAUSA ERROS DE PARSING. 
+# ESSA FUNÇÃO DEVE SER RODADA APENAS 1 VEZ PARA GERAR O JSON LIMPO, E DEPOIS O SISTEMA DEVE CONSULTAR APENAS O JSON GERADO.
+def converte_csv_em_json(caminho_csv, caminho_json):
+    arquivo_csv = "Permissoes_Caixas_Email_Completo(in).csv"
+    arquivo_json = "permissoes_caixas.json"
+
+    usuarios = {}
+
+    with open(arquivo_csv, "r", encoding="latin1") as f:
+        conteudo = f.read()
+
+    # Detecta CSV quebrado com aspas duplicadas
+    if '""' in conteudo:
+        linhas = []
+
+        for linha in conteudo.splitlines():
+            linha = linha.strip()
+
+            if linha.startswith('"') and linha.endswith('"'):
+                linha = linha[1:-1]
+
+            linha = linha.replace('""', '"')
+
+            linhas.append(linha)
+
+        reader = csv.DictReader(linhas)
+
+    else:
+        # CSV normal
+        reader = csv.DictReader(conteudo.splitlines())
+
+    for row in reader:
+
+        login = row["Login"]
+
+        if login not in usuarios:
+            usuarios[login] = {
+                "nome": row["NomeUsuario"],
+                "email": row["EmailUsuario"],
+                "caixas": {}
+            }
+
+        email_caixa = row["EmailDaCaixa"]
+
+        if email_caixa not in usuarios[login]["caixas"]:
+            usuarios[login]["caixas"][email_caixa] = {
+                "caixa": row["CaixaComAcesso"],
+                "permissoes": []
+            }
+
+        permissao = row["Permissao"]
+
+        if permissao not in usuarios[login]["caixas"][email_caixa]["permissoes"]:
+            usuarios[login]["caixas"][email_caixa]["permissoes"].append(permissao)
+
+    # salva json
+    with open(arquivo_json, "w", encoding="utf-8") as f:
+        json.dump(usuarios, f, ensure_ascii=False, indent=4)
+
+    print(f"JSON gerado: {arquivo_json}")
 if __name__ == "__main__":
     print(busca_caixa_email("thiago.nogueira@cade.gov.br"))
 
