@@ -330,12 +330,19 @@ def mostra_grafico(acao):
 # Busca caixas de e-mail associadas a um usuário consultando o arquivo JSON por_usuario_grupo.json
 def busca_caixa_email(usuario):
     try:
-        caminho_arquivo = BASE_DIR_CAIXAS / "data" / "caixas.json"
+        usuario = usuario.split('@')[0]  # Remove o domínio do e-mail, se presente. Ex: "
+        caminho_arquivo = BASE_DIR_CAIXAS / "data" / "permissoes_caixas.json"
         with open(caminho_arquivo, 'r', encoding='utf-8') as arquivo:
             dados = json.load(arquivo)
         dicionario = {}
+        lista_de_caixas = []
         if usuario in dados.keys():
-            dicionario["caixas"] = dados.get(usuario).get('mailboxes')
+            for caixa in dados.get(usuario).get("caixas").keys():
+                lista_de_caixas.append(caixa)
+            dicionario["caixas"] = lista_de_caixas
+            # dicionario1 = {"caixas": ["Caixa1", "Caixa2", "Caixa3"]} # Exemplo de dicionário para teste
+            # print(dicionario)
+            #TENHO QUE TRATAR O CASO DE TER UM "-" QUANDO NÃO TEM NENHUMA CAIXA ATRIBUIDA AU USUARIO MESMO ELE ESTANDO NO JSON, POIS O CSV ORIGINAL VEM COM UM "-" NESSA SITUAÇÃO. ENTÃO O SISTEMA DEVE RETORNAR UMA MENSAGEM DE "Usuário encontrado, mas sem caixas de e-mail atribuídas." OU ALGO DO TIPO, PARA O FRONT-END EXIBIR ESSA INFORMAÇÃO PARA O USUÁRIO FINAL.
             return json.dumps(dicionario)
             # return f"Usuário {usuario} tem permissão na(s) seguinte(s) caixa(s) de e-mail: {(dados.get(usuario).get('mailboxes'))}"
         else:
@@ -349,36 +356,51 @@ def busca_caixa_email(usuario):
 
 #CONTINUAR: DEVEMOS CRIAR UMA FUNÇÃO PARA GERAR O ARQUIVO JSON A PARTIR DO CSV, POIS O ARQUIVO CSV FORNECIDO PELA CGTI ESTÁ COM ASPAS DUPLICADAS E QUEBRADO, O QUE CAUSA ERROS DE PARSING. 
 # ESSA FUNÇÃO DEVE SER RODADA APENAS 1 VEZ PARA GERAR O JSON LIMPO, E DEPOIS O SISTEMA DEVE CONSULTAR APENAS O JSON GERADO.
-def converte_csv_em_json(caminho_csv, caminho_json):
-    arquivo_csv = "Permissoes_Caixas_Email_Completo(in).csv"
-    arquivo_json = "permissoes_caixas.json"
+def converte_csv_em_json():
+
+    arquivo_csv = BASE_DIR_CAIXAS / "data" / "Permissoes_Caixas_Email_Completo(in).csv"
+    arquivo_json = BASE_DIR_CAIXAS / "data" / "permissoes_caixas.json"
 
     usuarios = {}
 
-    with open(arquivo_csv, "r", encoding="latin1") as f:
+    with open(arquivo_csv, "r", encoding="utf-8-sig") as f:
+
         conteudo = f.read()
 
-    # Detecta CSV quebrado com aspas duplicadas
-    if '""' in conteudo:
-        linhas = []
+    # Corrige export quebrado
+    conteudo = conteudo.replace('""', '"')
 
-        for linha in conteudo.splitlines():
-            linha = linha.strip()
+    # Remove aspas do começo/fim do arquivo
+    if conteudo.startswith('"'):
+        conteudo = conteudo[1:]
 
-            if linha.startswith('"') and linha.endswith('"'):
-                linha = linha[1:-1]
+    if conteudo.endswith('"'):
+        conteudo = conteudo[:-1]
 
-            linha = linha.replace('""', '"')
+    linhas = conteudo.splitlines()
 
-            linhas.append(linha)
+    # remove aspas extras linha a linha
+    linhas_corrigidas = []
 
-        reader = csv.DictReader(linhas)
+    for linha in linhas:
 
-    else:
-        # CSV normal
-        reader = csv.DictReader(conteudo.splitlines())
+        linha = linha.strip()
+
+        if linha.startswith('"'):
+            linha = linha[1:]
+
+        if linha.endswith('"'):
+            linha = linha[:-1]
+
+        linhas_corrigidas.append(linha)
+
+    reader = csv.DictReader(linhas_corrigidas, delimiter=",")
+
+    print(reader.fieldnames)
 
     for row in reader:
+
+        row = {k.strip(): v.strip() for k, v in row.items()}
 
         login = row["Login"]
 
@@ -402,13 +424,14 @@ def converte_csv_em_json(caminho_csv, caminho_json):
         if permissao not in usuarios[login]["caixas"][email_caixa]["permissoes"]:
             usuarios[login]["caixas"][email_caixa]["permissoes"].append(permissao)
 
-    # salva json
     with open(arquivo_json, "w", encoding="utf-8") as f:
         json.dump(usuarios, f, ensure_ascii=False, indent=4)
 
     print(f"JSON gerado: {arquivo_json}")
+
+
 if __name__ == "__main__":
-    print(busca_caixa_email("thiago.nogueira@cade.gov.br"))
+    print(busca_caixa_email("thiago.nogueira"))
 
 
     # print(enviar_email("Senha@123456", "thiago.nogueiira@gmail.com"))
