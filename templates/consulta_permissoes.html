@@ -276,22 +276,95 @@ function renderizarSEI(data) {
         ${tabelaUnidades}
     `;
 }
+// function renderizarCaixas(data) {
+//     let conteudo = '-';
+
+//     if (Array.isArray(data.caixas) && data.caixas.length > 0) {
+//         conteudo = `
+//             <ul>
+//                 ${data.caixas.map(c => `<li>${c}</li>`).join('')}
+//             </ul>
+//         `;
+//     }
+
+//     document.getElementById("mensagemResultado").innerHTML = `
+//         <h5 class="text-center">Caixas de E-mail</h5>
+//         ${conteudo}
+//     `;
+// }
+
 function renderizarCaixas(data) {
-    let conteudo = '-';
+    let tabelaCaixas = '-';
 
     if (Array.isArray(data.caixas) && data.caixas.length > 0) {
-        conteudo = `
-            <ul>
-                ${data.caixas.map(c => `<li>${c}</li>`).join('')}
-            </ul>
+        tabelaCaixas = `
+            <table class="tabela-unidades">
+                <colgroup>
+                    <col style="width: 40%;">
+                    <col style="width: 40%;">
+                    <col style="width: 20%;">
+                </colgroup>
+
+                <thead>
+                    <tr>
+                        <th>Nome da Caixa</th>
+                        <th>E-mail</th>
+                        <th>Permissão</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    ${data.caixas.map(c => `
+                        <tr>
+                            <td>${c.nome}</td>
+                            <td>${c.email}</td>
+                            <td>${c.permissao}</td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+        `;
+    }
+
+    else if (typeof data.caixas === "string") {
+        tabelaCaixas = `
+            <div class="alert alert-warning text-center">
+                ${data.caixas}
+            </div>
         `;
     }
 
     document.getElementById("mensagemResultado").innerHTML = `
+        <style>
+            .tabela-unidades {
+                width: 100%;
+                border-collapse: collapse;
+                table-layout: fixed;
+            }
+
+            .tabela-unidades thead {
+                background-color: #1f5f8b;
+                color: white;
+            }
+
+            .tabela-unidades th,
+            .tabela-unidades td {
+                padding: 8px 10px;
+                border-bottom: 1px solid #e9ecef;
+                text-align: center;
+            }
+
+            .tabela-unidades tbody tr:hover {
+                background-color: #e6f2f8;
+            }
+        </style>
+
         <h5 class="text-center">Caixas de E-mail</h5>
-        ${conteudo}
+
+        ${tabelaCaixas}
     `;
 }
+
 function renderizarCompartilhamentos(data) {
     let conteudo = '-';
 

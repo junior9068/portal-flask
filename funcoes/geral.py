@@ -337,17 +337,38 @@ def busca_caixa_email(usuario):
         dicionario = {}
         lista_de_caixas = []
         if usuario in dados.keys():
-            for caixa in dados.get(usuario).get("caixas").keys():
+            for caixa in dados.get(usuario).get("caixas").items():
+                print(caixa)
                 #continuar com a ideia de deixar a saida parecida com o SEI
-                # dicionario_caixa = {}
-                # dicionario_caixa["caixa"] = dados.get(usuario).get("caixas").keys()
-                # print(dados.get(usuario).get("caixas"))
-                lista_de_caixas.append(caixa)
+                dicionario_caixa = {}
+                dicionario_caixa["email"] = caixa[0] # caixa[0] é a caixa de email, ex: cgti@cade.gov.br"
+                dicionario_caixa["nome"] = caixa[1].get("caixa") # caixa[1].get("caixa") é o nome da caixa, ex: "Caixa CGTI"
+                dicionario_caixa["permissoes"] = caixa[1].get("permissoes") # caixa[1].get("permissoes") é a lista de permissões, ex: ["Leitura", "Full Access"]
+                # print(caixa[0]) # caixa[0] é a caixa de email, ex: cgti@cade.gov.br"
+                # print(caixa[1].get("caixa")) # caixa[1].get("caixa") é o nome da caixa, ex: "Caixa CGTI"
+                # print(caixa[1].get("permissoes")) # caixa[1].get("permissoes") é a lista de permissões, ex: ["Leitura", "Full Access"]
+                lista_de_caixas.append(dicionario_caixa)
+            # PAra debugar a estrutura do dicionário que estamos montando, podemos imprimir a variável "dicionario" aqui antes 
+            # de convertê-la para JSON. A ideia é que a estrutura final seja algo como:
+            # temp = {
+            # "caixas": [
+            #     {
+            #     "nome": "Caixa Financeiro",
+            #     "email": "financeiro@empresa.gov.br",
+            #     "permissao": "Leitura"
+            #     },
+            #     {
+            #     "nome": "Caixa RH",
+            #     "email": "rh@empresa.gov.br",
+            #     "permissao": "Full Access"
+            #     }
+            # ]
+            # }
             dicionario["caixas"] = lista_de_caixas
             # dicionario1 = {"caixas": ["Caixa1", "Caixa2", "Caixa3"]} # Exemplo de dicionário para teste
             # print(dicionario)
             #TENHO QUE TRATAR O CASO DE TER UM "-" QUANDO NÃO TEM NENHUMA CAIXA ATRIBUIDA AU USUARIO MESMO ELE ESTANDO NO JSON, POIS O CSV ORIGINAL VEM COM UM "-" NESSA SITUAÇÃO. ENTÃO O SISTEMA DEVE RETORNAR UMA MENSAGEM DE "Usuário encontrado, mas sem caixas de e-mail atribuídas." OU ALGO DO TIPO, PARA O FRONT-END EXIBIR ESSA INFORMAÇÃO PARA O USUÁRIO FINAL.
-            return json.dumps(dicionario)
+            return json.dumps(dicionario) # Retorna o dicionário convertido em JSON para o front-end
             # return f"Usuário {usuario} tem permissão na(s) seguinte(s) caixa(s) de e-mail: {(dados.get(usuario).get('mailboxes'))}"
         else:
             #deve retornar um JSON para o front-end (onde o valor da chave deve ser uma lista), mesmo que o usuário não seja encontrado, para evitar erros de parsing no JavaScript
@@ -355,8 +376,7 @@ def busca_caixa_email(usuario):
             #return "Usuário não encontrado."
     except Exception as erro:
         logging.error(f"Erro ao buscar caixa de e-mail: {erro}")
-        return "Erro ao buscar caixa de e-mail."
-    
+        return f"Erro ao buscar caixa de e-mail: {erro}"
 
 #CONTINUAR: DEVEMOS CRIAR UMA FUNÇÃO PARA GERAR O ARQUIVO JSON A PARTIR DO CSV, POIS O ARQUIVO CSV FORNECIDO PELA CGTI ESTÁ COM ASPAS DUPLICADAS E QUEBRADO, O QUE CAUSA ERROS DE PARSING. 
 # ESSA FUNÇÃO DEVE SER RODADA APENAS 1 VEZ PARA GERAR O JSON LIMPO, E DEPOIS O SISTEMA DEVE CONSULTAR APENAS O JSON GERADO.
@@ -435,7 +455,7 @@ def converte_csv_em_json():
 
 
 if __name__ == "__main__":
-    print(busca_caixa_email("thiago.nogueira"))
+    print(busca_caixa_email("ediran.almeida"))
 
 
     # print(enviar_email("Senha@123456", "thiago.nogueiira@gmail.com"))
