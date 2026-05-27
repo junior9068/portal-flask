@@ -338,6 +338,10 @@ def busca_caixa_email(usuario):
         lista_de_caixas = []
         if usuario in dados.keys():
             for caixa in dados.get(usuario).get("caixas").keys():
+                #continuar com a ideia de deixar a saida parecida com o SEI
+                # dicionario_caixa = {}
+                # dicionario_caixa["caixa"] = dados.get(usuario).get("caixas").keys()
+                # print(dados.get(usuario).get("caixas"))
                 lista_de_caixas.append(caixa)
             dicionario["caixas"] = lista_de_caixas
             # dicionario1 = {"caixas": ["Caixa1", "Caixa2", "Caixa3"]} # Exemplo de dicionário para teste
