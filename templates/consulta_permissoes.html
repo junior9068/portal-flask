@@ -318,7 +318,7 @@ function renderizarCaixas(data) {
                         <tr>
                             <td>${c.nome}</td>
                             <td>${c.email}</td>
-                            <td>${c.permissao}</td>
+                            <td>${c.permissoes.join(', ')}</td>
                         </tr>
                     `).join('')}
                 </tbody>

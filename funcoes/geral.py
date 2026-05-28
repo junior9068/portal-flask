@@ -339,7 +339,6 @@ def busca_caixa_email(usuario):
         if usuario in dados.keys():
             for caixa in dados.get(usuario).get("caixas").items():
                 print(caixa)
-                #continuar com a ideia de deixar a saida parecida com o SEI
                 dicionario_caixa = {}
                 dicionario_caixa["email"] = caixa[0] # caixa[0] é a caixa de email, ex: cgti@cade.gov.br"
                 dicionario_caixa["nome"] = caixa[1].get("caixa") # caixa[1].get("caixa") é o nome da caixa, ex: "Caixa CGTI"
@@ -348,7 +347,7 @@ def busca_caixa_email(usuario):
                 # print(caixa[1].get("caixa")) # caixa[1].get("caixa") é o nome da caixa, ex: "Caixa CGTI"
                 # print(caixa[1].get("permissoes")) # caixa[1].get("permissoes") é a lista de permissões, ex: ["Leitura", "Full Access"]
                 lista_de_caixas.append(dicionario_caixa)
-            # PAra debugar a estrutura do dicionário que estamos montando, podemos imprimir a variável "dicionario" aqui antes 
+            # Para debugar a estrutura do dicionário que estamos montando, podemos imprimir a variável "dicionario" aqui antes 
             # de convertê-la para JSON. A ideia é que a estrutura final seja algo como:
             # temp = {
             # "caixas": [
