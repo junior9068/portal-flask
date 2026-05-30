@@ -377,6 +377,31 @@ def busca_caixa_email(usuario):
         logging.error(f"Erro ao buscar caixa de e-mail: {erro}")
         return f"Erro ao buscar caixa de e-mail: {erro}"
 
+
+def busca_compartilhamentos(grupos=""):
+    grupos = ["G_CECADE"] # aqui deve ser a variável que vem do front-end, ex: "G_2022_ICN_Merger_Workshop"
+    try:
+        caminho_arquivo = BASE_DIR_CAIXAS / "data" / "Relatorio_Grupos_Permissoes_DFS.json"
+        with open(caminho_arquivo, 'r', encoding='utf-8-sig') as arquivo:
+            dados = json.load(arquivo)
+        compartilhamento = []
+        for item in dados:
+            if item.get("Grupo") in grupos:
+                compartilhamento.append({
+                    "compartilhamento": item.get("Pasta"),
+                    "grupo": item.get("Grupo"),
+                    "permissao": item.get("Permissao")
+                })
+        if compartilhamento:
+            return {"compartilhamentos": compartilhamento}
+        else:
+            logging.warning(f"Nenhum compartilhamento encontrado para os grupos: {grupos}")
+            return {"compartilhamentos": [{"compartilhamento": "Nao encontrado", "grupo": "Não encontrado", "permissao": "Não encontrado"}]}
+    except Exception as erro:
+        logging.error(f"Erro ao buscar compartilhamento: {erro}")
+        return {"compartilhamentos": [{"compartilhamento": "Erro", "grupo": "Erro", "permissao": "Erro"}]}
+
+
 #CONTINUAR: DEVEMOS CRIAR UMA FUNÇÃO PARA GERAR O ARQUIVO JSON A PARTIR DO CSV, POIS O ARQUIVO CSV FORNECIDO PELA CGTI ESTÁ COM ASPAS DUPLICADAS E QUEBRADO, O QUE CAUSA ERROS DE PARSING. 
 # ESSA FUNÇÃO DEVE SER RODADA APENAS 1 VEZ PARA GERAR O JSON LIMPO, E DEPOIS O SISTEMA DEVE CONSULTAR APENAS O JSON GERADO.
 def converte_csv_em_json():
@@ -453,8 +478,10 @@ def converte_csv_em_json():
     print(f"JSON gerado: {arquivo_json}")
 
 
+
 if __name__ == "__main__":
-    print(busca_caixa_email("ediran.almeida"))
+    print(busca_compartilhamentos())
+    # print(busca_caixa_email("ediran.almeida"))
 
 
     # print(enviar_email("Senha@123456", "thiago.nogueiira@gmail.com"))

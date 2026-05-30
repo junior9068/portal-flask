@@ -4,7 +4,7 @@ from flask import render_template
 from funcoes.log import configurar_logs
 import logging, os
 from funcoes.banco import inserir_usuario, deletar_usuario, lerResultado
-from funcoes.geral import capitalizaNome, mostra_grafico, busca_caixa_email
+from funcoes.geral import capitalizaNome, mostra_grafico, busca_caixa_email, busca_compartilhamentos
 from funcoes.ad import modificaUsuario, consultar_usuario, cria_usuario_ad, buscar_login, gerar_senha, ativaUsuario, consulta_caixa_por_usuario
 import json, time
 from werkzeug.middleware.proxy_fix import ProxyFix
@@ -330,12 +330,12 @@ def executa_consulta_sei():
     chamada_api = buscar_unidades(email)
     # if chamada_api is None:
     #     return jsonify({"nome": email, "caixas": "Não encontrado"})     
-    return jsonify(chamada_api)
-    # teste = {"unidades": [{"sigla": "CAINF", "descricao": "Infrraestrutura de TI", "perfil": "Básico"}, {"sigla": "SEVIR", "descricao": "Virtualização", "perfil": "Básico"}, {"sigla": "sdados", "descricao": "BAnsoi de TI", "perfil": "Básico"}]}
-    # return jsonify(teste)
+    #return jsonify(chamada_api)
+    teste = {"unidades": [{"sigla": "CAINF", "descricao": "Infrraestrutura de TI", "perfil": "Básico"}, {"sigla": "SEVIR", "descricao": "Virtualização", "perfil": "Básico"}, {"sigla": "sdados", "descricao": "BAnsoi de TI", "perfil": "Básico"}]}
+    return jsonify(teste)
 
 
-#CONTINUAR E MELHORAR ESSA PARTE DE CONSULTA DE CAIXAS DE EMAIL. A IDEIA É USAR O JSON LOCAL PARA VER SE O USUÁRIO EXISTE E QUAIS CAIXAS ELE TEM ACESSO
+#CONTINUAR E COLOCAR O TRY EXCEPT PARA TRATAR ERROS DE API E RETORNAR MENSAGENS AMIGÁVEIS AO USUÁRIO, ALÉM DE LOGAR OS ERROS PARA ANÁLISE POSTERIOR.
 @app.route("/executa_consulta_caixas", methods=["POST"])
 def consulta_caixas():
     email = request.form['identificador']
@@ -343,38 +343,13 @@ def consulta_caixas():
     return caixas
 
 
+#CONTINUAR E COLOCAR O TRY EXCEPT PARA TRATAR ERROS DE API E RETORNAR MENSAGENS AMIGÁVEIS AO USUÁRIO, ALÉM DE LOGAR OS ERROS PARA ANÁLISE POSTERIOR.
+@app.route("/executa_consulta_compartilhamentos", methods=["POST"])
+def consulta_compartilhamentos():
+    email = request.form['identificador']
+    compartilhamentos = busca_compartilhamentos(email)
+    return jsonify(compartilhamentos)
 
-
-
-# @app.route("/executa_consulta_caixa_email", methods=['POST'])
-# #@oidc.require_login
-# def executa_consulta_caixa_email():
-#     if os.getenv('FLASK_ENV') == 'desenvolvimento':
-#         usuarioLogado = {"email": "teste-email@email.com"}
-#     else:
-#         usuarioLogado = oidc.user_getinfo(['email'])
-#     identificadorPesquisa = ""
-#     if 'identificador' in request.form:
-#         identificadorPesquisa = request.form['identificador']
-#     else:
-#         identificadorPesquisa = request.form['cpf']
-#     saida = consulta_caixa_por_usuario(identificadorPesquisa, usuarioLogado)
-#     if saida is None:
-#         return jsonify({
-#             "nome": "Não encontrado", 
-#             "caixas": "Não encontrado"
-#             })
-#     else:
-#         return jsonify(saida)
-#     #saida = modificaUsuario(cpfUsuario)
-#     # return saida
-
-# @app.route("/consulta_nome_teste", methods=['POST'])
-# def consulta_nome_teste():
-#     return jsonify({
-#             "nome": "Não encontrado", 
-#             "email": "Não encontrado"
-#     })
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=5000)

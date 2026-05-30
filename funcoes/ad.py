@@ -394,6 +394,30 @@ def adicionar_usuario_a_grupo(dn_usuario, dn_grupo, conexao_ad):
     return saida
 
 
+def buca_grupo(dn_usuario):
+    """Busca os grupos dos quais o usuário é membro, retornando uma lista de nomes dos grupos."""
+    # Verifica se o identificador é um email ou CPF
+    # if "@" in identificador:
+    #     email = identificador.strip()
+    #     filtro = f"(mail={email})"
+    # else:
+    #     cpf = identificador.strip()
+    #     filtro = f"(employeeNumber={cpf})"
+    try:
+        conn = conectar_ad()
+        conn.search(
+            BASE_DN,
+            f"(member={dn_usuario})",
+            attributes=["distinguishedName", "cn"]
+        )
+        grupos = [entry.cn.value for entry in conn.entries]
+        logging.info(f"Grupos encontrados para {dn_usuario}: {grupos}")
+        return grupos
+    except Exception as e:
+        logging.error(f"Erro ao buscar grupos para {dn_usuario}: {e}")
+        return []
+
+
 def remover_todos_os_grupos(conn, dn_usuario):
     """
     Remove o usuário de todos os grupos que ele participa.

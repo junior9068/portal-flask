@@ -1,0 +1,2992 @@
+﻿[
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\2019 ICN Cartel Workshop",
+        "Grupo":  "G_2019_ICN_Cartel_Workshop",
+        "NomeGrupo":  "G_2019_ICN_Cartel_Workshop",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\2022 ICN Merger Workshop",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\2022 ICN Merger Workshop",
+        "Grupo":  "G_2022_ICN_Merger_Workshop",
+        "NomeGrupo":  "G_2022_ICN_Merger_Workshop",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\2022 ICN MWG Webinar Control of data, market power, and potential competition in merger reviews",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\2022 ICN MWG Webinar Control of data, market power, and potential competition in merger reviews",
+        "Grupo":  "G_2022_ICN_MWG",
+        "NomeGrupo":  "G_2022_ICN_MWG",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\2022 LACCF - Latin American and Caribbean Competition Forum",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\2022 LACCF - Latin American and Caribbean Competition Forum",
+        "Grupo":  "G_CADE_2022_LACCF",
+        "NomeGrupo":  "G_CADE_2022_LACCF",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Acervo",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\AnaliseEvidencia",
+        "Grupo":  "G_SGGAB_ANALISE_EVIDENCIAS",
+        "NomeGrupo":  "G_SGGAB_ANALISE_EVIDENCIAS",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Apoio Plenário",
+        "Grupo":  "G_DAP_CGP_APOIO_PLENARIO",
+        "NomeGrupo":  "G_DAP_CGP_APOIO_PLENARIO",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Apoio Plenário",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Arquivo",
+        "Grupo":  "G_DAP_CGP_UAPRO_ARQUIVO",
+        "NomeGrupo":  "G_DAP_CGP_UAPRO_ARQUIVO",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Arquivo",
+        "Grupo":  "G_DAP_CGP_UAPRO",
+        "NomeGrupo":  "G_DAP_CGP_UAPRO",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Arquivos SEAE",
+        "Grupo":  "G_SEAE",
+        "NomeGrupo":  "G_SEAE",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\ASCOM",
+        "Grupo":  "G_PRES_ASCOM",
+        "NomeGrupo":  "G_PRES_ASCOM",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\ASCOM",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\ASCOM - Temporário",
+        "Grupo":  "G_PRES_ASCOM",
+        "NomeGrupo":  "G_PRES_ASCOM",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\ASPLAN",
+        "Grupo":  "G_DAP_ESCRITORIO_PROJETOS",
+        "NomeGrupo":  "G_DAP_ESCRITORIO_PROJETOS",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\ASPLAN",
+        "Grupo":  "G_DAP_RELATORIO_GESTAO_2016",
+        "NomeGrupo":  "G_DAP_RELATORIO_GESTAO_2016",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "None",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\ASPLAN",
+        "Grupo":  "G_DAP_PLANEJAMENTO_ESTRATEGICO",
+        "NomeGrupo":  "G_DAP_PLANEJAMENTO_ESTRATEGICO",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Assessoria Internacional",
+        "Grupo":  "G_PRES_ASINT",
+        "NomeGrupo":  "G_PRES_ASINT",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Assessoria Internacional",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\ASSTEC-GABSG",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\ASSTEC-GABSG",
+        "Grupo":  "G_ASSTEC-GABSG",
+        "NomeGrupo":  "G_ASSTEC-GABSG",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Ata",
+        "Grupo":  "G_DAP_CGP_APOIO_PLENARIO",
+        "NomeGrupo":  "G_DAP_CGP_APOIO_PLENARIO",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Ata",
+        "Grupo":  "G_DAP_CGP_PLENARIO",
+        "NomeGrupo":  "G_DAP_CGP_PLENARIO",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Ata",
+        "Grupo":  "G_DAP_CGP_PLENARIO_PAUTA",
+        "NomeGrupo":  "G_DAP_CGP_PLENARIO_PAUTA",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Ata",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Atendimento ao Publico",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Auditoria",
+        "Grupo":  "G_PRES_AUDIT",
+        "NomeGrupo":  "G_PRES_AUDIT",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Auditoria",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Banco de Preliminares",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Banco de Preliminares",
+        "Grupo":  "G_SG_SGA2_6_7_8_SEAPRO",
+        "NomeGrupo":  "G_SG_SGA2_6_7_8_SEAPRO",
+        "Permissao":  "Write, ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Biblioteca",
+        "Grupo":  "G_DAP_CGP_BIBLIOTECA",
+        "NomeGrupo":  "G_DAP_CGP_BIBLIOTECA",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Boletim Internacional",
+        "Grupo":  "G_PRES_ASINT",
+        "NomeGrupo":  "G_PRES_ASINT",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Boletim Internacional",
+        "Grupo":  "G_PRES_ASINT_BOLETIM_INTERNACIONAL",
+        "NomeGrupo":  "G_PRES_ASINT_BOLETIM_INTERNACIONAL",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Boletim Internacional",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Cade 50 anos",
+        "Grupo":  "G_PRES_ASCOM",
+        "NomeGrupo":  "G_PRES_ASCOM",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Cade 50 anos",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\CADE SUSTENTAVEL",
+        "Grupo":  "G_DAP_CGP_CADE_SUSTENTAVEL",
+        "NomeGrupo":  "G_DAP_CGP_CADE_SUSTENTAVEL",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\CADELAB",
+        "Grupo":  "G_CADELAB",
+        "NomeGrupo":  "G_CADELAB",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\CADELAB",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Cade_60_anos",
+        "Grupo":  "G_CADE_60_anos",
+        "NomeGrupo":  "G_CADE_60_anos",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Cade_60_anos",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\CECADE",
+        "Grupo":  "G_CECADE",
+        "NomeGrupo":  "G_CECADE",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\CECADE-ADM",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\CECADE-ADM",
+        "Grupo":  "G_CECADE_ADM",
+        "NomeGrupo":  "G_CECADE_ADM",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\CGAA2-DEE",
+        "Grupo":  "G_SG_CGAA2_DEE",
+        "NomeGrupo":  "G_SG_CGAA2_DEE",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\CGAA7_TCC",
+        "Grupo":  "G_SG_CGAA7_TCC",
+        "NomeGrupo":  "G_SG_CGAA7_TCC",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\CGAA8-DIAP-OITIVAS",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\CGAA8-DIAP-OITIVAS",
+        "Grupo":  "G_SG_CGAA8_DIAP_OITIVAS",
+        "NomeGrupo":  "G_SG_CGAA8_DIAP_OITIVAS",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\CGESP",
+        "Grupo":  "G_DAP_CGESP",
+        "NomeGrupo":  "G_DAP_CGESP",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\CGESP",
+        "Grupo":  "G_DAP_CGESP_QVT",
+        "NomeGrupo":  "G_DAP_CGESP_QVT",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "None",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\CGESP",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\CGOFL",
+        "Grupo":  "G_DAP_CGOFL",
+        "NomeGrupo":  "G_DAP_CGOFL",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\CGOFL",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\CGP",
+        "Grupo":  "G_DAP_CGP",
+        "NomeGrupo":  "G_DAP_CGP",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\CGP",
+        "Grupo":  "G_DAP_CGP_Revista de Defesa da Concorrência",
+        "NomeGrupo":  "G_DAP_CGP_Revista de Defesa da Concorrência",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "None",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\CGTI",
+        "Grupo":  "G_DAP_CGTI",
+        "NomeGrupo":  "G_DAP_CGTI",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\CGTI",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\CGTI-DEE",
+        "Grupo":  "G_DEE",
+        "NomeGrupo":  "G_DEE",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\CGTI-DEE",
+        "Grupo":  "G_DAP_CGTI",
+        "NomeGrupo":  "G_DAP_CGTI",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\CGTI-DEE",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\CGTI_CDN",
+        "Grupo":  "G_DAP_CGTI_CDN",
+        "NomeGrupo":  "G_DAP_CGTI_CDN",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\CLIMÁTICA - CADE",
+        "Grupo":  "G_DAP_CGOFL_RCS_CADE",
+        "NomeGrupo":  "G_DAP_CGOFL_RCS_CADE",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\CMSP",
+        "Grupo":  "G_CMSP",
+        "NomeGrupo":  "G_CMSP",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\COF",
+        "Grupo":  "G_DAP_CGOFL",
+        "NomeGrupo":  "G_DAP_CGOFL",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\COF",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Cogeap",
+        "Grupo":  "G_DAP_CGP_COGEAP",
+        "NomeGrupo":  "G_DAP_CGP_COGEAP",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\COL",
+        "Grupo":  "G_DAP_CGOFL_COL",
+        "NomeGrupo":  "G_DAP_CGOFL_COL",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\COL",
+        "Grupo":  "G_DAP_CGOFL",
+        "NomeGrupo":  "G_DAP_CGOFL",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Colaboração DIAP-CGAA9-CGAA11‎",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Colaboração DIAP-CGAA9-CGAA11‎",
+        "Grupo":  "G_SG_DIAP-CGAA9-CGAA11",
+        "NomeGrupo":  "G_SG_DIAP-CGAA9-CGAA11",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Compartilhamento Ascom",
+        "Grupo":  "G_PRES_ASCOM",
+        "NomeGrupo":  "G_PRES_ASCOM",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Compartilhamento Ascom",
+        "Grupo":  "G_PRES_ASCOM_NOTICIAS_CADE",
+        "NomeGrupo":  "G_PRES_ASCOM_NOTICIAS_CADE",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Contatos para envio de ofício",
+        "Grupo":  "G_SG_CGAA1234_CONTRATOS_ENVIO_OFICIO",
+        "NomeGrupo":  "G_SG_CGAA1234_CONTRATOS_ENVIO_OFICIO",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Cooperacao Cartéis Internacionais",
+        "Grupo":  "G_SGGAB_CARTEIS_INTERNACIONAIS",
+        "NomeGrupo":  "G_SGGAB_CARTEIS_INTERNACIONAIS",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Coordenação-Geral de antitruste 1",
+        "Grupo":  "G_SG_CGAA1",
+        "NomeGrupo":  "G_SG_CGAA1",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Coordenação-Geral de antitruste 1",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Coordenação-Geral de antitruste 10",
+        "Grupo":  "G_SGGAB_ARQUIVOS",
+        "NomeGrupo":  "G_SGGAB_ARQUIVOS",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Coordenação-Geral de antitruste 10",
+        "Grupo":  "G_SGGAB_ARQ_LENIENCIAS_CASOS_REJEITADOS",
+        "NomeGrupo":  "G_SGGAB_ARQ_LENIENCIAS_CASOS_REJEITADOS",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Coordenação-Geral de antitruste 10",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Coordenação-Geral de antitruste 10",
+        "Grupo":  "G_SG_CGAA10",
+        "NomeGrupo":  "G_SG_CGAA10",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Coordenação-Geral de antitruste 11",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Coordenação-Geral de antitruste 11",
+        "Grupo":  "G_SG_CGAA11",
+        "NomeGrupo":  "G_SG_CGAA11",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Coordenação-Geral de antitruste 2",
+        "Grupo":  "G_SG_CGAA2",
+        "NomeGrupo":  "G_SG_CGAA2",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Coordenação-Geral de antitruste 2",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Coordenação-Geral de antitruste 3",
+        "Grupo":  "G_SG_CGAA3",
+        "NomeGrupo":  "G_SG_CGAA3",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Coordenação-Geral de antitruste 3",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Coordenação-Geral de antitruste 4",
+        "Grupo":  "G_SG_CGAA4",
+        "NomeGrupo":  "G_SG_CGAA4",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Coordenação-Geral de antitruste 4",
+        "Grupo":  "G_SG_CGAA4_DEE",
+        "NomeGrupo":  "G_SG_CGAA4_DEE",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Coordenação-Geral de antitruste 4",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Coordenação-geral de antitruste 5",
+        "Grupo":  "G_SG_CGAA5",
+        "NomeGrupo":  "G_SG_CGAA5",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Coordenação-geral de antitruste 5",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Coordenação-Geral de antitruste 6",
+        "Grupo":  "G_SG_CGAA6",
+        "NomeGrupo":  "G_SG_CGAA6",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Coordenação-Geral de antitruste 6",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Coordenação-Geral de antitruste 7",
+        "Grupo":  "G_SG_CGAA_7",
+        "NomeGrupo":  "G_SG_CGAA_7",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Coordenação-Geral de antitruste 7",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Coordenação-Geral de antitruste 8",
+        "Grupo":  "G_SG_CGAA_8",
+        "NomeGrupo":  "G_SG_CGAA_8",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Coordenação-Geral de antitruste 8",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Coordenação-Geral de antitruste 9",
+        "Grupo":  "G_SG_CGAA9",
+        "NomeGrupo":  "G_SG_CGAA9",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Coordenação-Geral de antitruste 9",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Corregedoria",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Corregedoria",
+        "Grupo":  "G_PFE_CORREGEDORIA",
+        "NomeGrupo":  "G_PFE_CORREGEDORIA",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\CORREGEDORIA-ADM",
+        "Grupo":  "G_CECADE_ADM",
+        "NomeGrupo":  "G_CECADE_ADM",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\CORREGEDORIA-ADM",
+        "Grupo":  "G_PROCURADORIA_ADM",
+        "NomeGrupo":  "G_PROCURADORIA_ADM",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Crescimento Saudável",
+        "Grupo":  "G_DAP_CGTI_INICIATIVAS_COMPARTILHAS_CRESCIMENTO_SAUDAVEL",
+        "NomeGrupo":  "G_DAP_CGTI_INICIATIVAS_COMPARTILHAS_CRESCIMENTO_SAUDAVEL",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Dados_Abertos_CDN",
+        "Grupo":  "G_DADOS_ABERTOS_CDN",
+        "NomeGrupo":  "G_DADOS_ABERTOS_CDN",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Dados_Abertos_CDN",
+        "Grupo":  "G_DAP_CGTI_CDN",
+        "NomeGrupo":  "G_DAP_CGTI_CDN",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\DAP Coordenações-Gerais",
+        "Grupo":  "G_DAP_Coordenacoes_Gerais",
+        "NomeGrupo":  "G_DAP_Coordenacoes_Gerais",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\DEE",
+        "Grupo":  "G_DEE",
+        "NomeGrupo":  "G_DEE",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\DEE",
+        "Grupo":  "G_DEE_GTBACEN",
+        "NomeGrupo":  "G_DEE_GTBACEN",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\DEE",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\DEE-ASCOM",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\DEE-ASCOM",
+        "Grupo":  "G_DEE_ASCOM",
+        "NomeGrupo":  "G_DEE_ASCOM",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\DEE-SETED",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\DEE-SETED",
+        "Grupo":  "G_DEE_SETED",
+        "NomeGrupo":  "G_DEE_SETED",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Denuncia",
+        "Grupo":  "G_SGGAB_DENUNCIA",
+        "NomeGrupo":  "G_SGGAB_DENUNCIA",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\DIAP",
+        "Grupo":  "G_DAP_CGP_DIAP",
+        "NomeGrupo":  "G_DAP_CGP_DIAP",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\DIAP",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\DocumentosPDF",
+        "Grupo":  "G_DAP_CGTI",
+        "NomeGrupo":  "G_DAP_CGTI",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\DOSSIÊS DIGITALIZADOS",
+        "Grupo":  "G_PFE_PROCURADORIA",
+        "NomeGrupo":  "G_PFE_PROCURADORIA",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\DOSSIÊS DIGITALIZADOS",
+        "Grupo":  "G_PFE_PROCURADORES",
+        "NomeGrupo":  "G_PFE_PROCURADORES",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\DOSSIÊS DIGITALIZADOS",
+        "Grupo":  "G_PFE_PROCURADORIA",
+        "NomeGrupo":  "G_PFE_PROCURADORIA",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\DOSSIÊS DIGITALIZADOS",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\DOSSIÊS DIGITALIZADOS",
+        "Grupo":  "G_PFE_PROCURADORES",
+        "NomeGrupo":  "G_PFE_PROCURADORES",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\DOSSIÊS DIGITALIZADOS",
+        "Grupo":  "G_PFE_PLANILHAS_CGMA_CGEP",
+        "NomeGrupo":  "G_PFE_PLANILHAS_CGMA_CGEP",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Estatística",
+        "Grupo":  "G_DAP_CGP_ESTATISTICA",
+        "NomeGrupo":  "G_DAP_CGP_ESTATISTICA",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Estatística",
+        "Grupo":  "G_DAP_CGP_ESTATISTICA_LEITURA",
+        "NomeGrupo":  "G_DAP_CGP_ESTATISTICA_LEITURA",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Estoque_UCD-SG",
+        "Grupo":  "G_SGGAB_",
+        "NomeGrupo":  "G_SGGAB_",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Estoque_UCD-SG",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Estoque_UCD-SG",
+        "Grupo":  "G_GABSG_Estoque_UCD_SG",
+        "NomeGrupo":  "G_GABSG_Estoque_UCD_SG",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Estoque_UCD-SG",
+        "Grupo":  "G_SGGAB_",
+        "NomeGrupo":  "G_SGGAB_",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Estoque_UCD-SG",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Gab-01",
+        "Grupo":  "G_TRIB_GAB1",
+        "NomeGrupo":  "G_TRIB_GAB1",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Gab-02",
+        "Grupo":  "G_TRIB_GAB2",
+        "NomeGrupo":  "G_TRIB_GAB2",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Gab-02",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Gab-03",
+        "Grupo":  "G_TRIB_GAB3",
+        "NomeGrupo":  "G_TRIB_GAB3",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Gab-03",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Gab-03_Votos",
+        "Grupo":  "G_TRIB_GAB3_VOTOS",
+        "NomeGrupo":  "G_TRIB_GAB3_VOTOS",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Gab-04",
+        "Grupo":  "G_TRIB_GAB4",
+        "NomeGrupo":  "G_TRIB_GAB4",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Gab-04",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Gab-05",
+        "Grupo":  "G_TRIB_GAB5",
+        "NomeGrupo":  "G_TRIB_GAB5",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Gab-05",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Gab-06",
+        "Grupo":  "G_TRIB_GAB6",
+        "NomeGrupo":  "G_TRIB_GAB6",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Gab-06",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Gab-06-Dados",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Gab-06-Dados",
+        "Grupo":  "G_TRIB_GAB06_DADOS",
+        "NomeGrupo":  "G_TRIB_GAB06_DADOS",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\GabDAP",
+        "Grupo":  "G_DAP",
+        "NomeGrupo":  "G_DAP",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Gabinete_Secretárias",
+        "Grupo":  "G_SGGAB_SECRETARIAS",
+        "NomeGrupo":  "G_SGGAB_SECRETARIAS",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\GabSG",
+        "Grupo":  "G_SGGAB_",
+        "NomeGrupo":  "G_SGGAB_",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\GabSG",
+        "Grupo":  "G_SGGAB_ESTAGIO",
+        "NomeGrupo":  "G_SGGAB_ESTAGIO",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "None",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\GabSG",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\GabSG Arquivos",
+        "Grupo":  "G_SGGAB_ARQUIVOS",
+        "NomeGrupo":  "G_SGGAB_ARQUIVOS",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\GabSG Arquivos",
+        "Grupo":  "G_SGGAB_ARQ_LENIENCIAS_CASOS_REJEITADOS",
+        "NomeGrupo":  "G_SGGAB_ARQ_LENIENCIAS_CASOS_REJEITADOS",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\GabTribunal",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\GERENCIAL_GAB_TRIAGEM",
+        "Grupo":  "G_SGGAB_",
+        "NomeGrupo":  "G_SGGAB_",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\GERENCIAL_GAB_TRIAGEM",
+        "Grupo":  "G_SGGAB_ESTAGIO",
+        "NomeGrupo":  "G_SGGAB_ESTAGIO",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Global Antitrust Institute",
+        "Grupo":  "G_SGGAB_ANTITRUSTE_INSTITUTE",
+        "NomeGrupo":  "G_SGGAB_ANTITRUSTE_INSTITUTE",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\gt4-roteiros",
+        "Grupo":  "Erro ao ler ACL",
+        "NomeGrupo":  "",
+        "Permissao":  "Attempted to perform an unauthorized operation.",
+        "TipoAcesso":  "",
+        "Herdado":  "",
+        "AplicadoEm":  "",
+        "Propagacao":  ""
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\GTPGFC",
+        "Grupo":  "G_DAP_CGOFL",
+        "NomeGrupo":  "G_DAP_CGOFL",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\ICN UC Workshop 2025",
+        "Grupo":  "G_PRES_ICN_WORKSHOP_2025",
+        "NomeGrupo":  "G_PRES_ICN_WORKSHOP_2025",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\ICN_2024_Annual_Conference",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\ICN_2024_Annual_Conference",
+        "Grupo":  "G_DAP_ICN_2024_Conference",
+        "NomeGrupo":  "G_DAP_ICN_2024_Conference",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Ilha de Digitalização",
+        "Grupo":  "G_DAP_CGP_ILHA_DIGITALIZACAO",
+        "NomeGrupo":  "G_DAP_CGP_ILHA_DIGITALIZACAO",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Iniciativas Compartilhadas",
+        "Grupo":  "G_DAP_RELATORIO_GESTAO",
+        "NomeGrupo":  "G_DAP_RELATORIO_GESTAO",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Iniciativas Compartilhadas",
+        "Grupo":  "G_DAP_CGTI_GT_Seguranca",
+        "NomeGrupo":  "G_DAP_CGTI_GT_Seguranca",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "None",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Iniciativas Compartilhadas",
+        "Grupo":  "G_DAP_CGTI",
+        "NomeGrupo":  "G_DAP_CGTI",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Iniciativas Compartilhadas",
+        "Grupo":  "G_DAP_CGTI_INICIATIVAS_COMPARTILHADAS",
+        "NomeGrupo":  "G_DAP_CGTI_INICIATIVAS_COMPARTILHADAS",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Iniciativas Compartilhadas",
+        "Grupo":  "G_DAP_CGTI_NOVO_PORTAL",
+        "NomeGrupo":  "G_DAP_CGTI_NOVO_PORTAL",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "None",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Iniciativas Compartilhadas",
+        "Grupo":  "G_DAP_RELATORIO_GESTAO_2016",
+        "NomeGrupo":  "G_DAP_RELATORIO_GESTAO_2016",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Iniciativas Compartilhadas",
+        "Grupo":  "G_DAP_CGTI_INICIATIVAS_COMPARTILHADAS_RECRUTAMENTO_2018",
+        "NomeGrupo":  "G_DAP_CGTI_INICIATIVAS_COMPARTILHADAS_RECRUTAMENTO_2018",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Iniciativas Compartilhadas",
+        "Grupo":  "G_DAP_RELATORIO_GESTAO_2018",
+        "NomeGrupo":  "G_DAP_RELATORIO_GESTAO_2018",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Iniciativas Compartilhadas",
+        "Grupo":  "G_DAP_RELATORIO_GESTAO_2019",
+        "NomeGrupo":  "G_DAP_RELATORIO_GESTAO_2019",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Iniciativas Compartilhadas",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Iniciativas Compartilhadas",
+        "Grupo":  "G_DAP_CGTI_INICIATIVAS_COMPARTILHADAS_PROJETOS",
+        "NomeGrupo":  "G_DAP_CGTI_INICIATIVAS_COMPARTILHADAS_PROJETOS",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Internacional",
+        "Grupo":  "G_PRES_ASINT",
+        "NomeGrupo":  "G_PRES_ASINT",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Internacional",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Modelos e Orientações_Cartéis",
+        "Grupo":  "G_SG_CGAA_8",
+        "NomeGrupo":  "G_SG_CGAA_8",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Modelos e Orientações_Cartéis",
+        "Grupo":  "G_SG_CGAA_7",
+        "NomeGrupo":  "G_SG_CGAA_7",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Modelos e Orientações_Cartéis",
+        "Grupo":  "G_SG_CGAA6",
+        "NomeGrupo":  "G_SG_CGAA6",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Modelos e Orientações_Cartéis",
+        "Grupo":  "G_SGGAB_MODELOS_ORIENTAÇOES_CARTÉIS",
+        "NomeGrupo":  "G_SGGAB_MODELOS_ORIENTAÇOES_CARTÉIS",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\MPF",
+        "Grupo":  "G_MPF",
+        "NomeGrupo":  "G_MPF",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\MPF",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Mínimo Probatório",
+        "Grupo":  "G_MINIMO_PROBATORIO_SG",
+        "NomeGrupo":  "G_MINIMO_PROBATORIO_SG",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Negociação",
+        "Grupo":  "Erro ao ler ACL",
+        "NomeGrupo":  "",
+        "Permissao":  "Attempted to perform an unauthorized operation.",
+        "TipoAcesso":  "",
+        "Herdado":  "",
+        "AplicadoEm":  "",
+        "Propagacao":  ""
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Noticias CADE",
+        "Grupo":  "G_PRES_ASCOM_NOTICIAS_CADE",
+        "NomeGrupo":  "G_PRES_ASCOM_NOTICIAS_CADE",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Novo Portal do CADE",
+        "Grupo":  "G_DAP_CGTI_NOVO_PORTAL",
+        "NomeGrupo":  "G_DAP_CGTI_NOVO_PORTAL",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Núcleo Gestor do SEI",
+        "Grupo":  "G_DAP_CGP_NUCLEO_GESTOR_SEI",
+        "NomeGrupo":  "G_DAP_CGP_NUCLEO_GESTOR_SEI",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Obras Cidade RJ",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Obras Cidade RJ",
+        "Grupo":  "G_SG_CGAA8_OBRAS_CIDADE_RJ",
+        "NomeGrupo":  "G_SG_CGAA8_OBRAS_CIDADE_RJ",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Oitivas CGAA 1 a 4",
+        "Grupo":  "G_DAP_CGP_OITIVAS_CGGA1A4",
+        "NomeGrupo":  "G_DAP_CGP_OITIVAS_CGGA1A4",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Oitivas CGAA 11",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Oitivas CGAA 11",
+        "Grupo":  "G_SG_CGAA11_OITIVAS",
+        "NomeGrupo":  "G_SG_CGAA11_OITIVAS",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Oitivas CGAA 6 a 8",
+        "Grupo":  "G_DAP_CGP_OITIVAS_CGGA6A8",
+        "NomeGrupo":  "G_DAP_CGP_OITIVAS_CGGA6A8",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Ouvidoria",
+        "Grupo":  "G_DAP_CGP_OUVIDORIA",
+        "NomeGrupo":  "G_DAP_CGP_OUVIDORIA",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Parametrização",
+        "Grupo":  "G_SG_CGAA6",
+        "NomeGrupo":  "G_SG_CGAA6",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Parametrização",
+        "Grupo":  "G_DAP_CGP",
+        "NomeGrupo":  "G_DAP_CGP",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Parametrização",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\PinCADE",
+        "Grupo":  "G_DAP_PINCADE",
+        "NomeGrupo":  "G_DAP_PINCADE",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Planejamento Estratégico",
+        "Grupo":  "G_DAP_PLANEJAMENTO_ESTRATEGICO",
+        "NomeGrupo":  "G_DAP_PLANEJAMENTO_ESTRATEGICO",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Plenário",
+        "Grupo":  "G_DAP_CGP_PLENARIO",
+        "NomeGrupo":  "G_DAP_CGP_PLENARIO",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Plenário",
+        "Grupo":  "G_DAP_CGP_APOIO_PLENARIO",
+        "NomeGrupo":  "G_DAP_CGP_APOIO_PLENARIO",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Plenário",
+        "Grupo":  "G_DAP_CGP_PLENARIO_PAUTA",
+        "NomeGrupo":  "G_DAP_CGP_PLENARIO_PAUTA",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Plenário",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Plenário_Consulta",
+        "Grupo":  "G_TRIB_GAB2_JURISPRUDENCIA",
+        "NomeGrupo":  "G_TRIB_GAB2_JURISPRUDENCIA",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Plenário_Gravações",
+        "Grupo":  "G_DAP_CGP_PLENARIO_GRAVACOES",
+        "NomeGrupo":  "G_DAP_CGP_PLENARIO_GRAVACOES",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Plenário_Gravações",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Presidencia",
+        "Grupo":  "G_PRES_RW",
+        "NomeGrupo":  "G_PRES_RW",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Presidencia",
+        "Grupo":  "G_PRES_SEMINARIO_INTERNO_ASSESSORIA",
+        "NomeGrupo":  "G_PRES_SEMINARIO_INTERNO_ASSESSORIA",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Presidencia",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Prestacao de contas - Convenios Sub-rogados",
+        "Grupo":  "G_DAP_PRESTACAODECONTAS",
+        "NomeGrupo":  "G_DAP_PRESTACAODECONTAS",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Prestacao de contas - Convenios Sub-rogados",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Privativo",
+        "Grupo":  "G_SGGAB_PRIVATIVO_RW",
+        "NomeGrupo":  "G_SGGAB_PRIVATIVO_RW",
+        "Permissao":  "DeleteSubdirectoriesAndFiles, Delete",
+        "TipoAcesso":  "Deny",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Privativo",
+        "Grupo":  "G_SGGAB_PRIVATIVO",
+        "NomeGrupo":  "G_SGGAB_PRIVATIVO",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Privativo",
+        "Grupo":  "G_SGGAB_PRIVATIVO_RWX",
+        "NomeGrupo":  "G_SGGAB_PRIVATIVO_RWX",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Processo nº 08700.009264_2024 Petz_Cobasi",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Processo nº 08700.009264_2024 Petz_Cobasi",
+        "Grupo":  "G_SG_CGAA1_PROCESSO",
+        "NomeGrupo":  "G_SG_CGAA1_PROCESSO",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\ProcessualSG",
+        "Grupo":  "G_DAP_CGP_PROCESSUAL",
+        "NomeGrupo":  "G_DAP_CGP_PROCESSUAL",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\ProcessualSG",
+        "Grupo":  "G_DAP_CGP_PROCESSUAL_PETICOES",
+        "NomeGrupo":  "G_DAP_CGP_PROCESSUAL_PETICOES",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "None",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Procuradoria",
+        "Grupo":  "G_PFE_PROCURADORIA",
+        "NomeGrupo":  "G_PFE_PROCURADORIA",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Procuradoria",
+        "Grupo":  "G_PFE_PROCURADORES",
+        "NomeGrupo":  "G_PFE_PROCURADORES",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Procuradoria",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Procuradoria",
+        "Grupo":  "G_PFE_PLANILHAS_CGMA_CGEP",
+        "NomeGrupo":  "G_PFE_PLANILHAS_CGMA_CGEP",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\PRODOC",
+        "Grupo":  "G_PRES_PRODOC",
+        "NomeGrupo":  "G_PRES_PRODOC",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Projeto Cérebro",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Projeto Cérebro",
+        "Grupo":  "G_SG_PROJETO_CEREBRO",
+        "NomeGrupo":  "G_SG_PROJETO_CEREBRO",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\PROT-DEE",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\PROT-DEE",
+        "Grupo":  "G_DEE_PROTDEE",
+        "NomeGrupo":  "G_DEE_PROTDEE",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Protocolo",
+        "Grupo":  "G_DAP_CGP_PROTOCOLO",
+        "NomeGrupo":  "G_DAP_CGP_PROTOCOLO",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Protocolo",
+        "Grupo":  "G_DAP_CGP_OITIVAS_CGGA6A8",
+        "NomeGrupo":  "G_DAP_CGP_OITIVAS_CGGA6A8",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Protocolo",
+        "Grupo":  "G_DAP_CGP_OITIVAS_CGGA1A4",
+        "NomeGrupo":  "G_DAP_CGP_OITIVAS_CGGA1A4",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Protocolo",
+        "Grupo":  "G_DAP_CGP_OITIVAS_PROTOCOLO",
+        "NomeGrupo":  "G_DAP_CGP_OITIVAS_PROTOCOLO",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Protocolo",
+        "Grupo":  "G_DAP_CGP_OITIVAS_PROTOCOLO",
+        "NomeGrupo":  "G_DAP_CGP_OITIVAS_PROTOCOLO",
+        "Permissao":  "Read, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Protocolo_Arquivo",
+        "Grupo":  "G_DAP_CGP_PROTOCOLO",
+        "NomeGrupo":  "G_DAP_CGP_PROTOCOLO",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Protocolo_Arquivo",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\QVT",
+        "Grupo":  "G_DAP_CGESP_QVT",
+        "NomeGrupo":  "G_DAP_CGESP_QVT",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\RAIS",
+        "Grupo":  "G_DAP_CGTI_INICIATIVAS_COMPARTILHADAPS_RAIS",
+        "NomeGrupo":  "G_DAP_CGTI_INICIATIVAS_COMPARTILHADAPS_RAIS",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Recrutamento 2019",
+        "Grupo":  "G_DAP_CGESP",
+        "NomeGrupo":  "G_DAP_CGESP",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Recrutamento 2019",
+        "Grupo":  "G_DAP_CGESP_2019",
+        "NomeGrupo":  "G_DAP_CGESP_2019",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Recrutamento 2019",
+        "Grupo":  "G_DAP_CGESP_RECRUTAMENTO_2019",
+        "NomeGrupo":  "G_DAP_CGESP_RECRUTAMENTO_2019",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Relatório Gestão",
+        "Grupo":  "G_DAP_RELATORIO_GESTAO",
+        "NomeGrupo":  "G_DAP_RELATORIO_GESTAO",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Relatório Gestão",
+        "Grupo":  "G_DAP_RELATORIO_GESTAO_2016",
+        "NomeGrupo":  "G_DAP_RELATORIO_GESTAO_2016",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Relatório Gestão",
+        "Grupo":  "G_DAP_RELATORIO_GESTAO_2018",
+        "NomeGrupo":  "G_DAP_RELATORIO_GESTAO_2018",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Relatório Gestão",
+        "Grupo":  "G_DAP_RELATORIO_GESTAO_2019",
+        "NomeGrupo":  "G_DAP_RELATORIO_GESTAO_2019",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Relatório Gestão",
+        "Grupo":  "G_DAP_RELATORIO_GESTAO",
+        "NomeGrupo":  "G_DAP_RELATORIO_GESTAO",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Relatório Gestão",
+        "Grupo":  "G_DAP_CGTI",
+        "NomeGrupo":  "G_DAP_CGTI",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Relatório Gestão",
+        "Grupo":  "G_DAP_CGTI_INICIATIVAS_COMPARTILHADAS",
+        "NomeGrupo":  "G_DAP_CGTI_INICIATIVAS_COMPARTILHADAS",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Relatório Gestão",
+        "Grupo":  "G_DAP_RELATORIO_GESTAO_2016",
+        "NomeGrupo":  "G_DAP_RELATORIO_GESTAO_2016",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Relatório Gestão",
+        "Grupo":  "G_DAP_CGTI_INICIATIVAS_COMPARTILHADAS_RECRUTAMENTO_2018",
+        "NomeGrupo":  "G_DAP_CGTI_INICIATIVAS_COMPARTILHADAS_RECRUTAMENTO_2018",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Relatório Gestão",
+        "Grupo":  "G_DAP_RELATORIO_GESTAO_2018",
+        "NomeGrupo":  "G_DAP_RELATORIO_GESTAO_2018",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Relatório Gestão",
+        "Grupo":  "G_DAP_RELATORIO_GESTAO_2019",
+        "NomeGrupo":  "G_DAP_RELATORIO_GESTAO_2019",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Relatório Gestão",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Relatório Gestão",
+        "Grupo":  "G_DAP_CGTI_INICIATIVAS_COMPARTILHADAS_PROJETOS",
+        "NomeGrupo":  "G_DAP_CGTI_INICIATIVAS_COMPARTILHADAS_PROJETOS",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Revista de Defesa da Concorrência",
+        "Grupo":  "G_DAP_CGP_Revista de Defesa da Concorrência",
+        "NomeGrupo":  "G_DAP_CGP_Revista de Defesa da Concorrência",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Revista de Defesa da Concorrência",
+        "Grupo":  "G_DAP_CGP",
+        "NomeGrupo":  "G_DAP_CGP",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\SCDP",
+        "Grupo":  "G_DAP_CGOFL_SCDP",
+        "NomeGrupo":  "G_DAP_CGOFL_SCDP",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\SCDP",
+        "Grupo":  "G_DAP_CGOFL",
+        "NomeGrupo":  "G_DAP_CGOFL",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\SEAP",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\SEAPRO",
+        "Grupo":  "G_DAP_CGP_SEAPRO",
+        "NomeGrupo":  "G_DAP_CGP_SEAPRO",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\SECONT",
+        "Grupo":  "G_DAP_CGOFL_SECONT",
+        "NomeGrupo":  "G_DAP_CGOFL_SECONT",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Secretarias CGAA 6,7 e 8‎",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Secretarias CGAA 6,7 e 8‎",
+        "Grupo":  "G_SG_CGAA6_7_8_SECRETARIAS",
+        "NomeGrupo":  "G_SG_CGAA6_7_8_SECRETARIAS",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Secretárias CGP",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Secretárias CGP",
+        "Grupo":  "G_DAP_CGP_SECRETARIAS",
+        "NomeGrupo":  "G_DAP_CGP_SECRETARIAS",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\SEGAC‎",
+        "Grupo":  "G_DAP_CGP",
+        "NomeGrupo":  "G_DAP_CGP",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\SEGAC‎",
+        "Grupo":  "G_DAP_CGP_SEGAC",
+        "NomeGrupo":  "G_DAP_CGP_SEGAC",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\SEI CGP Leniência",
+        "Grupo":  "G_CGP_LENIENCIA_SEI_CGP",
+        "NomeGrupo":  "G_CGP_LENIENCIA_SEI_CGP",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Semana do Servidor",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Semana do Servidor",
+        "Grupo":  "G_DAP_CGESP_SEMANA_SERVIDOR",
+        "NomeGrupo":  "G_DAP_CGESP_SEMANA_SERVIDOR",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\SGA1",
+        "Grupo":  "G_SG_SGA1",
+        "NomeGrupo":  "G_SG_SGA1",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\SGA2",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\SGA2",
+        "Grupo":  "G_SG_SGA2",
+        "NomeGrupo":  "G_SG_SGA2",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\SIC-CADE",
+        "Grupo":  "G_DAP_CGP_SIC_CADE",
+        "NomeGrupo":  "G_DAP_CGP_SIC_CADE",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Sistema_temporario",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Sistema_temporario",
+        "Grupo":  "G_CGTI_DFS_BACKUPS",
+        "NomeGrupo":  "G_CGTI_DFS_BACKUPS",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Sistema_temporario",
+        "Grupo":  "G_SISTEMA_TEMPORARIO",
+        "NomeGrupo":  "G_SISTEMA_TEMPORARIO",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Softwares",
+        "Grupo":  "G_CGTI_Network_Support_Technicians",
+        "NomeGrupo":  "G_CGTI_Network_Support_Technicians",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Softwares",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Superintendencia",
+        "Grupo":  "G_SGGAB_ANALISE_EVIDENCIAS",
+        "NomeGrupo":  "G_SGGAB_ANALISE_EVIDENCIAS",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "None",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Superintendencia",
+        "Grupo":  "G_SGGAB_GERAL",
+        "NomeGrupo":  "G_SGGAB_GERAL",
+        "Permissao":  "Modify, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Superintendencia",
+        "Grupo":  "G_SGGAB_COORDENADORES",
+        "NomeGrupo":  "G_SGGAB_COORDENADORES",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Superintendencia",
+        "Grupo":  "G_SGGAB_SECRETARIAS",
+        "NomeGrupo":  "G_SGGAB_SECRETARIAS",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Triagem_Conduta",
+        "Grupo":  "G_SGGAB_",
+        "NomeGrupo":  "G_SGGAB_",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Triagem_Conduta",
+        "Grupo":  "G_SGGAB_ESTAGIO",
+        "NomeGrupo":  "G_SGGAB_ESTAGIO",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\UAPRO",
+        "Grupo":  "G_DAP_CGP_UAPRO",
+        "NomeGrupo":  "G_DAP_CGP_UAPRO",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\UDP",
+        "Grupo":  "G_DAP_CGOFL_UDP",
+        "NomeGrupo":  "G_DAP_CGOFL_UDP",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\UFA",
+        "Grupo":  "G_DAP_CGOFL_UFA",
+        "NomeGrupo":  "G_DAP_CGOFL_UFA",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\UFA",
+        "Grupo":  "G_DAP_CGOFL",
+        "NomeGrupo":  "G_DAP_CGOFL",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\UFA",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  true,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Users_C$",
+        "Grupo":  "G_CADE_CONSULTOR",
+        "NomeGrupo":  "G_CADE_CONSULTOR",
+        "Permissao":  "FullControl",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "None",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Users_C$",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Users_E$",
+        "Grupo":  "G_CADE_ESTAGIARIOS",
+        "NomeGrupo":  "G_CADE_ESTAGIARIOS",
+        "Permissao":  "Write, Read, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "None",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Users_E$",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Users_S$",
+        "Grupo":  "G_CADE_SERVIDOR",
+        "NomeGrupo":  "G_CADE_SERVIDOR",
+        "Permissao":  "Write, Read, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "None",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Users_S$",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Users_T$",
+        "Grupo":  "G_CADE_TERCERIZADOS",
+        "NomeGrupo":  "G_CADE_TERCERIZADOS",
+        "Permissao":  "Write, Read, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "None",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\Users_T$",
+        "Grupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "NomeGrupo":  "G_NTNX_FILE_SERVER_BACKUP",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    },
+    {
+        "Pasta":  "\\\\cade.gov.br\\dfs\\VotosSessões",
+        "Grupo":  "G_TRIB_GAB2_JURISPRUDENCIA",
+        "NomeGrupo":  "G_TRIB_GAB2_JURISPRUDENCIA",
+        "Permissao":  "ReadAndExecute, Synchronize",
+        "TipoAcesso":  "Allow",
+        "Herdado":  false,
+        "AplicadoEm":  "ContainerInherit, ObjectInherit",
+        "Propagacao":  "None"
+    }
+]
