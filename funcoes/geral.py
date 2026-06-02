@@ -378,8 +378,8 @@ def busca_caixa_email(usuario):
         return f"Erro ao buscar caixa de e-mail: {erro}"
 
 
-def busca_compartilhamentos(grupos=""):
-    grupos = ["G_CECADE"] # aqui deve ser a variável que vem do front-end, ex: "G_2022_ICN_Merger_Workshop"
+def busca_compartilhamentos(grupos):
+    grupos = ["G_CECADE"] # aqui deve ser a variável que vem da função busca_grupos(), ex: "G_2022_ICN_Merger_Workshop"
     try:
         caminho_arquivo = BASE_DIR_CAIXAS / "data" / "Relatorio_Grupos_Permissoes_DFS.json"
         with open(caminho_arquivo, 'r', encoding='utf-8-sig') as arquivo:

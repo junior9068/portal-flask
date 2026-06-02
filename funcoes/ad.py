@@ -123,7 +123,7 @@ def consultar_usuario(identificador, usuarioLogado):
         logging.error(f"Erro ao consultar usuário: {e}")
         return None
 
-
+#Verificar se a função ainda está em uso pelo sistema. Se não estiver, deve ser removida
 def consulta_caixa_por_usuario(identificador, usuarioLogado):
     # Verifica se o identificador é um email ou CPF
     if "@" in identificador:
@@ -831,10 +831,52 @@ def modificaUsuario(cpfUsuario, usuarioLogado):
             logging.info("Conexão AD encerrada.")
 
 
+def busca_grupos(identificador):
+    """Busca os grupos dos quais o usuário é membro, retornando uma lista de nomes dos grupos."""
+    try:
+        #Busca por e-mail ou CPF, dependendo do formato do identificador
+        #E-mail
+        if "@" in identificador:
+            filtro = f"(mail={identificador.strip()})"
+        #CPF
+        else:
+            filtro = f"(employeeNumber={identificador.strip()})"
+
+        conn = conectar_ad()
+
+        # Busca o usuário
+        conn.search(search_base=BASE_DN, search_filter=filtro, attributes=["memberOf"])
+
+        if not conn.entries:
+            logging.warning(f"Usuário não encontrado: {identificador}")
+            return []
+
+        usuario = conn.entries[0]
+
+        grupos = []
+
+        # Extrai apenas o CN dos grupos
+        for dn in usuario.memberOf.values:
+            for parte in dn.split(","):
+                if parte.startswith("CN="):
+                    grupos.append(parte[3:])
+                    break
+
+        grupos.sort()
+
+        logging.info(f"Grupos encontrados para {identificador}: {grupos}")
+        return grupos
+
+    except Exception as e:
+        logging.error(f"Erro ao buscar grupos: {e}")
+        return []
+
+
 # --- Executar o script diretamente ---
 if __name__ == "__main__":
+    print(busca_grupos("35340486010"))
     # Se quiser só testar a conexão, descomente a linha abaixo:
-    testar_conexao_ad()
+    # testar_conexao_ad()
     #conn = conectar_ad()
     # print(cria_usuario_ad(nomeUsuarioCapitalizado="Pedro de Lara Cancum",
     #     cpfUsuario="704.466.230-75",

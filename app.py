@@ -5,7 +5,7 @@ from funcoes.log import configurar_logs
 import logging, os
 from funcoes.banco import inserir_usuario, deletar_usuario, lerResultado
 from funcoes.geral import capitalizaNome, mostra_grafico, busca_caixa_email, busca_compartilhamentos
-from funcoes.ad import modificaUsuario, consultar_usuario, cria_usuario_ad, buscar_login, gerar_senha, ativaUsuario, consulta_caixa_por_usuario
+from funcoes.ad import modificaUsuario, consultar_usuario, cria_usuario_ad, buscar_login, gerar_senha, ativaUsuario, consulta_caixa_por_usuario, busca_grupos
 import json, time
 from werkzeug.middleware.proxy_fix import ProxyFix
 from flask_oidc import OpenIDConnect
@@ -347,7 +347,10 @@ def consulta_caixas():
 @app.route("/executa_consulta_compartilhamentos", methods=["POST"])
 def consulta_compartilhamentos():
     email = request.form['identificador']
-    compartilhamentos = busca_compartilhamentos(email)
+    # grupos = busca_grupos(email)
+    # TENHO QUE PENSAR SE VOU ADICIONAR OS GRUPOS DE PRODUCAO NO MEU AMBIENTE DE TESTES PARA OS TESTES SEREM MAIS PRECISOS
+    grupos = ["G_DAP_CGTI_INICIATIVAS_COMPARTILHADAPS_RAIS"] # aqui deve ser a variável que vem do busca_grupos(email), ex: "G_2022_ICN_Merger_Workshop" ou "G_CECADE" para testes, mas tem que ser um grupo que exista no ambiente de testes para os resultados serem mais precisos. Se não tiver grupos, tem que tratar isso para não dar erro na função de busca_compartilhamentos.
+    compartilhamentos = busca_compartilhamentos(grupos)
     return jsonify(compartilhamentos)
 
 
