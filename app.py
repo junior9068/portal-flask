@@ -349,7 +349,8 @@ def consulta_compartilhamentos():
     email = request.form['identificador']
     # grupos = busca_grupos(email)
     # TENHO QUE PENSAR SE VOU ADICIONAR OS GRUPOS DE PRODUCAO NO MEU AMBIENTE DE TESTES PARA OS TESTES SEREM MAIS PRECISOS
-    grupos = ["G_DAP_CGTI_INICIATIVAS_COMPARTILHADAPS_RAIS"] # aqui deve ser a variável que vem do busca_grupos(email), ex: "G_2022_ICN_Merger_Workshop" ou "G_CECADE" para testes, mas tem que ser um grupo que exista no ambiente de testes para os resultados serem mais precisos. Se não tiver grupos, tem que tratar isso para não dar erro na função de busca_compartilhamentos.
+    logging.info(f"Buscando grupos para o email {email}")
+    grupos = busca_grupos(email) # aqui deve ser a variável que vem do busca_grupos(email), ex: "G_2022_ICN_Merger_Workshop" ou "G_CECADE" para testes, mas tem que ser um grupo que exista no ambiente de testes para os resultados serem mais precisos. Se não tiver grupos, tem que tratar isso para não dar erro na função de busca_compartilhamentos.
     compartilhamentos = busca_compartilhamentos(grupos)
     return jsonify(compartilhamentos)
 

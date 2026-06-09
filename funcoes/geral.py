@@ -224,7 +224,7 @@ def enviar_mensagem_teams(mensagem):
         response.raise_for_status()  # Raise an exception for bad status codes
         logging.info("Mensagem enviada com sucesso para o Teams.")
     except requests.exceptions.RequestException as e:
-            logging.error("Erro ao enviar mensagem para o Teams: {e}")
+            logging.error(f"Erro ao enviar mensagem para o Teams: {e}")
 
 
 # Estrutura simples com chave e valor em JSON
@@ -379,7 +379,6 @@ def busca_caixa_email(usuario):
 
 
 def busca_compartilhamentos(grupos):
-    grupos = ["G_CECADE"] # aqui deve ser a variável que vem da função busca_grupos(), ex: "G_2022_ICN_Merger_Workshop"
     try:
         caminho_arquivo = BASE_DIR_CAIXAS / "data" / "Relatorio_Grupos_Permissoes_DFS.json"
         with open(caminho_arquivo, 'r', encoding='utf-8-sig') as arquivo:
@@ -480,7 +479,8 @@ def converte_csv_em_json():
 
 
 if __name__ == "__main__":
-    print(busca_compartilhamentos())
+    enviar_mensagem_teams("Teste")
+    # print(busca_compartilhamentos())
     # print(busca_caixa_email("ediran.almeida"))
 
 
