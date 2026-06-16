@@ -59,7 +59,7 @@ def raiz():
 #     return render_template("index.html")
 
 @app.route("/home")
-#@oidc.require_login
+@oidc.require_login
 def home():
     #após implementar o OIDC
     user = oidc.user_getinfo(['email', 'name'])
@@ -126,7 +126,7 @@ def manutencao2():
     return render_template("manutencao.html")
 
 @app.route("/cria_usuario")
-#@oidc.require_login
+@oidc.require_login
 def cria_usuario():
     logging.info(f"Chamou a rota cria_usuario")
     arquivo = os.path.join(current_app.root_path, "data", "chefes_simples.json")
@@ -136,46 +136,46 @@ def cria_usuario():
     # return render_template("cria_usuario.html")
 
 @app.route("/desativa_usuario")
-#@oidc.require_login
+@oidc.require_login
 def desativa_usuario():
     logging.info(f"Chamou a rota desativa_usuario")
     return render_template("desativa_usuario.html")
 
 @app.route("/ativa_usuario")
-#@oidc.require_login
+@oidc.require_login
 def ativa_usuario():
     logging.info(f"Chamou a rota ativa_usuario")
     return render_template("ativa_usuario.html")
 
 @app.route("/consulta_usuario")
-#@oidc.require_login
+@oidc.require_login
 def consulta_usuario():
     logging.info(f"Chamou a rota consulta_usuario")
     return render_template("consulta_usuario.html")
 
 
 @app.route("/consulta_permissoes")
-#@oidc.require_login
+@oidc.require_login
 def consulta_permissoes():
     logging.info(f"Chamou a rota consulta_permissoes")
     return render_template("consulta_permissoes.html")
 
 @app.route('/remove-acesso-caixa')
-#@oidc.require_login
+@oidc.require_login
 def remove_acesso_caixa():
     logging.info(f"Chamou a rota remove_acesso_caixa")
     return render_template("remove_acesso_caixa.html")
 
 
 @app.route('/concede-acesso-caixa')
-#@oidc.require_login
+@oidc.require_login
 def concede_acesso_caixa():
     logging.info(f"Chamou a rota concede-acesso-caixa")
     return render_template("concede-acesso-caixa.html")
 
 
 @app.route("/executa_desativa_usuario", methods=['POST'])
-#@oidc.require_login
+@oidc.require_login
 def executa_desativa_usuario():
     if os.getenv('FLASK_ENV') == 'desenvolvimento':
         usuarioLogado = {"email": "teste-email@email.com"}
@@ -191,7 +191,7 @@ def executa_desativa_usuario():
 
 
 @app.route("/executa_ativa_usuario", methods=['POST'])
-#@oidc.require_login
+@oidc.require_login
 def executa_ativa_usuario():
     if os.getenv('FLASK_ENV') == 'desenvolvimento':
         usuarioLogado = {"email": "teste-email@email.com"}
@@ -209,7 +209,7 @@ def executa_ativa_usuario():
 
 
 @app.route("/executa_cria_usuario", methods=['POST'])
-#@oidc.require_login
+@oidc.require_login
 def executa_cria_usuario():
     if os.getenv('FLASK_ENV') == 'desenvolvimento':
         usuarioLogado = {"email": "teste-email@email.com"}
@@ -319,7 +319,7 @@ def consulta_dados_usuario():
     # return saida
 
 @app.route("/executa_consulta_sei", methods=['POST'])
-#@oidc.require_login
+@oidc.require_login
 def executa_consulta_sei():
     if os.getenv('FLASK_ENV') == 'desenvolvimento':
         usuarioLogado = {"email": "teste-email@email.com"}
@@ -338,6 +338,7 @@ def executa_consulta_sei():
 
 #CONTINUAR E COLOCAR O TRY EXCEPT PARA TRATAR ERROS DE API E RETORNAR MENSAGENS AMIGÁVEIS AO USUÁRIO, ALÉM DE LOGAR OS ERROS PARA ANÁLISE POSTERIOR.
 @app.route("/executa_consulta_caixas", methods=["POST"])
+@oidc.require_login
 def consulta_caixas():
     email = request.form['identificador']
     caixas = busca_caixa_email(email)
@@ -346,6 +347,7 @@ def consulta_caixas():
 
 #CONTINUAR E COLOCAR O TRY EXCEPT PARA TRATAR ERROS DE API E RETORNAR MENSAGENS AMIGÁVEIS AO USUÁRIO, ALÉM DE LOGAR OS ERROS PARA ANÁLISE POSTERIOR.
 @app.route("/executa_consulta_compartilhamentos", methods=["POST"])
+@oidc.require_login
 def consulta_compartilhamentos():
     email = request.form['identificador']
     # grupos = ['FW_PADRAO', 'GS_LICENCA_M365_E1', 'GS_LICENCA_M365_E3', 'G_CADE_SERVIDOR', 'G_CGTI_Monitoramento', 'G_CGTI_NTNX_CLUSTER_ADMIN', 'G_CGTI_SESIN_PAM_COORDENACAO', 'G_DAP_CGTI', 'G_DAP_CGTI_INICIATIVAS_COMPARTILHADAS', 'G_DAP_CGTI_NETBOX', 'GoFluent']
