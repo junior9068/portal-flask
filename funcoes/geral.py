@@ -19,12 +19,56 @@ if os.getenv('FLASK_ENV') == 'desenvolvimento':
     senhaEmail=os.getenv('SENHA_EMAIL')
     servidor_smtp=os.getenv('SERVIDOR_SMTP')
     porta=int(os.getenv('PORTA_SMTP'))
+    BASE_DIR_NFS = Path("/home/edilson/projetos/portal-flask/data")
 else:
     servidor_smtp='smtp.cade.gov.br'
     porta=25
+    BASE_DIR_NFS = Path("/mnt/nfs-portal")
 
-#Diretório do arquivo JSON para consulta de caixas de email
-BASE_DIR_CAIXAS = Path(__file__).resolve().parent.parent  # volta para a raiz do projeto
+#Diretório do arquivo JSON para consulta de compartilhamentos e consulta de caixas de e-mail para rodar localmente
+#BASE_DIR_NFS = Path("/home/edilson/projetos/portal-flask/data")
+
+# Cache em memória
+CACHE_DADOS = None
+CACHE_MTIME = None
+
+# Função que obtem arquivos mais recentes do NFS, para evitar erros de parsing e leitura do arquivo JSON enquanto ele está sendo atualizado pela CGTI. 
+# O sistema irá sempre consultar o arquivo mais recente, e o cache em memória irá garantir que o sistema não fique lendo o mesmo arquivo repetidamente, caso ele não tenha sido atualizado.
+# Está função está sendo utilizada apenas paras as chamadas refentes aos compartilhamentos, ou seja, para a consulta de pastar compartilhadas.
+def obter_arquivo_mais_recente(padraoNomeArquivo):
+    """Busca o JSON mais recente no NFS."""
+    
+    arquivos = list(BASE_DIR_NFS.glob(padraoNomeArquivo))
+
+    if not arquivos:
+        raise FileNotFoundError("Nenhum arquivo JSON encontrado no NFS.")
+
+    return max(arquivos, key=lambda f: f.stat().st_mtime)
+
+#Carrega os dados do arquivo JSON mais recente, utilizando cache para otimizar a performance e evitar erros de leitura durante atualizações do arquivo.
+# Está função está sendo utilizada apenas paras as chamadas refentes aos compartilhamentos, ou seja, para a consulta de pastar compartilhadas.
+def carregar_dados(padraoNomeArquivo):
+    """Carrega JSON do NFS com cache automático."""
+
+    global CACHE_DADOS, CACHE_MTIME
+
+    arquivo = obter_arquivo_mais_recente(padraoNomeArquivo)
+    mtime = arquivo.stat().st_mtime
+
+    # Usa cache se o arquivo não mudou
+    if CACHE_DADOS is not None and CACHE_MTIME == mtime:
+        return CACHE_DADOS
+
+    # Recarrega do NFS
+    with open(arquivo, "r", encoding="utf-8-sig") as f:
+        CACHE_DADOS = json.load(f)
+
+    CACHE_MTIME = mtime
+
+    logging.info(f"JSON carregado do NFS: {arquivo.name}")
+
+    return CACHE_DADOS
+
 
 
 def capitalizaNome(nome):
@@ -331,9 +375,7 @@ def mostra_grafico(acao):
 def busca_caixa_email(usuario):
     try:
         usuario = usuario.split('@')[0]  # Remove o domínio do e-mail, se presente. Ex: "
-        caminho_arquivo = BASE_DIR_CAIXAS / "data" / "permissoes_caixas.json"
-        with open(caminho_arquivo, 'r', encoding='utf-8') as arquivo:
-            dados = json.load(arquivo)
+        dados = carregar_dados("permissoes_caixas*.json")
         dicionario = {}
         lista_de_caixas = []
         if usuario in dados.keys():
@@ -380,12 +422,17 @@ def busca_caixa_email(usuario):
 
 def busca_compartilhamentos(grupos):
     try:
-        caminho_arquivo = BASE_DIR_CAIXAS / "data" / "Relatorio_Grupos_Permissoes_DFS.json"
-        with open(caminho_arquivo, 'r', encoding='utf-8-sig') as arquivo:
-            dados = json.load(arquivo)
+        # Caso o padrão de nome do arquivo seja diferente, basta alterar a string passada para a função "obter_arquivo_mais_recente" e para a função "carregar_dados", por exemplo, se o arquivo tiver o nome "compartilhamentos_dfs.json", basta passar "compartilhamentos_dfs*.json" para ambas as funções.
+        dados = carregar_dados("Relatorio_Grupos_Permissoes_DFS*.json")  # Carrega os dados do arquivo JSON mais recente, utilizando cache para otimizar a performance e evitar erros de leitura durante atualizações do arquivo.
         compartilhamento = []
+        existentes = set()
+        grupos_set = set(grupos)
         for item in dados:
-            if item.get("Grupo") in grupos:
+            if item.get("Grupo") in grupos_set:
+                pasta = item.get("Pasta")
+                if pasta in existentes:
+                    continue  # Evita adicionar compartilhamentos duplicados, um vez que um compartilhamento pode estar associado a múltiplos grupos
+                existentes.add(pasta)
                 compartilhamento.append({
                     "compartilhamento": item.get("Pasta"),
                     "grupo": item.get("Grupo"),
@@ -401,7 +448,7 @@ def busca_compartilhamentos(grupos):
         return {"compartilhamentos": [{"compartilhamento": "Erro", "grupo": "Erro", "permissao": "Erro"}]}
 
 
-#CONTINUAR: DEVEMOS CRIAR UMA FUNÇÃO PARA GERAR O ARQUIVO JSON A PARTIR DO CSV, POIS O ARQUIVO CSV FORNECIDO PELA CGTI ESTÁ COM ASPAS DUPLICADAS E QUEBRADO, O QUE CAUSA ERROS DE PARSING. 
+#CONTINUAR: O ARQUIVO PARA SER COLOCADO NO CRONTAB ESTÁ PRONTO. FALTA COLOCAR NO SERVIDOR E TESTAR. A IDEIA É QUE O SISTEMA RODE ESSA FUNÇÃO DE CONVERSÃO DO CSV PARA JSON APENAS 1 VEZ, PARA GERAR O JSON LIMPO, E DEPOIS O SISTEMA DEVE CONSULTAR APENAS O JSON GERADO, PARA EVITAR ERROS DE LEITURA E PARSING DO ARQUIVO CSV ORIGINAL, POIS ELE ESTÁ SUJEITO A ERROS DE EXPORTAÇÃO E FORMATAÇÃO, COMO ASPAS EXTRAS, QUEBRAS DE LINHA, ETC. ENTÃO A CONVERSÃO PARA JSON LIMPO VAI GARANTIR QUE O SISTEMA ESTEJA SEMPRE CONSULTANDO UM ARQUIVO COM FORMATAÇÃO CORRETA E CONSISTENTE.
 # ESSA FUNÇÃO DEVE SER RODADA APENAS 1 VEZ PARA GERAR O JSON LIMPO, E DEPOIS O SISTEMA DEVE CONSULTAR APENAS O JSON GERADO.
 def converte_csv_em_json():
 
@@ -479,15 +526,7 @@ def converte_csv_em_json():
 
 
 if __name__ == "__main__":
-    enviar_mensagem_teams("Teste")
-    # print(busca_compartilhamentos())
-    # print(busca_caixa_email("ediran.almeida"))
-
-
-    # print(enviar_email("Senha@123456", "thiago.nogueiira@gmail.com"))
-    # json_data = [
-    #     {"departamento": "Recursos Humanos", "chefe_departamento": "Ana Silva"},
-    #     {"departamento": "Tecnologia da Informação", "chefe_departamento": "Bruno Souza"},
+    print(busca_caixa_email("vinicius.reis@cade.gov.br"))
     #     {"departamento": "Financeiro", "chefe_departamento": "Carlos Lima"},
     #     {"departamento": "Marketing", "chefe_departamento": "Ana Silva"},
     # ]

@@ -328,11 +328,12 @@ def executa_consulta_sei():
     email = request.form['identificador']
     email = email.split("@")[0]  # Extrai a parte antes do @
     chamada_api = buscar_unidades(email)
-    # if chamada_api is None:
-    #     return jsonify({"nome": email, "caixas": "Não encontrado"})     
-    #return jsonify(chamada_api)
-    teste = {"unidades": [{"sigla": "CAINF", "descricao": "Infrraestrutura de TI", "perfil": "Básico"}, {"sigla": "SEVIR", "descricao": "Virtualização", "perfil": "Básico"}, {"sigla": "sdados", "descricao": "BAnsoi de TI", "perfil": "Básico"}]}
-    return jsonify(teste)
+    if chamada_api is None:
+        logging.error(f"Erro ao buscar unidades do SEI para o email {email}. Resposta da API: {chamada_api} (app.py)")
+        return jsonify({"unidades": [{"sigla": "Não encontrado", "descricao": "Não encontrado", "perfil": "Não encontrado"}]})     
+    return jsonify(chamada_api)
+    # teste = {"unidades": [{"sigla": "CAINF", "descricao": "Infrraestrutura de TI", "perfil": "Básico"}, {"sigla": "SEVIR", "descricao": "Virtualização", "perfil": "Básico"}, {"sigla": "sdados", "descricao": "BAnsoi de TI", "perfil": "Básico"}]}
+    # return jsonify(teste)
 
 
 #CONTINUAR E COLOCAR O TRY EXCEPT PARA TRATAR ERROS DE API E RETORNAR MENSAGENS AMIGÁVEIS AO USUÁRIO, ALÉM DE LOGAR OS ERROS PARA ANÁLISE POSTERIOR.
@@ -347,8 +348,7 @@ def consulta_caixas():
 @app.route("/executa_consulta_compartilhamentos", methods=["POST"])
 def consulta_compartilhamentos():
     email = request.form['identificador']
-    # grupos = busca_grupos(email)
-    # TENHO QUE PENSAR SE VOU ADICIONAR OS GRUPOS DE PRODUCAO NO MEU AMBIENTE DE TESTES PARA OS TESTES SEREM MAIS PRECISOS
+    # grupos = ['FW_PADRAO', 'GS_LICENCA_M365_E1', 'GS_LICENCA_M365_E3', 'G_CADE_SERVIDOR', 'G_CGTI_Monitoramento', 'G_CGTI_NTNX_CLUSTER_ADMIN', 'G_CGTI_SESIN_PAM_COORDENACAO', 'G_DAP_CGTI', 'G_DAP_CGTI_INICIATIVAS_COMPARTILHADAS', 'G_DAP_CGTI_NETBOX', 'GoFluent']
     logging.info(f"Buscando grupos para o email {email}")
     grupos = busca_grupos(email) # aqui deve ser a variável que vem do busca_grupos(email), ex: "G_2022_ICN_Merger_Workshop" ou "G_CECADE" para testes, mas tem que ser um grupo que exista no ambiente de testes para os resultados serem mais precisos. Se não tiver grupos, tem que tratar isso para não dar erro na função de busca_compartilhamentos.
     compartilhamentos = busca_compartilhamentos(grupos)

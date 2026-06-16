@@ -77,7 +77,7 @@ def buscar_unidades(usuario):
         # print("Status:", response_api.status_code)
         # print("Resposta:", response_api.text)
     except Exception as erro:
-        logging.error(f"Erro na requisição: {erro}")
+        logging.error(f"Erro na requisição da API do SEI (api_sei.py): {erro}")
         return None
 
 if __name__ == "__main__":
