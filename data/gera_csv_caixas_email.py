@@ -35,7 +35,7 @@ def buscar_csv_mais_recente(diretorio: Path) -> Path:
 
 def converte_csv_em_json():
     # Ambiente de teste
-    pasta_data = BASE_DIR_CAIXAS / "data"
+    # pasta_data = BASE_DIR_CAIXAS / "data"
     # Ambiente de produção
     pasta_data = BASE_DIR_CAIXAS
     
