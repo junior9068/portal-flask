@@ -340,7 +340,7 @@ def executa_consulta_sei():
 @app.route("/executa_consulta_caixas", methods=["POST"])
 @oidc.require_login
 def consulta_caixas():
-    email = request.form['identificador']
+    email = request.form['identificador'].lower()
     caixas = busca_caixa_email(email)
     return caixas
 
